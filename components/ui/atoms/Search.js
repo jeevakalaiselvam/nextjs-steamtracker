@@ -41,8 +41,8 @@ const Search = (props) => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      searchTerm !== "" && onSearchObtained(searchTerm);
-    }, 1000);
+      onSearchObtained(searchTerm);
+    }, 500);
     return () => {
       clearTimeout(timeoutId);
     };
@@ -61,7 +61,7 @@ const Search = (props) => {
       <SearchInput>
         <input
           type="text"
-          value={searchTerm}
+          value={searchTerm ?? ""}
           onChange={searchTermChanged}
           placeholder="Search..."
         />

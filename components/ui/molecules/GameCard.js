@@ -48,11 +48,11 @@ const Overlay = styled.div`
 `;
 
 export default function GameCard(props) {
-  const { openRightSidebar, closeRightSidebar } = props;
+  const { openRightSidebar, closeRightSidebar, searchTerm } = props;
   const { id } = props.game;
 
   const [game, setGame] = useState({
-    name: "Example",
+    name: "",
   });
 
   const [show, setShow] = useState(true);
@@ -70,6 +70,18 @@ export default function GameCard(props) {
 
     getGame();
   }, []);
+
+  useEffect(() => {
+    const { name } = game;
+    if (
+      name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      searchTerm === ""
+    ) {
+      setShow((old) => true);
+    } else {
+      setShow((old) => false);
+    }
+  }, [searchTerm]);
 
   return (
     <Container

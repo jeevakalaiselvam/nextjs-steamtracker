@@ -11,21 +11,21 @@ const Container = styled.div`
 `;
 
 const GamesContent = (props) => {
-  const { games, openRightSidebar, closeRightSidebar } = props;
+  const { games, openRightSidebar, closeRightSidebar, searchTerm } = props;
   return (
     <Container>
-      {/* {games.length > 0 &&
+      {games.length > 0 &&
         games.map((game) => {
           return (
             <GameCard
+              searchTerm={searchTerm}
               key={game.id}
               game={game}
               openRightSidebar={openRightSidebar}
               closeRightSidebar={closeRightSidebar}
             />
           );
-        })} */}
-      GAMES LIST
+        })}
     </Container>
   );
 };
