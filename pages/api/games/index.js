@@ -1,4 +1,5 @@
 import {
+  FETCH_ALL_ACHIEVEMENTS_GLOBAL,
   FETCH_ALL_ACHIEVEMENTS_SCHEMA,
   FETCH_ALL_GAMES,
 } from '../../../helper/urlHelper';
@@ -12,7 +13,6 @@ const handler = async (req, res) => {
       .get(FETCH_ALL_GAMES)
       .then((response) => {
         const games = response.data.response.games;
-        console.log(games);
         Promise.all(
           games.map(async (game) => {
             const achievementsResponse = await axios.get(
@@ -21,7 +21,7 @@ const handler = async (req, res) => {
             const achievements = achievementsResponse.data;
             const newGame = {
               ...game,
-              achievements:
+              schemaAchievements:
                 achievements.game.availableGameStats?.achievements || [],
               gameName: achievements.game.gameName,
             };
@@ -31,14 +31,12 @@ const handler = async (req, res) => {
           .then((data) => {
             const unfilteredGames = data;
             const filteredGamesOnlyWithAchievements = unfilteredGames.filter(
-              (game) => game.achievements.length > 0
+              (game) => game.schemaAchievements.length > 0
             );
-            res
-              .status(200)
-              .json({
-                status: 'success',
-                games: filteredGamesOnlyWithAchievements,
-              });
+            res.status(200).json({
+              status: 'success',
+              games: filteredGamesOnlyWithAchievements,
+            });
           })
           .catch((error) => {
             console.error(error);

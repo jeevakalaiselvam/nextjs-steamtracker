@@ -49,7 +49,7 @@ const Overlay = styled.div`
 
 export default function GameCard(props) {
   const { openRightSidebar, closeRightSidebar, searchTerm } = props;
-  const { id } = props.game;
+  const { appid: id, gameName } = props.game;
 
   const [game, setGame] = useState({
     name: '',
@@ -91,7 +91,7 @@ export default function GameCard(props) {
       }}
     >
       <Overlay></Overlay>
-      {/* <Title>{game?.name ?? ''}</Title> */}
+      <Title>{gameName}</Title>
     </Container>
   );
 }
