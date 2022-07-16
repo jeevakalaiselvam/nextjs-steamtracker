@@ -16,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     const getGames = async () => {
       const response = await axios.get(API_GET_GAMES());
-      setGames((old) => response.data.games.slice(20, 140));
+      setGames((old) => response.data.games);
     };
 
     getGames();

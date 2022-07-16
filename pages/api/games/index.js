@@ -43,6 +43,7 @@ const handler = async (req, res) => {
               const playerAchievements = playerResponse.data;
               const newGame = {
                 ...game,
+                gameName: playerAchievements.playerstats.gameName,
                 playerAchievements: playerAchievements.playerstats.achievements,
               };
               return newGame;

@@ -4,7 +4,7 @@ import { API_GET_GAME } from '../../../helper/apiHelper';
 import { HEADER_IMAGE } from '../../../helper/urlHelper';
 
 const Container = styled.div`
-  display: ${(props) => (props.show ? 'flex' : 'none')};
+  display: 'flex';
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -48,48 +48,11 @@ const Overlay = styled.div`
 `;
 
 export default function GameCard(props) {
-  const { openRightSidebar, closeRightSidebar, searchTerm } = props;
-  const { appid: id, gameName } = props.game;
-
-  const [game, setGame] = useState({
-    name: '',
-  });
-
-  const [show, setShow] = useState(true);
-
-  useEffect(() => {
-    openRightSidebar(game);
-  }, [game]);
-
-  useEffect(() => {
-    const { name } = game;
-    if (
-      name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      searchTerm === ''
-    ) {
-      setShow((old) => true);
-    } else {
-      setShow((old) => false);
-    }
-  }, [searchTerm]);
+  const { openRightSidebar, closeRightSidebar, game } = props;
+  const { appid, gameName } = game;
 
   return (
-    <Container
-      image={HEADER_IMAGE(id)}
-      show={show}
-      onClick={() => {
-        const getGame = async () => {
-          const response = await fetch(API_GET_GAME(id));
-          const data = await response.json();
-          if (data.status !== 'success') {
-            setShow((old) => false);
-          } else {
-            setGame((old) => data.game);
-          }
-        };
-        getGame();
-      }}
-    >
+    <Container image={HEADER_IMAGE(appid)} onClick={() => {}}>
       <Overlay></Overlay>
       <Title>{gameName}</Title>
     </Container>

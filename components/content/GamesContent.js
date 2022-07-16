@@ -14,14 +14,34 @@ const Container = styled.div`
 
 const GamesContent = (props) => {
   const { games, openRightSidebar, closeRightSidebar, searchTerm } = props;
+  console.log('GAMES', games);
+
+  const [searchFilteredGames, setSearchFilteredGames] = useState(games);
+  console.log('SEARCHFILTER GAMES', searchFilteredGames);
+
+  useEffect(() => {
+    // const newGames = games.filter((game) => {
+    //   if (game.gameName.toLowerCase().contains(searchTerm)) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // });
+    // setSearchFilteredGames((old) => newGames);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    setSearchFilteredGames((old) => games);
+  }, [games]);
+
   return (
     <Container>
-      {games.length > 0 &&
-        games.map((game) => {
+      {searchFilteredGames.length > 0 &&
+        searchFilteredGames.map((game) => {
           return (
             <GameCard
               searchTerm={searchTerm}
-              key={game.id}
+              key={game.appid}
               game={game}
               openRightSidebar={openRightSidebar}
               closeRightSidebar={closeRightSidebar}
