@@ -17,7 +17,7 @@ const Container = styled.div`
     color: #565656;
     cursor: pointer;
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: 4px;
   }
   & option {
     background: #000000;
@@ -25,7 +25,7 @@ const Container = styled.div`
     outline: none;
     color: #565656;
     padding: 0.5rem 1rem;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
   }
 `;

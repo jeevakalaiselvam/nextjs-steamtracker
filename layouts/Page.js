@@ -10,7 +10,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const Sidebar = styled.div`
+const LeftSidebar = styled.div`
   width: 200px;
   min-height: 100vh;
   background-color: #0d0c0f;
@@ -46,15 +46,30 @@ const Content = styled.div`
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
 `;
 
+const RightSidebar = styled.div`
+  width: 200px;
+  min-height: 100vh;
+  background: #151718;
+  color: #ffffff;
+  overflow: scroll;
+  scrollbar-width: none; /* "auto" or "thin" */
+  scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:flex-start;
+`;
+
 const Page = (props) => {
-  const { sidebar, content, header } = props;
+  const { leftSidebar, rightSidebar, content, header } = props;
   return (
     <Container>
-      <Sidebar>{sidebar}</Sidebar>
+      <LeftSidebar>{leftSidebar}</LeftSidebar>
       <Main>
         <Header>{header}</Header>
         <Content>{content}</Content>
       </Main>
+      <RightSidebar>{rightSidebar}</RightSidebar>
     </Container>
   );
 };

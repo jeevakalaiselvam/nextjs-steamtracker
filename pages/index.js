@@ -1,12 +1,14 @@
 import Page from '../layouts/Page';
 import GamesContent from '../components/content/GamesContent';
-import GamesSidebar from '../components/sidebar/GamesSidebar';
+import GamesLeftSidebar from '../components/leftsidebar/GamesLeftSidebar';
+import GamesRightSidebar from '../components/rightsidebar/GamesRightSidebar';
 import GamesHeader from '../components/header/GamesHeader';
 
 export default function Home() {
   return (
     <Page
-      sidebar={<GamesSidebar />}
+      leftSidebar={<GamesLeftSidebar />}
+      rightSidebar={<GamesRightSidebar />}
       header={<GamesHeader />}
       content={<GamesContent />}
     />

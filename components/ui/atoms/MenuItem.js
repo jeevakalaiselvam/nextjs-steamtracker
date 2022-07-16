@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   flex-direction:row;
+  cursor: pointer;
+  background: ${(props) => {
+    if (props.hover && !props.click) {
+      return '#6846ec';
+    } else if (props.hover && props.click) {
+      return '#482abd';
+    } else {
+      return '#0d0c0f';
+    }
+  }};
+  align-items:center;
+  justify-content:center;
 `;
 
 const Title = styled.div`
@@ -19,8 +33,28 @@ const Icon = styled.div`
 
 const MenuItem = (props) => {
   const { title, icon, onClick } = props;
+
+  const [hover, setHover] = useState(false);
+  const [click, setClick] = useState(false);
+
+  const onItemClick = () => {
+    setClick((old) => true);
+  };
+
   return (
-    <Container onClick={onClick}>
+    <Container
+      click={click}
+      hover={hover}
+      onClick={onClick}
+      onMouseEnter={() => {
+        setHover((old) => true);
+      }}
+      onMouseLeave={() => {
+        setHover((old) => false);
+        setClick((old) => false);
+      }}
+      onClick={onItemClick}
+    >
       <Icon>{icon}</Icon>
       <Title>{title}</Title>
     </Container>

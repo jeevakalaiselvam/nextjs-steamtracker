@@ -9,7 +9,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const GamesSidebar = (props) => {
+const GamesLeftSidebar = (props) => {
   return (
     <Container>
       <GamesMenu />
@@ -17,4 +17,4 @@ const GamesSidebar = (props) => {
   );
 };
 
-export default GamesSidebar;
+export default GamesLeftSidebar;
