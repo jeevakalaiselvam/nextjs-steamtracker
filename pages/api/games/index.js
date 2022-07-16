@@ -1,5 +1,6 @@
 import {
   FETCH_ALL_ACHIEVEMENTS_GLOBAL,
+  FETCH_ALL_ACHIEVEMENTS_PLAYER,
   FETCH_ALL_ACHIEVEMENTS_SCHEMA,
   FETCH_ALL_GAMES,
 } from '../../../helper/urlHelper';
@@ -27,23 +28,31 @@ const handler = async (req, res) => {
             };
             return newGame;
           })
-        )
-          .then((data) => {
-            const unfilteredGames = data;
-            const filteredGamesOnlyWithAchievements = unfilteredGames.filter(
-              (game) => game.schemaAchievements.length > 0
-            );
+        ).then((data) => {
+          const unfilteredGames = data;
+          const filteredGamesOnlyWithAchievements = unfilteredGames.filter(
+            (game) => game.schemaAchievements.length > 0
+          );
+
+          Promise.all(
+            filteredGamesOnlyWithAchievements.map(async (game) => {
+              const playerResponse = await axios.get(
+                FETCH_ALL_ACHIEVEMENTS_PLAYER(game.appid)
+              );
+              const playerAchievements = playerResponse.data;
+              const newGame = {
+                ...game,
+                playerAchievements: playerAchievements.playerstats.achievements,
+              };
+              return newGame;
+            })
+          ).then((allGames) => {
             res.status(200).json({
               status: 'success',
-              games: filteredGamesOnlyWithAchievements,
+              games: allGames,
             });
-          })
-          .catch((error) => {
-            console.error(error);
-            res
-              .status(500)
-              .json({ status: 'error', error: JSON.stringify(error) });
           });
+        });
       })
       .catch((error) => {
         console.error(error);
