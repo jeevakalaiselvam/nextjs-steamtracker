@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getGamesFiltered } from '../../helper/filterHelper';
 import GameCard from '../ui/molecules/GameCard';
 
 const Container = styled.div`
@@ -13,27 +14,35 @@ const Container = styled.div`
 `;
 
 const GamesContent = (props) => {
-  const { games, openRightSidebar, closeRightSidebar, searchTerm } = props;
+  const {
+    games,
+    openRightSidebar,
+    closeRightSidebar,
+    searchTerm,
+    filterOption,
+  } = props;
   console.log('GAMES', games);
 
   const [searchFilteredGames, setSearchFilteredGames] = useState(games);
 
   useEffect(() => {
     if (games.length > 0) {
-      const newGames = games.filter((game) => {
+      console.log('---------FILTERING------------');
+      const filteredGames = getGamesFiltered(games, filterOption);
+      const searchFilteredGames = filteredGames.filter((game) => {
         if (game.gameName.toLowerCase().includes(searchTerm)) {
           return true;
         } else {
           return false;
         }
       });
-      setSearchFilteredGames((old) => newGames);
+      setSearchFilteredGames((old) => searchFilteredGames);
     }
-  }, [searchTerm]);
+  }, [games, searchTerm, filterOption]);
 
-  useEffect(() => {
-    setSearchFilteredGames((old) => games);
-  }, [games]);
+  // useEffect(() => {
+  //   setSearchFilteredGames((old) => games);
+  // }, [games,searchTerm,filterOption]);
 
   return (
     <Container>

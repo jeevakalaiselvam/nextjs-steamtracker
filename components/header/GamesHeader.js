@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import Search from "../ui/atoms/Search";
-import Filter from "../ui/atoms/Filter";
-import { GAMES_SORT_COMPLETION_DESC } from "../../helper/filterHelper";
+import React from 'react';
+import styled from 'styled-components';
+import Search from '../ui/atoms/Search';
+import Filter from '../ui/atoms/Filter';
+import { GAMES_SORT_COMPLETION_DESC } from '../../helper/filterHelper';
 
 const Container = styled.div`
   padding: 1rem;
@@ -27,22 +27,7 @@ const FilterContainer = styled.div`
 `;
 
 const GamesHeader = (props) => {
-  const { searchTextChanged } = props;
-
-  const filterOptions = [
-    {
-      id: GAMES_SORT_COMPLETION_DESC,
-      title: "Filter by Completion",
-    },
-  ];
-
-  const onSearchObtained = (searchTerm) => {
-    searchTextChanged(searchTerm);
-  };
-
-  const onFilterChanged = (filterItem) => {
-    console.log("Filter Item Changed -", filterItem);
-  };
+  const { searchTextChanged, onFilterChanged, filterOptions } = props;
 
   return (
     <Container>
@@ -53,7 +38,7 @@ const GamesHeader = (props) => {
         />
       </FilterContainer>
       <SearchContainer>
-        <Search onSearchObtained={onSearchObtained} />
+        <Search onSearchObtained={searchTextChanged} />
       </SearchContainer>
     </Container>
   );

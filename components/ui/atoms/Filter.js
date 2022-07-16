@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  width: "100%";
+  width: '100%';
   align-items: center;
   padding: 0.5rem;
   color: #fefefe;
-  justify-content: "center";
+  justify-content: 'center';
   margin: 0.25rem;
 
   & select {
@@ -31,7 +31,7 @@ const Container = styled.div`
 `;
 
 export default function Filter({ filterOptions, onFilterChanged }) {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState('');
 
   useEffect(() => {
     setSelected((old) => filterOptions[0]);
