@@ -1,16 +1,30 @@
-import Page from '../layouts/Page';
-import GamesContent from '../components/content/GamesContent';
-import GamesLeftSidebar from '../components/leftsidebar/GamesLeftSidebar';
-import GamesRightSidebar from '../components/rightsidebar/GamesRightSidebar';
-import GamesHeader from '../components/header/GamesHeader';
+import Page from "../layouts/Page";
+import GamesContent from "../components/content/GamesContent";
+import GamesLeftSidebar from "../components/leftsidebar/GamesLeftSidebar";
+import GamesRightSidebar from "../components/rightsidebar/GamesRightSidebar";
+import GamesHeader from "../components/header/GamesHeader";
+import { useEffect, useState } from "react";
+import { API_GET_GAMES } from "../helper/apiHelper";
+import axios from "axios";
 
 export default function Home() {
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    const getGames = async () => {
+      const response = await axios.get(API_GET_GAMES());
+      setGames((old) => response.data.games.slice(20, 40));
+    };
+
+    getGames();
+  }, []);
+
   return (
     <Page
       leftSidebar={<GamesLeftSidebar />}
       rightSidebar={<GamesRightSidebar />}
       header={<GamesHeader />}
-      content={<GamesContent />}
+      content={<GamesContent games={games} />}
     />
   );
 }
