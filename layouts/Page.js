@@ -72,9 +72,7 @@ const Page = (props) => {
         <Header>{header}</Header>
         <Content>{content}</Content>
       </Main>
-      <RightSidebar showRightSidebar={showRightSidebar}>
-        {rightSidebar}
-      </RightSidebar>
+      <RightSidebar showRightSidebar={true}>{rightSidebar}</RightSidebar>
     </Container>
   );
 };
