@@ -24,74 +24,80 @@ const handler = async (req, res) => {
           schemeResponse?.game?.availableGameStats?.achievements || [],
       };
 
-      //Get All Global Achievements
-      const globalAchievementsResponse = await fetch(
-        FETCH_ALL_ACHIEVEMENTS_GLOBAL(gameId)
-      );
-      const globalAchievementsData = await globalAchievementsResponse.json();
-      const globalAchievements =
-        globalAchievementsData.achievementpercentages.achievements;
+      if (newGame.achievements.length) {
+        //Get All Global Achievements
+        const globalAchievementsResponse = await fetch(
+          FETCH_ALL_ACHIEVEMENTS_GLOBAL(gameId)
+        );
+        const globalAchievementsData = await globalAchievementsResponse.json();
+        const globalAchievements =
+          globalAchievementsData.achievementpercentages.achievements;
 
-      let newAchievements = newGame.achievements.map((achievement) => {
-        const achievementFound = globalAchievements.find((achievementInner) => {
-          return achievementInner.name === achievement.name;
-        });
-        const newAchievement = {
-          ...achievement,
-          percentage: achievementFound.percent,
-        };
-        return newAchievement;
-      });
-      newGame = {
-        ...newGame,
-        achievements: newAchievements,
-      };
-
-      //Add Player Achievement Progress
-      const playerAchievementsResponse = await fetch(
-        STEAM_ALL_ACHIEVEMENTS_PLAYER(gameId)
-      );
-      const playerAchievementData = await playerAchievementsResponse.json();
-      const playerAchievements = playerAchievementData.playerstats.achievements;
-      const gameName = playerAchievementData.playerstats.gameName;
-
-      let newPlayerInnerAchievements = newGame.achievements.map(
-        (achievement) => {
-          const achievementFound = playerAchievements.find(
+        let newAchievements = newGame.achievements.map((achievement) => {
+          const achievementFound = globalAchievements.find(
             (achievementInner) => {
-              return achievementInner.apiname === achievement.name;
+              return achievementInner.name === achievement.name;
             }
           );
           const newAchievement = {
             ...achievement,
-            achieved: achievementFound.achieved,
-            unlocktime: achievementFound.unlocktime,
+            percentage: achievementFound.percent,
           };
           return newAchievement;
-        }
-      );
-      const toGet =
-        (newPlayerInnerAchievements &&
-          newPlayerInnerAchievements.length > 0 &&
-          newPlayerInnerAchievements.filter(
-            (achievement) => achievement.achieved != "1"
-          ).length) ||
-        0;
-      const completionPercentage =
-        (newPlayerInnerAchievements &&
-          newPlayerInnerAchievements.length > 0 &&
-          100 -
-            Math.floor((toGet / newPlayerInnerAchievements.length) * 100)) ||
-        0;
-      newGame = {
-        ...newGame,
-        name: gameName,
-        achievements: newPlayerInnerAchievements,
-        completion: completionPercentage,
-        toGet: toGet,
-      };
+        });
+        newGame = {
+          ...newGame,
+          achievements: newAchievements,
+        };
 
-      res.status(200).json({ status: "success", game: newGame });
+        //Add Player Achievement Progress
+        const playerAchievementsResponse = await fetch(
+          STEAM_ALL_ACHIEVEMENTS_PLAYER(gameId)
+        );
+        const playerAchievementData = await playerAchievementsResponse.json();
+        const playerAchievements =
+          playerAchievementData.playerstats.achievements;
+        const gameName = playerAchievementData.playerstats.gameName;
+
+        let newPlayerInnerAchievements = newGame.achievements.map(
+          (achievement) => {
+            const achievementFound = playerAchievements.find(
+              (achievementInner) => {
+                return achievementInner.apiname === achievement.name;
+              }
+            );
+            const newAchievement = {
+              ...achievement,
+              achieved: achievementFound.achieved,
+              unlocktime: achievementFound.unlocktime,
+            };
+            return newAchievement;
+          }
+        );
+        const toGet =
+          (newPlayerInnerAchievements &&
+            newPlayerInnerAchievements.length > 0 &&
+            newPlayerInnerAchievements.filter(
+              (achievement) => achievement.achieved != "1"
+            ).length) ||
+          0;
+        const completionPercentage =
+          (newPlayerInnerAchievements &&
+            newPlayerInnerAchievements.length > 0 &&
+            100 -
+              Math.floor((toGet / newPlayerInnerAchievements.length) * 100)) ||
+          0;
+        newGame = {
+          ...newGame,
+          name: gameName,
+          achievements: newPlayerInnerAchievements,
+          completion: completionPercentage,
+          toGet: toGet,
+        };
+
+        res.status(200).json({ status: "success", game: newGame });
+      } else {
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ status: "error", error: JSON.stringify(error) });

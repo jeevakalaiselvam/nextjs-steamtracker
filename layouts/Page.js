@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -45,21 +45,24 @@ const Content = styled.div`
 `;
 
 const RightSidebar = styled.div`
-  width: 200px;
+  width: 500px;
   min-height: 100vh;
   background: #171717;
   color: #ffffff;
   overflow: scroll;
   scrollbar-width: none; /* "auto" or "thin" */
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-  display: flex;
+  display: ${(props) => (props.showRightSidebar ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  transition: all 0.5s;
 `;
 
 const Page = (props) => {
-  const { leftSidebar, rightSidebar, content, header } = props;
+  const { leftSidebar, rightSidebar, content, header, showRightSidebar } =
+    props;
+
   return (
     <Container>
       <LeftSidebar>{leftSidebar}</LeftSidebar>
@@ -67,7 +70,9 @@ const Page = (props) => {
         <Header>{header}</Header>
         <Content>{content}</Content>
       </Main>
-      <RightSidebar>{rightSidebar}</RightSidebar>
+      <RightSidebar showRightSidebar={showRightSidebar}>
+        {rightSidebar}
+      </RightSidebar>
     </Container>
   );
 };

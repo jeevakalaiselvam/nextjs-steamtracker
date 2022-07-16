@@ -39,13 +39,13 @@ const MenuItem = (props) => {
 
   const onItemClick = () => {
     setClick((old) => true);
+    onClick();
   };
 
   return (
     <Container
       click={click}
       hover={hover}
-      onClick={onClick}
       onMouseEnter={() => {
         setHover((old) => true);
       }}

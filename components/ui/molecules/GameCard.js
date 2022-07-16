@@ -17,6 +17,10 @@ const Container = styled.div`
   background-repeat: no-repeat;
   position: relative;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+  }
 `;
 
 const Title = styled.div`
@@ -26,11 +30,12 @@ const Title = styled.div`
   justify-content: center;
   position: absolute;
   top: 0px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
   color: #fefefe;
   left: 0px;
   width: 100%;
   padding: 0.5rem 1rem;
+  min-height: 30px;
 `;
 
 const Overlay = styled.div`
@@ -43,6 +48,7 @@ const Overlay = styled.div`
 `;
 
 export default function GameCard(props) {
+  const { openRightSidebar, closeRightSidebar } = props;
   const { id } = props.game;
 
   const [game, setGame] = useState({
@@ -66,7 +72,13 @@ export default function GameCard(props) {
   }, []);
 
   return (
-    <Container image={HEADER_IMAGE(id)} show={show}>
+    <Container
+      image={HEADER_IMAGE(id)}
+      show={show}
+      onClick={() => {
+        game && openRightSidebar(game);
+      }}
+    >
       <Overlay></Overlay>
       <Title>{game?.name ?? ""}</Title>
     </Container>

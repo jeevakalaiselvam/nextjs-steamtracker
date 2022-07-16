@@ -28,6 +28,10 @@ const SearchInput = styled.div`
     color: #9caabe;
     border: none;
     border-radius: 0px 8px 8px 0px;
+
+    &::placeholder {
+      color: #9caabe;
+    }
   }
 `;
 

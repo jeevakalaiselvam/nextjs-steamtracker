@@ -9,6 +9,9 @@ import axios from "axios";
 
 export default function Home() {
   const [games, setGames] = useState([]);
+  const [selectedGame, setSelectedGame] = useState({});
+  const [showRightSidebar, setShowRightSidebar] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const getGames = async () => {
@@ -19,12 +22,33 @@ export default function Home() {
     getGames();
   }, []);
 
+  const openRightSidebar = (data) => {
+    setShowRightSidebar((old) => true);
+    setSelectedGame((old) => data);
+  };
+
+  const closeRightSidebar = () => {
+    setShowRightSidebar((old) => false);
+  };
+
+  const searchTextChanged = (searchTerm) => {
+    setSearchTerm((old) => searchTerm);
+  };
+
   return (
     <Page
+      showRightSidebar={showRightSidebar}
       leftSidebar={<GamesLeftSidebar />}
-      rightSidebar={<GamesRightSidebar />}
-      header={<GamesHeader />}
-      content={<GamesContent games={games} />}
+      rightSidebar={<GamesRightSidebar selectedGame={selectedGame} />}
+      header={<GamesHeader searchTextChanged={searchTextChanged} />}
+      content={
+        <GamesContent
+          searchTerm={searchTerm}
+          games={games}
+          openRightSidebar={openRightSidebar}
+          closeRightSidebar={closeRightSidebar}
+        />
+      }
     />
   );
 }
