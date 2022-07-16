@@ -17,17 +17,18 @@ const GamesContent = (props) => {
   console.log('GAMES', games);
 
   const [searchFilteredGames, setSearchFilteredGames] = useState(games);
-  console.log('SEARCHFILTER GAMES', searchFilteredGames);
 
   useEffect(() => {
-    // const newGames = games.filter((game) => {
-    //   if (game.gameName.toLowerCase().contains(searchTerm)) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // });
-    // setSearchFilteredGames((old) => newGames);
+    if (games.length > 0) {
+      const newGames = games.filter((game) => {
+        if (game.gameName.toLowerCase().includes(searchTerm)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      setSearchFilteredGames((old) => newGames);
+    }
   }, [searchTerm]);
 
   useEffect(() => {
