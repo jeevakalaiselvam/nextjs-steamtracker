@@ -2,10 +2,11 @@ import {
   FETCH_ALL_ACHIEVEMENTS_GLOBAL,
   FETCH_ALL_ACHIEVEMENTS_SCHEMA,
   STEAM_ALL_ACHIEVEMENTS_PLAYER,
-} from "../../../../helper/urlHelper";
+} from '../../../../helper/urlHelper';
 
 const handler = async (req, res) => {
-  if (req.method === "GET") {
+  console.clear();
+  if (req.method === 'GET') {
     let newGame = {};
     const { gameId } = req.query;
 
@@ -78,7 +79,7 @@ const handler = async (req, res) => {
           (newPlayerInnerAchievements &&
             newPlayerInnerAchievements.length > 0 &&
             newPlayerInnerAchievements.filter(
-              (achievement) => achievement.achieved != "1"
+              (achievement) => achievement.achieved != '1'
             ).length) ||
           0;
         const completionPercentage =
@@ -95,12 +96,12 @@ const handler = async (req, res) => {
           toGet: toGet,
         };
 
-        res.status(200).json({ status: "success", game: newGame });
+        res.status(200).json({ status: 'success', game: newGame });
       } else {
       }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ status: "error", error: JSON.stringify(error) });
+      res.status(500).json({ status: 'error', error: JSON.stringify(error) });
     }
   }
 };

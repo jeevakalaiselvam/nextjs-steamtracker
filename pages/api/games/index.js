@@ -7,6 +7,7 @@ import {
 import axios from 'axios';
 
 const handler = async (req, res) => {
+  console.clear();
   if (req.method === 'GET') {
     let newGames = [];
 
@@ -47,9 +48,24 @@ const handler = async (req, res) => {
               return newGame;
             })
           ).then((allGames) => {
-            res.status(200).json({
-              status: 'success',
-              games: allGames,
+            Promise.all(
+              allGames.map(async (game) => {
+                const globalResponse = await axios.get(
+                  FETCH_ALL_ACHIEVEMENTS_GLOBAL(game.appid)
+                );
+                const globalAchievements = globalResponse.data;
+                const newGame = {
+                  ...game,
+                  globalAchievements:
+                    globalAchievements.achievementpercentages.achievements,
+                };
+                return newGame;
+              })
+            ).then((combinedGames) => {
+              res.status(200).json({
+                status: 'success',
+                games: combinedGames,
+              });
             });
           });
         });
