@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import GamesMenu from '../menu/GamesMenu';
 
 const Container = styled.div`
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const GamesSidebar = (props) => {
-  return <Container>Games Sidebarrr</Container>;
+  return (
+    <Container>
+      <GamesMenu />
+    </Container>
+  );
 };
 
 export default GamesSidebar;
