@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   min-width: 100vw;
@@ -13,6 +13,7 @@ const Container = styled.div`
 const LeftSidebar = styled.div`
   width: 200px;
   min-height: 100vh;
+  max-height: 100vh;
   background-color: #171717;
   color: #ffffff;
   overflow: scroll;
@@ -25,10 +26,10 @@ const LeftSidebar = styled.div`
 const Main = styled.div`
   flex: 1;
   background: green;
-  overflow: scroll;
   background-color: #1e1e1e;
   color: #61626d;
   min-height: 100vh;
+  max-height: 100vh;
   flex-direction: column;
 `;
 
@@ -47,12 +48,13 @@ const Content = styled.div`
 const RightSidebar = styled.div`
   width: 500px;
   min-height: 100vh;
+  max-height: 100vh;
   background: #171717;
   color: #ffffff;
   overflow: scroll;
   scrollbar-width: none; /* "auto" or "thin" */
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-  display: ${(props) => (props.showRightSidebar ? "flex" : "none")};
+  display: ${(props) => (props.showRightSidebar ? 'flex' : 'none')};
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import GameCard from "../ui/molecules/GameCard";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import GameCard from '../ui/molecules/GameCard';
 
 const Container = styled.div`
   padding: 1rem;
@@ -8,6 +8,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  max-height: 100vh;
+  overflow: scroll;
 `;
 
 const GamesContent = (props) => {

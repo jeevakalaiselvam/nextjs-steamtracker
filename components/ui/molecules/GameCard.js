@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { API_GET_GAME } from "../../../helper/apiHelper";
-import { HEADER_IMAGE } from "../../../helper/urlHelper";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { API_GET_GAME } from '../../../helper/apiHelper';
+import { HEADER_IMAGE } from '../../../helper/urlHelper';
 
 const Container = styled.div`
-  display: ${(props) => (props.show ? "flex" : "none")};
+  display: ${(props) => (props.show ? 'flex' : 'none')};
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -35,7 +35,7 @@ const Title = styled.div`
   left: 0px;
   width: 100%;
   padding: 0.5rem 1rem;
-  min-height: 30px;
+  max-height: 30px;
 `;
 
 const Overlay = styled.div`
@@ -52,30 +52,20 @@ export default function GameCard(props) {
   const { id } = props.game;
 
   const [game, setGame] = useState({
-    name: "",
+    name: '',
   });
 
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const getGame = async () => {
-      const response = await fetch(API_GET_GAME(id));
-      const data = await response.json();
-      if (data.status !== "success") {
-        setShow((old) => false);
-      } else {
-        setGame((old) => data.game);
-      }
-    };
-
-    getGame();
-  }, []);
+    openRightSidebar(game);
+  }, [game]);
 
   useEffect(() => {
     const { name } = game;
     if (
       name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      searchTerm === ""
+      searchTerm === ''
     ) {
       setShow((old) => true);
     } else {
@@ -88,11 +78,20 @@ export default function GameCard(props) {
       image={HEADER_IMAGE(id)}
       show={show}
       onClick={() => {
-        game && openRightSidebar(game);
+        const getGame = async () => {
+          const response = await fetch(API_GET_GAME(id));
+          const data = await response.json();
+          if (data.status !== 'success') {
+            setShow((old) => false);
+          } else {
+            setGame((old) => data.game);
+          }
+        };
+        getGame();
       }}
     >
       <Overlay></Overlay>
-      <Title>{game?.name ?? ""}</Title>
+      {/* <Title>{game?.name ?? ''}</Title> */}
     </Container>
   );
 }
