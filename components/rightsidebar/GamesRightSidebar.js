@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { HEADER_IMAGE } from "../../helper/urlHelper";
+import React from 'react';
+import styled from 'styled-components';
+import { HEADER_IMAGE } from '../../helper/urlHelper';
 
 const Container = styled.div`
   display: flex;
@@ -19,11 +19,11 @@ const Image = styled.div`
 `;
 
 const GamesRightSidebar = (props) => {
-  const { selectedGame } = props;
-  const { achievements, completion, id, name, toGet, version } = selectedGame;
+  const { selectedGame, showRightSidebar } = props;
+  const { appid } = selectedGame;
   return (
     <Container>
-      <Image image={HEADER_IMAGE(id)}></Image>
+      <Image image={HEADER_IMAGE(appid)}></Image>
     </Container>
   );
 };

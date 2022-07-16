@@ -52,7 +52,12 @@ export default function GameCard(props) {
   const { appid, gameName } = game;
 
   return (
-    <Container image={HEADER_IMAGE(appid)} onClick={() => {}}>
+    <Container
+      image={HEADER_IMAGE(appid)}
+      onClick={() => {
+        openRightSidebar(game);
+      }}
+    >
       <Overlay></Overlay>
       <Title>{gameName}</Title>
     </Container>

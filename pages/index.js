@@ -22,6 +22,12 @@ export default function Home() {
     getGames();
   }, []);
 
+  useEffect(() => {
+    if (games.length > 0) {
+      setSelectedGame((old) => games[0]);
+    }
+  }, [games]);
+
   const openRightSidebar = (data) => {
     setShowRightSidebar((old) => true);
     setSelectedGame((old) => data);
