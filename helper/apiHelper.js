@@ -1,4 +1,4 @@
-export const getUrlPrefix = () => {
+export const getAPIUrlPrefix = () => {
   let PREFIX_URL = '';
   switch (process.env.NODE_ENV) {
     case 'development':
@@ -16,8 +16,12 @@ export const getUrlPrefix = () => {
 };
 
 export const API_GET_GAMES = () => {
-  return `${getUrlPrefix()}/games`;
+  return `${getAPIUrlPrefix()}/games`;
 };
 export const API_GET_GAME = (gameId) => {
-  return `${getUrlPrefix()}/games/${gameId}`;
+  return `${getAPIUrlPrefix()}/games/${gameId}`;
+};
+
+export const API_REFRESH_DATA = () => {
+  return `${getAPIUrlPrefix()}/refresh`;
 };

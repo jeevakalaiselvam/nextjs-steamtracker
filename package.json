@@ -15,6 +15,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.4.0",
+    "react-spinners": "^0.13.3",
     "styled-components": "^5.3.5",
     "winston": "^3.8.1"
   },

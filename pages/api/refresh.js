@@ -15,7 +15,7 @@ const handler = async (req, res) => {
     axios
       .get(FETCH_ALL_GAMES)
       .then((response) => {
-        const games = response.data.response.games;
+        const games = response.data.response.games.slice(10, 15);
         Promise.all(
           games.map(async (game) => {
             const achievementsResponse = await axios.get(

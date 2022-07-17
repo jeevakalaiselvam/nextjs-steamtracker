@@ -67,12 +67,14 @@ const Page = (props) => {
 
   return (
     <Container>
-      <LeftSidebar>{leftSidebar}</LeftSidebar>
+      {leftSidebar && <LeftSidebar>{leftSidebar}</LeftSidebar>}
       <Main>
-        <Header>{header}</Header>
-        <Content>{content}</Content>
+        {header && <Header>{header}</Header>}
+        {content && <Content>{content}</Content>}
       </Main>
-      <RightSidebar showRightSidebar={true}>{rightSidebar}</RightSidebar>
+      {rightSidebar && (
+        <RightSidebar showRightSidebar={true}>{rightSidebar}</RightSidebar>
+      )}
     </Container>
   );
 };

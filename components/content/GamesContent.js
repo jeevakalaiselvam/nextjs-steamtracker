@@ -27,7 +27,6 @@ const GamesContent = (props) => {
 
   useEffect(() => {
     if (games.length > 0) {
-      console.log('---------FILTERING------------');
       const filteredGames = getGamesFiltered(games, filterOption);
       const searchFilteredGames = filteredGames.filter((game) => {
         if (game.gameName.toLowerCase().includes(searchTerm)) {
@@ -39,10 +38,6 @@ const GamesContent = (props) => {
       setSearchFilteredGames((old) => searchFilteredGames);
     }
   }, [games, searchTerm, filterOption]);
-
-  // useEffect(() => {
-  //   setSearchFilteredGames((old) => games);
-  // }, [games,searchTerm,filterOption]);
 
   return (
     <Container>
