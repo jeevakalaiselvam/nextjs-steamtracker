@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { HiCheckCircle } from 'react-icons/hi';
+import { HiCheck } from 'react-icons/hi';
 import axios from 'axios';
 import { FaTrophy } from 'react-icons/fa';
 import { HiGlobe } from 'react-icons/hi';
@@ -43,6 +43,7 @@ const CompletedIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+  overflow: visible;
   color: #fefefe;
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.5);
@@ -50,7 +51,14 @@ const CompletedIcon = styled.div`
 `;
 
 const AchievementSmall = (props) => {
-  const { achievement, hiddenAchievementDesc, background, gameName } = props;
+  const {
+    achievement,
+    hiddenAchievementDesc,
+    background,
+    gameName,
+    onClick,
+    onMouseLeave,
+  } = props;
 
   const {
     name,
@@ -68,17 +76,21 @@ const AchievementSmall = (props) => {
   return (
     <Container
       background={background}
+      onMouseLeave={() => {
+        onMouseLeave({ ...achievement, hiddenAchievementDesc });
+      }}
       onClick={() => {
-        if (window !== 'undefined') {
-          const searchQuery = `${displayName} ${gameName} achievement`;
-          window.open(`https://www.google.com/search?q=${searchQuery}`);
-        }
+        onClick({ ...achievement, hiddenAchievementDesc });
+        // if (window !== 'undefined') {
+        //   const searchQuery = `${displayName} ${gameName} achievement`;
+        //   window.open(`https://www.google.com/search?q=${searchQuery}`);
+        // }
       }}
     >
       <IconContainer image={icon}>
         {achieved == 1 && (
           <CompletedIcon>
-            <HiCheckCircle />
+            <HiCheck />
           </CompletedIcon>
         )}
       </IconContainer>

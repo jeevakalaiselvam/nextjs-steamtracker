@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { HiCheckCircle } from 'react-icons/hi';
+import { HiCheck } from 'react-icons/hi';
 import axios from 'axios';
 import { FaTrophy } from 'react-icons/fa';
 import { HiGlobe } from 'react-icons/hi';
@@ -147,7 +147,7 @@ const AchievementNormal = (props) => {
       <IconContainer image={icon}>
         {achieved == 1 && (
           <CompletedIcon>
-            <HiCheckCircle />
+            <HiCheck />
           </CompletedIcon>
         )}
       </IconContainer>

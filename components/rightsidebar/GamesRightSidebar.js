@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HEADER_IMAGE } from '../../helper/urlHelper';
-import { HiClock } from 'react-icons/hi';
+import { HiClock, HiGlobe, HiCheck } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import AchievementNormal from '../ui/atoms/AchievementNormal';
 import {
@@ -23,6 +23,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
+  overflow: scroll;
 `;
 
 const Header = styled.div`
@@ -136,9 +137,9 @@ const AchievementContainer = styled.div`
   align-items: center;
   flex-direction: column;
   flex: 1;
-  overflow: scroll;
   padding: 1rem;
   justify-content: center;
+  position: relative;
 `;
 
 const AllUnlockedContainer = styled.div`
@@ -158,6 +159,125 @@ const SubTitle = styled.div`
   justify-content: center;
 `;
 
+const SmallAchievementContainer = styled.div`
+  display: flex;
+  background-color: #121212;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(${(props) => (props.show ? '0%' : '100%')});
+  transition: 0.5s all;
+  width: 100%;
+`;
+
+const ContainerSmall = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100px;
+  padding: 1rem;
+  background-color: '#1e1e1e';
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  position: relative;
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background: url(${(props) => props.image});
+  background-repeat: no-repeat;
+  background-size: contain;
+`;
+
+const TitleDescContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  min-height: 70px;
+  width: 100%;
+`;
+
+const TitleSmall = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0rem 1rem;
+  justify-content: flex-start;
+  font-size: 1.5rem;
+`;
+
+const Description = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0rem 1rem;
+  color: #6c6c6e;
+  width: 100%;
+  flex: 1;
+  font-size: 1.5rem;
+  font-weight: 300;
+`;
+
+const CompletedIcon = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fefefe;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0 4px 0 4px;
+`;
+
+const PercentageContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fefefe;
+  padding: 0.5rem;
+  border-radius: 0 4px 0 4px;
+`;
+
+const PercentageIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5 0.5rem 0.5rem 0rem;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #737c9d;
+`;
+const PercentageText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  color: #737c9d;
+  font-weight: 300;
+`;
+
 const GamesRightSidebar = (props) => {
   const router = useRouter();
   const { selectedGame, achievementDisplayOption } = props;
@@ -173,6 +293,27 @@ const GamesRightSidebar = (props) => {
   } = selectedGame;
 
   const [hiddenAchievementsData, setHiddenAchievementsData] = useState([]);
+  const [
+    showSmallIconAchievementContainer,
+    setShowSmallIconAchievementContainer,
+  ] = useState(false);
+  const [smallAchievement, setSmallAchievement] = useState({});
+
+  const {
+    name,
+    displayName,
+    description,
+    icon,
+    icongray,
+    achieved,
+    apiname,
+    hidden,
+    percent,
+    unlocktime,
+    hiddenAchievementDesc,
+  } = smallAchievement;
+
+  console.log('SMALL ACHIVE', smallAchievement);
 
   useEffect(() => {
     const getData = async () => {
@@ -197,7 +338,6 @@ const GamesRightSidebar = (props) => {
   const achievementsSortedByEasy = formatAchievmentsByNotUnlockedEasyPercentage(
     formattedAchievements
   );
-  console.log('EASY', achievementsSortedByEasy);
   const achievementsSortedByUnlockedRecent = formatAchievmentsByUnlockedRecent(
     formattedAchievements
   );
@@ -263,6 +403,14 @@ const GamesRightSidebar = (props) => {
                       key={achievement.name}
                       achievement={achievement}
                       hiddenAchievementDesc={hiddenAchievementDesc}
+                      onClick={(achievement) => {
+                        setSmallAchievement((old) => achievement);
+                        setShowSmallIconAchievementContainer((old) => true);
+                      }}
+                      onMouseLeave={(achievement) => {
+                        setSmallAchievement((old) => achievement);
+                        setShowSmallIconAchievementContainer((old) => false);
+                      }}
                     />
                   )}
                 </>
@@ -300,6 +448,14 @@ const GamesRightSidebar = (props) => {
                         key={achievement.name}
                         achievement={achievement}
                         hiddenAchievementDesc={hiddenAchievementDesc}
+                        onClick={(achievement) => {
+                          setSmallAchievement((old) => achievement);
+                          setShowSmallIconAchievementContainer((old) => true);
+                        }}
+                        onMouseLeave={(achievement) => {
+                          setSmallAchievement((old) => achievement);
+                          setShowSmallIconAchievementContainer((old) => false);
+                        }}
                       />
                     )}
                   </>
@@ -308,6 +464,37 @@ const GamesRightSidebar = (props) => {
           </AllUnlockedContainer>
         )}
       </AchievementContainer>
+
+      <SmallAchievementContainer show={showSmallIconAchievementContainer}>
+        <ContainerSmall
+          onClick={() => {
+            if (window !== 'undefined') {
+              const searchQuery = `${displayName} ${gameName} achievement`;
+              window.open(`https://www.google.com/search?q=${searchQuery}`);
+            }
+          }}
+        >
+          <PercentageContainer>
+            <PercentageIcon>
+              <HiGlobe />
+            </PercentageIcon>
+            <PercentageText>{Math.floor(percent)} %</PercentageText>
+          </PercentageContainer>
+          <IconContainer image={icon}>
+            {achieved == 1 && (
+              <CompletedIcon>
+                <HiCheck />
+              </CompletedIcon>
+            )}
+          </IconContainer>
+          <TitleDescContainer>
+            <TitleSmall>{displayName}</TitleSmall>
+            <Description>
+              {hiddenAchievementDesc || description || ''}
+            </Description>
+          </TitleDescContainer>
+        </ContainerSmall>
+      </SmallAchievementContainer>
     </Container>
   );
 };

@@ -51,9 +51,6 @@ const RightSidebar = styled.div`
   max-height: 100vh;
   background: #171717;
   color: #ffffff;
-  overflow: scroll;
-  scrollbar-width: none; /* "auto" or "thin" */
-  scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
   display: ${(props) => (props.showRightSidebar ? 'flex' : 'flex')};
   flex-direction: column;
   align-items: center;
