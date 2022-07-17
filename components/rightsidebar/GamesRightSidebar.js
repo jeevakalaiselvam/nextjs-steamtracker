@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HEADER_IMAGE } from '../../helper/urlHelper';
-import { HiCheckCircle } from 'react-icons/hi';
+import { HiChartPie } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import AchievementNormal from '../ui/atoms/AchievementNormal';
 import {
   formatAchievments,
-  formatAchievmentsByRecentUnlocked,
+  formatAchievmentsByNotUnlockedEasyPercentage,
+  formatAchievmentsByUnlockedRecent,
+  getHiddenInfoByCrawling,
 } from '../../helper/achievementHelper';
 
 const Container = styled.div`
@@ -48,7 +50,7 @@ const Stat = styled.div`
 `;
 
 const CompletionContainer = styled.div`
-  padding: 1rem 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,6 +58,7 @@ const CompletionContainer = styled.div`
 `;
 
 const ToGetContainer = styled.div`
+  padding: 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -63,7 +66,7 @@ const ToGetContainer = styled.div`
 `;
 
 const ToGetIcon = styled.div`
-  padding: 1rem 2rem;
+  padding: 1rem;
   display: flex;
   align-items: center;
   color: #f1b51b;
@@ -81,9 +84,10 @@ const ToGetData = styled.div`
 
 const CompletionIcon = styled.div`
   display: flex;
+  padding: 1rem;
   align-items: center;
   color: #3470d2;
-  font-size: 4rem;
+  font-size: 4.3rem;
   justify-content: center;
 `;
 
@@ -123,6 +127,25 @@ const AchievementContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  flex: 1;
+  overflow: scroll;
+  padding: 1rem;
+  justify-content: center;
+`;
+
+const AllUnlockedContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  overflow: scroll;
+  padding: 1rem;
+  justify-content: center;
+`;
+
+const SubTitle = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: center;
 `;
 
@@ -139,14 +162,37 @@ const GamesRightSidebar = (props) => {
     globalAchievements,
   } = selectedGame;
 
+  const [hiddenAchievements, setHiddenAchievements] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const crawledAchievements = await getHiddenInfoByCrawling(appid);
+      console.log('CRAWLED ACHIEVEMENTS', crawledAchievements);
+    };
+    getData();
+  }, []);
+
   const formattedAchievements = formatAchievments(
     schemaAchievements,
     globalAchievements,
     playerAchievements
   );
 
-  const achievementsSortedByRecent = formatAchievmentsByRecentUnlocked(
+  const achievementsSortedByEasy = formatAchievmentsByNotUnlockedEasyPercentage(
     formattedAchievements
+  );
+  const achievementsSortedByUnlockedRecent = formatAchievmentsByUnlockedRecent(
+    formattedAchievements
+  );
+
+  console.clear();
+  console.log(
+    'FORMATTED ACHIEVEMENTS EASY NOT UNLOCKED',
+    achievementsSortedByEasy
+  );
+  console.log(
+    'FORMATTED ACHIEVEMENTS UNLOCKED RECENT',
+    achievementsSortedByUnlockedRecent
   );
 
   return (
@@ -155,7 +201,7 @@ const GamesRightSidebar = (props) => {
         <Stat>
           <CompletionContainer>
             <CompletionIcon>
-              <HiCheckCircle />
+              <HiChartPie />
             </CompletionIcon>
             <CompletionData>{percentage}</CompletionData>
           </CompletionContainer>
@@ -172,8 +218,12 @@ const GamesRightSidebar = (props) => {
         </Stat>
       </Header>
       <AchievementContainer>
-        {achievementsSortedByRecent.length > 0 &&
-          achievementsSortedByRecent.map((achievement) => {
+        <SubTitle>
+          {achievementsSortedByEasy.length > 0 && 'UNLOCK NEXT'}
+          {achievementsSortedByEasy.length === 0 && 'ALL COMPLETED'}
+        </SubTitle>
+        {achievementsSortedByEasy.length > 0 &&
+          achievementsSortedByEasy.map((achievement) => {
             return (
               <AchievementNormal
                 key={achievement.name}
@@ -181,6 +231,19 @@ const GamesRightSidebar = (props) => {
               />
             );
           })}
+        {achievementsSortedByEasy.length === 0 && (
+          <AllUnlockedContainer>
+            {achievementsSortedByUnlockedRecent.length > 0 &&
+              achievementsSortedByUnlockedRecent.map((achievement) => {
+                return (
+                  <AchievementNormal
+                    key={achievement.name}
+                    achievement={achievement}
+                  />
+                );
+              })}
+          </AllUnlockedContainer>
+        )}
       </AchievementContainer>
     </Container>
   );

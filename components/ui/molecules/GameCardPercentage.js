@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API_GET_GAME } from '../../../helper/apiHelper';
 import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { HiCheckCircle } from 'react-icons/hi';
+import { HiChartPie } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
 
@@ -142,7 +142,7 @@ export default function GameCardPercentage(props) {
       <ToGetCompletionMainContainer showIcons={showIcons}>
         <CompletionContainer>
           <CompletionIcon>
-            <HiCheckCircle />
+            <HiChartPie />
           </CompletionIcon>
           <CompletionData>{percentage}</CompletionData>
         </CompletionContainer>

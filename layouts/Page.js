@@ -46,7 +46,7 @@ const Content = styled.div`
 `;
 
 const RightSidebar = styled.div`
-  width: 500px;
+  width: 520px;
   min-height: 100vh;
   max-height: 100vh;
   background: #171717;
