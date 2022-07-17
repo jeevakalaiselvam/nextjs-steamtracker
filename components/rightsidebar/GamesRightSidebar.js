@@ -170,7 +170,7 @@ const GamesRightSidebar = (props) => {
       console.log('CRAWLED ACHIEVEMENTS', crawledAchievements);
     };
     getData();
-  }, []);
+  }, [selectedGame]);
 
   const formattedAchievements = formatAchievments(
     schemaAchievements,
