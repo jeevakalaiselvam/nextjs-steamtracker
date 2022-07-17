@@ -50,7 +50,7 @@ const Title = styled.div`
   color: #eeeeee;
   padding: 0rem 1rem;
   justify-content: flex-start;
-  font-size: 1.65rem;
+  font-size: 1.55rem;
 `;
 
 const Description = styled.div`
@@ -61,7 +61,7 @@ const Description = styled.div`
   color: #6c6c6e;
   width: 100%;
   flex: 1;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 300;
 `;
 
