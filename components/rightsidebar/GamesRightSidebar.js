@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HEADER_IMAGE } from '../../helper/urlHelper';
-import { HiChartPie } from 'react-icons/hi';
+import { HiClock } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import AchievementNormal from '../ui/atoms/AchievementNormal';
 import {
@@ -13,6 +13,11 @@ import {
 import axios from 'axios';
 import { API_GET_HIDDEN_ACHIEVEMENTS } from '../../helper/apiHelper';
 import { useRouter } from 'next/router';
+import {
+  GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL,
+  GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL,
+} from '../../helper/filterHelper';
+import AchievementSmall from '../ui/atoms/AchievementSmall';
 
 const Container = styled.div`
   display: flex;
@@ -154,7 +159,7 @@ const SubTitle = styled.div`
 
 const GamesRightSidebar = (props) => {
   const router = useRouter();
-  const { selectedGame, showRightSidebar } = props;
+  const { selectedGame, achievementDisplayOption } = props;
   const {
     appid,
     gameName,
@@ -202,7 +207,7 @@ const GamesRightSidebar = (props) => {
         <Stat>
           <CompletionContainer>
             <CompletionIcon>
-              <HiChartPie />
+              <HiClock />
             </CompletionIcon>
             <CompletionData>{percentage}</CompletionData>
           </CompletionContainer>
@@ -236,12 +241,26 @@ const GamesRightSidebar = (props) => {
                 hiddenAchievementsData
               );
               return (
-                <AchievementNormal
-                  gameName={gameName}
-                  key={achievement.name}
-                  achievement={achievement}
-                  hiddenAchievementDesc={hiddenAchievementDesc}
-                />
+                <>
+                  {achievementDisplayOption ===
+                    GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL && (
+                    <AchievementNormal
+                      gameName={gameName}
+                      key={achievement.name}
+                      achievement={achievement}
+                      hiddenAchievementDesc={hiddenAchievementDesc}
+                    />
+                  )}
+                  {achievementDisplayOption ===
+                    GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL && (
+                    <AchievementSmall
+                      gameName={gameName}
+                      key={achievement.name}
+                      achievement={achievement}
+                      hiddenAchievementDesc={hiddenAchievementDesc}
+                    />
+                  )}
+                </>
               );
             })}
           </AllUnlockedContainer>
@@ -255,12 +274,26 @@ const GamesRightSidebar = (props) => {
                   hiddenAchievementsData
                 );
                 return (
-                  <AchievementNormal
-                    gameName={gameName}
-                    key={achievement.name}
-                    achievement={achievement}
-                    hiddenAchievementDesc={hiddenAchievementDesc}
-                  />
+                  <>
+                    {achievementDisplayOption ===
+                      GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL && (
+                      <AchievementNormal
+                        gameName={gameName}
+                        key={achievement.name}
+                        achievement={achievement}
+                        hiddenAchievementDesc={hiddenAchievementDesc}
+                      />
+                    )}
+                    {achievementDisplayOption ===
+                      GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL && (
+                      <AchievementSmall
+                        gameName={gameName}
+                        key={achievement.name}
+                        achievement={achievement}
+                        hiddenAchievementDesc={hiddenAchievementDesc}
+                      />
+                    )}
+                  </>
                 );
               })}
           </AllUnlockedContainer>

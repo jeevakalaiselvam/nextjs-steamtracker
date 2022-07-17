@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API_GET_GAME } from '../../../helper/apiHelper';
 import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { HiChartPie } from 'react-icons/hi';
+import { HiClock } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
 import axios from 'axios';
@@ -41,15 +41,6 @@ const Title = styled.div`
   width: 100%;
   padding: 0.5rem 1rem;
   max-height: 30px;
-`;
-
-const Overlay = styled.div`
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.3);
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
 `;
 
 const CompletionContainer = styled.div`
@@ -104,6 +95,31 @@ const CompletionData = styled.div`
   color: #3470d2;
 `;
 
+const Overlay = styled.div`
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: #f5b81c;
+`;
+
+const CompletionTag = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function GameCardHover(props) {
   const { openRightSidebar, closeRightSidebar, game, gamesDisplayOption } =
     props;
@@ -124,7 +140,7 @@ export default function GameCardHover(props) {
         openRightSidebar(game);
       }}
     >
-      <Overlay></Overlay>
+      <Overlay>{completed == total && <FaTrophy />}</Overlay>
       <Title>{gameName}</Title>
       <ToGetContainer showIcons={showIcons}>
         <ToGetIcon>
@@ -134,7 +150,7 @@ export default function GameCardHover(props) {
       </ToGetContainer>
       <CompletionContainer showIcons={showIcons}>
         <CompletionIcon>
-          <HiChartPie />
+          <HiClock />
         </CompletionIcon>
         <CompletionData>{percentage}</CompletionData>
       </CompletionContainer>

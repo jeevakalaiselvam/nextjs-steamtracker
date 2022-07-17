@@ -9,7 +9,9 @@ import axios from 'axios';
 import {
   GAMES_SORT_COMPLETION_ASC,
   GAMES_SORT_COMPLETION_DESC,
+  GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL,
   GAME_SETTING_DISPLAY_VISIBLE,
+  LOCALSTORAGE_ACHIEVEMENTSIDEBAR_SETTING_DISPLAY,
   LOCALSTORAGE_GAME_SETTING_DISPLAY,
 } from '../../helper/filterHelper';
 
@@ -34,6 +36,10 @@ export default function Home() {
     GAME_SETTING_DISPLAY_VISIBLE
   );
 
+  const [achievementDisplayOption, setAchievementDisplayOption] = useState(
+    GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL
+  );
+
   useEffect(() => {
     if (window !== 'undefined') {
       setGamesDisplayOption(
@@ -41,13 +47,19 @@ export default function Home() {
           localStorage.getItem(LOCALSTORAGE_GAME_SETTING_DISPLAY) ||
           GAME_SETTING_DISPLAY_VISIBLE
       );
+      setAchievementDisplayOption(
+        (old) =>
+          localStorage.getItem(
+            LOCALSTORAGE_ACHIEVEMENTSIDEBAR_SETTING_DISPLAY
+          ) || GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL
+      );
     }
   }, []);
 
   useEffect(() => {
     const newGames = games.map((game) => game);
     setGames((old) => newGames);
-  }, [gamesDisplayOption]);
+  }, [gamesDisplayOption, achievementDisplayOption]);
 
   useEffect(() => {
     const getGames = async () => {
@@ -111,7 +123,12 @@ export default function Home() {
     <Page
       showRightSidebar={showRightSidebar}
       leftSidebar={<GamesLeftSidebar />}
-      rightSidebar={<GamesRightSidebar selectedGame={selectedGame} />}
+      rightSidebar={
+        <GamesRightSidebar
+          selectedGame={selectedGame}
+          achievementDisplayOption={achievementDisplayOption}
+        />
+      }
       header={
         <GamesHeader
           filterOptions={filterOptions}

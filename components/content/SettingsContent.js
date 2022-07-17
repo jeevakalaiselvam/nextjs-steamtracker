@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import * as Loaders from 'react-spinners';
 import styled from 'styled-components';
 import { API_REFRESH_DATA } from '../../helper/apiHelper';
+import AchievementSidebarSettings from '../settings/AchievementSidebarSettings';
 import GameSettings from '../settings/GameSettings';
 import SubMenu from '../ui/atoms/SubMenu';
 import SettingCard from '../ui/molecules/SettingCard';
@@ -31,7 +32,11 @@ const SettingsContent = (props) => {
         navigateTo={'/games'}
       />
       <SettingCard title="Achievements Page " />
-      <SettingCard title="Achievement Sidebar" />
+      <SettingCard
+        title="Achievement Sidebar"
+        component={<AchievementSidebarSettings />}
+        navigateTo={'/games'}
+      />
     </Container>
   );
 };

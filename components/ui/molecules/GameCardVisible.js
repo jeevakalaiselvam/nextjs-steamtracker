@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API_GET_GAME } from '../../../helper/apiHelper';
 import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { HiChartPie } from 'react-icons/hi';
+import { HiClock } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
 
@@ -117,7 +117,7 @@ export default function GameCardVisible(props) {
         openRightSidebar(game);
       }}
     >
-      <Overlay></Overlay>
+      <Overlay>{completed == total && <FaTrophy />}</Overlay>
       <Title>{gameName}</Title>
       <ToGetContainer showIcons={showIcons}>
         <ToGetIcon>
@@ -127,7 +127,7 @@ export default function GameCardVisible(props) {
       </ToGetContainer>
       <CompletionContainer showIcons={showIcons}>
         <CompletionIcon>
-          <HiChartPie />
+          <HiClock />
         </CompletionIcon>
         <CompletionData>{percentage}</CompletionData>
       </CompletionContainer>
