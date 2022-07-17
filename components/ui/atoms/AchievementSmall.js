@@ -56,7 +56,7 @@ const AchievementSmall = (props) => {
     hiddenAchievementDesc,
     background,
     gameName,
-    onClick,
+    onMouseEnter,
     onMouseLeave,
   } = props;
 
@@ -79,12 +79,14 @@ const AchievementSmall = (props) => {
       onMouseLeave={() => {
         onMouseLeave({ ...achievement, hiddenAchievementDesc });
       }}
+      onMouseEnter={() => {
+        onMouseEnter({ ...achievement, hiddenAchievementDesc });
+      }}
       onClick={() => {
-        onClick({ ...achievement, hiddenAchievementDesc });
-        // if (window !== 'undefined') {
-        //   const searchQuery = `${displayName} ${gameName} achievement`;
-        //   window.open(`https://www.google.com/search?q=${searchQuery}`);
-        // }
+        if (window !== 'undefined') {
+          const searchQuery = `${displayName} ${gameName} achievement`;
+          window.open(`https://www.google.com/search?q=${searchQuery}`);
+        }
       }}
     >
       <IconContainer image={icon}>

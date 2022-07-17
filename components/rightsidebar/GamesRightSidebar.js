@@ -403,7 +403,7 @@ const GamesRightSidebar = (props) => {
                       key={achievement.name}
                       achievement={achievement}
                       hiddenAchievementDesc={hiddenAchievementDesc}
-                      onClick={(achievement) => {
+                      onMouseEnter={(achievement) => {
                         setSmallAchievement((old) => achievement);
                         setShowSmallIconAchievementContainer((old) => true);
                       }}
@@ -448,7 +448,7 @@ const GamesRightSidebar = (props) => {
                         key={achievement.name}
                         achievement={achievement}
                         hiddenAchievementDesc={hiddenAchievementDesc}
-                        onClick={(achievement) => {
+                        onMouseEnter={(achievement) => {
                           setSmallAchievement((old) => achievement);
                           setShowSmallIconAchievementContainer((old) => true);
                         }}
@@ -465,7 +465,7 @@ const GamesRightSidebar = (props) => {
         )}
       </AchievementContainer>
 
-      <SmallAchievementContainer show={showSmallIconAchievementContainer}>
+      <SmallAchievementContainer show={true}>
         <ContainerSmall
           onClick={() => {
             if (window !== 'undefined') {
