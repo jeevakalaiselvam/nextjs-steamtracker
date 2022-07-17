@@ -60,47 +60,17 @@ export const formatAchievmentsByUnlockedRecent = (achievements) => {
   return filteredByUnlockedRecent;
 };
 
-export const getDescForHiddenAchievements = async (achievement, gameId) => {
-  const hiddenAchievements = await getHiddenInfoByCrawling(gameId);
-
-  hiddenAchievements.map((achievementInner) => {
-    if (
-      achievementInner.name.toLowerCase().trim() ===
-        achievement.name.toLowerCase().trim() &&
-      achievement.hidden === 1
-    ) {
-      achievement.description = achievementInner.description;
-    } else {
-    }
-  });
-
-  return achievement;
-};
-
-export const getHiddenInfoByCrawling = async (gameId) => {
-  const hiddenAchievements = [];
-
-  const url = `https://completionist.me/steam/app/${gameId}/achievements?display=mosaic&sort=created&order=desc`;
-  const hiddenResponse = await axios.get(url);
-  const html = hiddenResponse.data;
-  const $ = cheerio.load(html);
-  let titles = [];
-  let descriptions = [];
-
-  $('span.title').each(function (i, e) {
-    titles[i] = $(this).text().trim();
-  });
-
-  $('span.description').each(function (i, e) {
-    descriptions[i] = $(this).text().trim();
-  });
-
-  titles.forEach((title, i) => {
-    hiddenAchievements.push({
-      name: titles[i],
-      description: descriptions[i],
+export const getHiddenDescriptionForName = (name, achievements) => {
+  if (achievements && achievements.length > 0) {
+    const hiddenAchievement = achievements.find((achievement) => {
+      console.log(
+        'CHECKING',
+        achievement.name.toLowerCase(),
+        name.toLowerCase()
+      );
+      return achievement.name.toLowerCase() == name.toLowerCase();
     });
-  });
 
-  return hiddenAchievements;
+    return hiddenAchievement.description;
+  }
 };

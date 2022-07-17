@@ -22,6 +22,10 @@ export const API_GET_GAME = (gameId) => {
   return `${getAPIUrlPrefix()}/games/${gameId}`;
 };
 
+export const API_GET_HIDDEN_ACHIEVEMENTS = (gameId) => {
+  return `${getAPIUrlPrefix()}/hidden/${gameId}`;
+};
+
 export const API_REFRESH_DATA = () => {
   return `${getAPIUrlPrefix()}/refresh`;
 };

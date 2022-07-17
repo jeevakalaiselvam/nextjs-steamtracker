@@ -8,8 +8,10 @@ import {
   formatAchievments,
   formatAchievmentsByNotUnlockedEasyPercentage,
   formatAchievmentsByUnlockedRecent,
-  getHiddenInfoByCrawling,
+  getHiddenDescriptionForName,
 } from '../../helper/achievementHelper';
+import axios from 'axios';
+import { API_GET_HIDDEN_ACHIEVEMENTS } from '../../helper/apiHelper';
 
 const Container = styled.div`
   display: flex;
@@ -162,15 +164,25 @@ const GamesRightSidebar = (props) => {
     globalAchievements,
   } = selectedGame;
 
-  const [hiddenAchievements, setHiddenAchievements] = useState([]);
+  const [hiddenAchievementsData, setHiddenAchievementsData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const crawledAchievements = await getHiddenInfoByCrawling(appid);
-      console.log('CRAWLED ACHIEVEMENTS', crawledAchievements);
+      const hiddenAchievements = await axios.get(
+        API_GET_HIDDEN_ACHIEVEMENTS(appid)
+      );
+      setHiddenAchievementsData(
+        (old) => hiddenAchievements.data.hiddenAchievements
+      );
+      console.log(
+        'HIDDEN ACHIEVEMENTS',
+        hiddenAchievements.data.hiddenAchievements
+      );
     };
-    getData();
-  }, [selectedGame]);
+    if (appid) {
+      getData();
+    }
+  }, [appid]);
 
   const formattedAchievements = formatAchievments(
     schemaAchievements,
@@ -224,10 +236,16 @@ const GamesRightSidebar = (props) => {
         </SubTitle>
         {achievementsSortedByEasy.length > 0 &&
           achievementsSortedByEasy.map((achievement) => {
+            const hiddenAchievementDesc = getHiddenDescriptionForName(
+              achievement.displayName,
+              hiddenAchievementsData
+            );
+            console.log('HIDDEN DESCRIPTION', hiddenAchievementDesc);
             return (
               <AchievementNormal
                 key={achievement.name}
                 achievement={achievement}
+                hiddenAchievementDesc={hiddenAchievementDesc}
               />
             );
           })}
@@ -235,10 +253,16 @@ const GamesRightSidebar = (props) => {
           <AllUnlockedContainer>
             {achievementsSortedByUnlockedRecent.length > 0 &&
               achievementsSortedByUnlockedRecent.map((achievement) => {
+                const hiddenAchievementDesc = getHiddenDescriptionForName(
+                  achievement.displayName,
+                  hiddenAchievementsData
+                );
+                console.log('HIDDEN DESCRIPTION', hiddenAchievementDesc);
                 return (
                   <AchievementNormal
                     key={achievement.name}
                     achievement={achievement}
+                    hiddenAchievementDesc={hiddenAchievementDesc}
                   />
                 );
               })}

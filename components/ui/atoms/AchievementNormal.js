@@ -73,7 +73,7 @@ const CompletedIcon = styled.div`
 `;
 
 const AchievementNormal = (props) => {
-  const { achievement } = props;
+  const { achievement, hiddenAchievementDesc } = props;
 
   const {
     name,
@@ -99,7 +99,7 @@ const AchievementNormal = (props) => {
       </IconContainer>
       <TitleDescContainer>
         <Title>{displayName}</Title>
-        <Description>{description}</Description>
+        <Description>{hiddenAchievementDesc || ''}</Description>
       </TitleDescContainer>
     </Container>
   );

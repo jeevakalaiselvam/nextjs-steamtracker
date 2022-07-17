@@ -68,6 +68,7 @@ export default function Home() {
         };
         return newGame;
       });
+      console.log('MAIN GAMES', completionAddedGames);
       setGames((old) => completionAddedGames);
     };
 
