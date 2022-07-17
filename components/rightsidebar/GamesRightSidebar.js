@@ -140,6 +140,7 @@ const AchievementContainer = styled.div`
   padding: 1rem 2rem 0rem 1rem;
   justify-content: center;
   position: relative;
+  margin-right: -1rem;
   overflow: scroll;
 `;
 
@@ -150,6 +151,7 @@ const AllUnlockedContainer = styled.div`
   flex-wrap: ${(props) => (props.row ? 'wrap' : 'no-wrap')};
   flex: 1;
   overflow: scroll;
+  margin-right: -1rem;
   padding: 1rem 2rem 0rem 1rem;
   justify-content: flex-start;
   overflow: scroll;
