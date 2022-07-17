@@ -61,8 +61,9 @@ export const formatAchievmentsByUnlockedRecent = (achievements) => {
 };
 
 export const getHiddenDescriptionForName = (name, achievements) => {
+  let hiddenAchievement = '';
   if (achievements && achievements.length > 0) {
-    const hiddenAchievement = achievements.find((achievement) => {
+    const hiddenAchievementObject = achievements.find((achievement) => {
       console.log(
         'CHECKING',
         achievement.name.toLowerCase(),
@@ -71,6 +72,8 @@ export const getHiddenDescriptionForName = (name, achievements) => {
       return achievement.name.toLowerCase() == name.toLowerCase();
     });
 
-    return hiddenAchievement.description;
+    hiddenAchievement = hiddenAchievementObject?.description || '';
   }
+
+  return hiddenAchievement;
 };

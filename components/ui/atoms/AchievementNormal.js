@@ -14,6 +14,7 @@ const Container = styled.div`
   background-color: #1e1e1e;
   border-radius: 4px;
   margin-top: 1rem;
+  cursor: pointer;
 `;
 
 const IconContainer = styled.div`
@@ -35,6 +36,7 @@ const TitleDescContainer = styled.div`
   flex-direction: column;
   flex: 1;
   min-height: 70px;
+  width: 100%;
 `;
 
 const Title = styled.div`
@@ -54,6 +56,8 @@ const Description = styled.div`
   color: #6c6c6e;
   width: 100%;
   flex: 1;
+  font-size: 1.5rem;
+  font-weight: 300;
 `;
 
 const CompletedIcon = styled.div`
