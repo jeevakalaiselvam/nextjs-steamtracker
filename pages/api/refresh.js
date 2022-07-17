@@ -1,65 +1,89 @@
-const axios = require("axios");
 import {
   FETCH_ALL_ACHIEVEMENTS_GLOBAL,
+  FETCH_ALL_ACHIEVEMENTS_PLAYER,
   FETCH_ALL_ACHIEVEMENTS_SCHEMA,
   FETCH_ALL_GAMES,
-  STEAM_ALL_ACHIEVEMENTS_PLAYER,
-} from "../../helper/urlHelper";
-import { CACHE_FILE_PATH, WRITE_JSON } from "../../helper/fileHelper";
-const fsPromises = require("fs").promises;
+} from '../../helper/urlHelper';
+import axios from 'axios';
+import { WRITE_JSON } from '../../helper/fileHelper';
 
 const handler = async (req, res) => {
-  if (req.method === "GET") {
-    try {
-      let finalGamesResponse = [];
+  console.clear();
+  if (req.method === 'GET') {
+    let newGames = [];
 
-      //Get All Games for the current User
-      const gamesResponse = await fetch(FETCH_ALL_GAMES);
-      const gamesData = await gamesResponse.json();
-      finalGamesResponse = gamesData.response.games.map((game) => {
-        const newGame = {
-          id: game.appid,
-          playtime: game.playtime_forever,
-        };
-        return newGame;
-      });
-
-      //Testing Limit
-      finalGamesResponse = finalGamesResponse.slice(0, 100);
-
-      //Get all Global Achievements
-      finalGamesResponse = await Promise.all(
-        finalGamesResponse.map(async (game) => {
-          const schemeAchievement = await fetch(
-            FETCH_ALL_ACHIEVEMENTS_SCHEMA(game.id)
+    axios
+      .get(FETCH_ALL_GAMES)
+      .then((response) => {
+        const games = response.data.response.games;
+        Promise.all(
+          games.map(async (game) => {
+            const achievementsResponse = await axios.get(
+              FETCH_ALL_ACHIEVEMENTS_SCHEMA(game.appid)
+            );
+            const achievements = achievementsResponse.data;
+            const newGame = {
+              ...game,
+              schemaAchievements:
+                achievements.game.availableGameStats?.achievements || [],
+              gameName: achievements.game.gameName,
+            };
+            return newGame;
+          })
+        ).then((data) => {
+          const unfilteredGames = data;
+          const filteredGamesOnlyWithAchievements = unfilteredGames.filter(
+            (game) => game.schemaAchievements.length > 0
           );
-          const schemeResponse = await schemeAchievement.json();
-          const newGame = {
-            ...game,
-            name: schemeResponse.game.gameName,
-            version: schemeResponse.game.gameVersion,
-            achievements:
-              schemeResponse?.game?.availableGameStats?.achievements ?? [],
-          };
-          return newGame;
-        })
-      );
 
-      res.status(200).json({ status: "success" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ status: "error" });
-    }
-
-    //Write to File
-    // fsPromises
-    //   .writeFile(CACHE_FILE_PATH, JSON.stringify(finalGamesResponse))
-    //   .then(() => {
-    //     res.status(200).json({ status: "success", data: finalGamesResponse });
-    //   })
-    //   .catch((error) => {
-    //     res.status(500).json({ status: "error", error });
-    //   });
+          Promise.all(
+            filteredGamesOnlyWithAchievements.map(async (game) => {
+              const playerResponse = await axios.get(
+                FETCH_ALL_ACHIEVEMENTS_PLAYER(game.appid)
+              );
+              const playerAchievements = playerResponse.data;
+              const newGame = {
+                ...game,
+                gameName: playerAchievements.playerstats.gameName,
+                playerAchievements: playerAchievements.playerstats.achievements,
+              };
+              return newGame;
+            })
+          ).then((allGames) => {
+            Promise.all(
+              allGames.map(async (game) => {
+                const globalResponse = await axios.get(
+                  FETCH_ALL_ACHIEVEMENTS_GLOBAL(game.appid)
+                );
+                const globalAchievements = globalResponse.data;
+                const newGame = {
+                  ...game,
+                  globalAchievements:
+                    globalAchievements.achievementpercentages.achievements,
+                };
+                return newGame;
+              })
+            ).then((combinedGames) => {
+              WRITE_JSON(combinedGames)
+                .then((data) => {
+                  res.status(200).json({
+                    status: 'success',
+                    games: combinedGames,
+                  });
+                })
+                .catch((error) => {
+                  res.status(500).json({
+                    status: 'error',
+                  });
+                });
+            });
+          });
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({ status: 'error', error: JSON.stringify(error) });
+      });
   }
 };
 
