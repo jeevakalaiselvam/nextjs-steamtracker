@@ -11,7 +11,7 @@ const Container = styled.div`
   margin: 0.25rem;
 
   & select {
-    background: #171717;
+    background: ${(props) => props.background ?? '#171717'};
     border: none;
     outline: none;
     color: #9caabe;
@@ -20,7 +20,7 @@ const Container = styled.div`
     border-radius: 4px;
   }
   & option {
-    background: #171717;
+    background: ${(props) => props.background ?? '#171717'};
     border: none;
     outline: none;
     color: #9caabe;
@@ -30,7 +30,7 @@ const Container = styled.div`
   }
 `;
 
-export default function Filter({ filterOptions, onFilterChanged }) {
+export default function Filter({ filterOptions, onFilterChanged, background }) {
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function Filter({ filterOptions, onFilterChanged }) {
   };
 
   return (
-    <Container>
+    <Container background={background}>
       <select name="sort" key="sort" onChange={optionChangeHandler}>
         {filterOptions &&
           filterOptions.length > 0 &&

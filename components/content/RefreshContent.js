@@ -13,7 +13,7 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const Atom = (props) => {
+const RefreshContent = (props) => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -31,4 +31,4 @@ const Atom = (props) => {
   return <Container>{loading && <Loaders.HashLoader />}</Container>;
 };
 
-export default Atom;
+export default RefreshContent;

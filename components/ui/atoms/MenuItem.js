@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
@@ -9,25 +9,30 @@ const Container = styled.div`
   cursor: pointer;
   background: ${(props) => {
     if (props.hover && !props.click) {
-      return "#3049d1";
+      return '#3049d1';
     } else if (props.hover && props.click) {
-      return "#3049d1";
+      return '#3049d1';
     } else {
-      return "#0d0c0f";
+      return '#0d0c0f';
     }
   }};
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
 `;
 
 const Title = styled.div`
   display: flex;
+  text-align: left;
+  flex: 2;
 `;
 
 const Icon = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+
   margin-right: 1rem;
 `;
 
