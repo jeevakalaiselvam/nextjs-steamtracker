@@ -241,21 +241,23 @@ const GamesRightSidebar = (props) => {
           {achievementsSortedByEasy.length > 0 && 'UNLOCK NEXT'}
           {achievementsSortedByEasy.length === 0 && 'ALL COMPLETED'}
         </SubTitle>
-        {achievementsSortedByEasy.length > 0 &&
-          achievementsSortedByEasy.map((achievement) => {
-            const hiddenAchievementDesc = getHiddenDescriptionForName(
-              achievement.displayName,
-              hiddenAchievementsData
-            );
-            console.log('HIDDEN DESCRIPTION', hiddenAchievementDesc);
-            return (
-              <AchievementNormal
-                key={achievement.name}
-                achievement={achievement}
-                hiddenAchievementDesc={hiddenAchievementDesc}
-              />
-            );
-          })}
+        {achievementsSortedByEasy.length > 0 && (
+          <AllUnlockedContainer>
+            {achievementsSortedByEasy.map((achievement) => {
+              const hiddenAchievementDesc = getHiddenDescriptionForName(
+                achievement.displayName,
+                hiddenAchievementsData
+              );
+              return (
+                <AchievementNormal
+                  key={achievement.name}
+                  achievement={achievement}
+                  hiddenAchievementDesc={hiddenAchievementDesc}
+                />
+              );
+            })}
+          </AllUnlockedContainer>
+        )}
         {achievementsSortedByEasy.length === 0 && (
           <AllUnlockedContainer>
             {achievementsSortedByUnlockedRecent.length > 0 &&
@@ -264,7 +266,6 @@ const GamesRightSidebar = (props) => {
                   achievement.displayName,
                   hiddenAchievementsData
                 );
-                console.log('HIDDEN DESCRIPTION', hiddenAchievementDesc);
                 return (
                   <AchievementNormal
                     key={achievement.name}

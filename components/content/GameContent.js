@@ -24,7 +24,7 @@ const AchievementWrapper = styled.div`
 `;
 
 export default function GameContent(props) {
-  const { game } = props;
+  const { game, openRightSidebar, closeRightSidebar } = props;
   console.log('GAME CONTENT', game);
   const {
     appid,
@@ -55,7 +55,12 @@ export default function GameContent(props) {
       {formattedAchievements.length > 0 &&
         formattedAchievements.map((achievement) => {
           return (
-            <AchievementWrapper key={achievement.name}>
+            <AchievementWrapper
+              key={achievement.name}
+              onClick={() => {
+                openRightSidebar();
+              }}
+            >
               <AchievementNormal
                 achievement={achievement}
                 background={'#171717'}

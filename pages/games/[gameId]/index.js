@@ -32,7 +32,6 @@ export default function Game() {
 
   const openRightSidebar = (data) => {
     setShowRightSidebar((old) => true);
-    setSelectedGame((old) => data);
   };
 
   const closeRightSidebar = () => {
@@ -88,9 +87,19 @@ export default function Game() {
               game={game}
               searchTerm={searchTerm}
               filterOption={filterOption}
+              openRightSidebar={openRightSidebar}
+              closeRightSidebar={closeRightSidebar}
             />
           }
-          rightSidebar={showRightSidebar && <GameRightSidebar game={game} />}
+          rightSidebar={
+            showRightSidebar && (
+              <GameRightSidebar
+                game={game}
+                openRightSidebar={openRightSidebar}
+                closeRightSidebar={closeRightSidebar}
+              />
+            )
+          }
         />
       )}
     </>

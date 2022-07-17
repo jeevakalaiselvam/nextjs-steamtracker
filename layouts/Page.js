@@ -51,13 +51,13 @@ const RightSidebar = styled.div`
   max-height: 100vh;
   background: #171717;
   color: #ffffff;
-  overflow: scroll;
   scrollbar-width: none; /* "auto" or "thin" */
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-  display: ${(props) => (props.showRightSidebar ? 'flex' : 'none')};
+  display: ${(props) => (props.showRightSidebar ? 'flex' : 'flex')};
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  transform: translateX(${(props) => (props.showRightSidebar ? '0%' : '100%')});
   transition: all 0.5s;
 `;
 

@@ -16,7 +16,7 @@ const Container = styled.div`
   background-color: ${(props) =>
     props.background ? props.background : '#1e1e1e'};
   border-radius: 4px;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   cursor: pointer;
   position: relative;
 `;
