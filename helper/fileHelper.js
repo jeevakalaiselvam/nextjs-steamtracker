@@ -13,3 +13,16 @@ export const WRITE_JSON = (data) => {
       });
   });
 };
+
+export const READ_JSON = () => {
+  return new Promise((resolve, reject) => {
+    fsPromises
+      .readFile(CACHE_FILE_PATH)
+      .then((data) => {
+        resolve({ status: 'success', games: JSON.parse(data) });
+      })
+      .catch((error) => {
+        reject({ status: 'error' });
+      });
+  });
+};
