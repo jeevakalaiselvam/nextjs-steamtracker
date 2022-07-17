@@ -22,7 +22,7 @@ import AchievementSmall from '../ui/atoms/AchievementSmall';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1rem;
   overflow: scroll;
 `;
 
@@ -137,26 +137,29 @@ const AchievementContainer = styled.div`
   align-items: center;
   flex-direction: column;
   flex: 1;
-  padding: 1rem;
+  padding: 1rem 2rem 0rem 1rem;
   justify-content: center;
   position: relative;
+  overflow: scroll;
 `;
 
 const AllUnlockedContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: ${(props) => (props.row ? 'row' : 'column')};
-  flex-wrap: wrap;
+  flex-wrap: ${(props) => (props.row ? 'wrap' : 'no-wrap')};
   flex: 1;
   overflow: scroll;
-  padding: 1rem;
-  justify-content: center;
+  padding: 1rem 2rem 0rem 1rem;
+  justify-content: flex-start;
+  overflow: scroll;
 `;
 
 const SubTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
 `;
 
 const SmallAchievementContainer = styled.div`
@@ -465,36 +468,38 @@ const GamesRightSidebar = (props) => {
         )}
       </AchievementContainer>
 
-      <SmallAchievementContainer show={true}>
-        <ContainerSmall
-          onClick={() => {
-            if (window !== 'undefined') {
-              const searchQuery = `${displayName} ${gameName} achievement`;
-              window.open(`https://www.google.com/search?q=${searchQuery}`);
-            }
-          }}
-        >
-          <PercentageContainer>
-            <PercentageIcon>
-              <HiGlobe />
-            </PercentageIcon>
-            <PercentageText>{Math.floor(percent)} %</PercentageText>
-          </PercentageContainer>
-          <IconContainer image={icon}>
-            {achieved == 1 && (
-              <CompletedIcon>
-                <HiCheck />
-              </CompletedIcon>
-            )}
-          </IconContainer>
-          <TitleDescContainer>
-            <TitleSmall>{displayName}</TitleSmall>
-            <Description>
-              {hiddenAchievementDesc || description || ''}
-            </Description>
-          </TitleDescContainer>
-        </ContainerSmall>
-      </SmallAchievementContainer>
+      {achievementDisplayOption === GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL && (
+        <SmallAchievementContainer show={true}>
+          <ContainerSmall
+            onClick={() => {
+              if (window !== 'undefined') {
+                const searchQuery = `${displayName} ${gameName} achievement`;
+                window.open(`https://www.google.com/search?q=${searchQuery}`);
+              }
+            }}
+          >
+            <PercentageContainer>
+              <PercentageIcon>
+                <HiGlobe />
+              </PercentageIcon>
+              <PercentageText>{Math.floor(percent)} %</PercentageText>
+            </PercentageContainer>
+            <IconContainer image={icon}>
+              {achieved == 1 && (
+                <CompletedIcon>
+                  <HiCheck />
+                </CompletedIcon>
+              )}
+            </IconContainer>
+            <TitleDescContainer>
+              <TitleSmall>{displayName}</TitleSmall>
+              <Description>
+                {hiddenAchievementDesc || description || ''}
+              </Description>
+            </TitleDescContainer>
+          </ContainerSmall>
+        </SmallAchievementContainer>
+      )}
     </Container>
   );
 };
