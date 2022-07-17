@@ -144,7 +144,8 @@ const AchievementContainer = styled.div`
 const AllUnlockedContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: ${(props) => (props.row ? 'row' : 'column')};
+  flex-wrap: wrap;
   flex: 1;
   overflow: scroll;
   padding: 1rem;
@@ -234,7 +235,11 @@ const GamesRightSidebar = (props) => {
           {achievementsSortedByEasy.length === 0 && 'ALL COMPLETED'}
         </SubTitle>
         {achievementsSortedByEasy.length > 0 && (
-          <AllUnlockedContainer>
+          <AllUnlockedContainer
+            row={
+              achievementDisplayOption === GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL
+            }
+          >
             {achievementsSortedByEasy.map((achievement) => {
               const hiddenAchievementDesc = getHiddenDescriptionForName(
                 achievement.displayName,
@@ -266,7 +271,11 @@ const GamesRightSidebar = (props) => {
           </AllUnlockedContainer>
         )}
         {achievementsSortedByEasy.length === 0 && (
-          <AllUnlockedContainer>
+          <AllUnlockedContainer
+            row={
+              achievementDisplayOption === GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL
+            }
+          >
             {achievementsSortedByUnlockedRecent.length > 0 &&
               achievementsSortedByUnlockedRecent.map((achievement) => {
                 const hiddenAchievementDesc = getHiddenDescriptionForName(
