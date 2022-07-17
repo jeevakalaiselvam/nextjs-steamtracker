@@ -13,7 +13,8 @@ const Container = styled.div`
   width: 100%;
   min-height: 100px;
   padding: 1rem;
-  background-color: #1e1e1e;
+  background-color: ${(props) =>
+    props.background ? props.background : '#1e1e1e'};
   border-radius: 4px;
   margin-top: 1rem;
   cursor: pointer;
@@ -112,7 +113,7 @@ const PercentageText = styled.div`
 `;
 
 const AchievementNormal = (props) => {
-  const { achievement, hiddenAchievementDesc } = props;
+  const { achievement, hiddenAchievementDesc, background } = props;
 
   const {
     name,
@@ -128,7 +129,7 @@ const AchievementNormal = (props) => {
   } = achievement;
 
   return (
-    <Container>
+    <Container background={background}>
       <PercentageContainer>
         <PercentageIcon>
           <HiGlobe />

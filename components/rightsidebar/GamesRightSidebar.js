@@ -12,6 +12,7 @@ import {
 } from '../../helper/achievementHelper';
 import axios from 'axios';
 import { API_GET_HIDDEN_ACHIEVEMENTS } from '../../helper/apiHelper';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   display: flex;
@@ -152,6 +153,7 @@ const SubTitle = styled.div`
 `;
 
 const GamesRightSidebar = (props) => {
+  const router = useRouter();
   const { selectedGame, showRightSidebar } = props;
   const {
     appid,
@@ -217,7 +219,12 @@ const GamesRightSidebar = (props) => {
             </CompletionIcon>
             <CompletionData>{percentage}</CompletionData>
           </CompletionContainer>
-          <Image image={HEADER_IMAGE(appid)}>
+          <Image
+            image={HEADER_IMAGE(appid)}
+            onClick={() => {
+              router.push(`/games/${appid}`);
+            }}
+          >
             <Overlay></Overlay>
             <Title>{gameName}</Title>
           </Image>

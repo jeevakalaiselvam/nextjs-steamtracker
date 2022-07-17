@@ -14,6 +14,10 @@ export const GAME_SETTING_DISPLAY_VISIBLE = 'GAME_SETTING_DISPLAY_VISIBLE';
 export const GAME_SETTING_DISPLAY_PERCENTAGE =
   'GAME_SETTING_DISPLAY_PERCENTAGE';
 
+//Game Filter
+export const GAME_ACHIEVEMENT_SORT_EASY = 'GAME_ACHIEVEMENT_SORT_EASY';
+export const GAME_ACHIEVEMENT_SORT_HARD = 'GAME_ACHIEVEMENT_SORT_HARD';
+
 export const getGamesFiltered = (games, filterOption) => {
   if (filterOption === GAMES_SORT_COMPLETION_DESC) {
     const newGames = games.sort((game1, game2) => {
