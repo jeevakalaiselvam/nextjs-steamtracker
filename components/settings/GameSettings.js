@@ -12,6 +12,7 @@ import SettingItem from '../ui/atoms/SettingItem';
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;

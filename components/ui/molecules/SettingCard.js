@@ -29,6 +29,7 @@ const Header = styled.div`
 const Component = styled.div`
   display: flex;
   padding: 2rem;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   flex: 1;

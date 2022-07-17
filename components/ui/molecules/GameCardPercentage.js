@@ -51,31 +51,45 @@ const Overlay = styled.div`
   height: 100%;
 `;
 
-const CompletionContainer = styled.div`
+const ToGetCompletionMainContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  bottom: 0;
-  padding: 1rem;
+  top: 0;
   left: 0;
-  transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.75);
-  transform: translateX(${(props) => (props.showIcons ? '0%' : '-100%')});
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  transform: translateY(${(props) => (props.showIcons ? '0%' : '-100%')});
+  transition: all 0.3s;
+`;
+
+const CompletionContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ToGetContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 1rem;
-  transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.75);
-  transform: translateX(${(props) => (props.showIcons ? '0%' : '100%')});
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const ToGetIcon = styled.div`
   display: flex;
   align-items: center;
   color: #f1b51b;
-  font-size: 2.25rem;
+  font-size: 4rem;
   justify-content: center;
 `;
 
@@ -84,14 +98,14 @@ const ToGetData = styled.div`
   align-items: center;
   justify-content: center;
   color: #f1b51b;
-  font-size: 1.25rem;
+  font-size: 2rem;
 `;
 
 const CompletionIcon = styled.div`
   display: flex;
   align-items: center;
   color: #3470d2;
-  font-size: 2.25rem;
+  font-size: 4rem;
   justify-content: center;
 `;
 
@@ -99,7 +113,7 @@ const CompletionData = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 2rem;
   color: #3470d2;
 `;
 
@@ -125,18 +139,20 @@ export default function GameCardPercentage(props) {
     >
       <Overlay></Overlay>
       <Title>{gameName}</Title>
-      <ToGetContainer showIcons={showIcons}>
-        <ToGetIcon>
-          <FaTrophy />
-        </ToGetIcon>
-        <ToGetData>{total - completed}</ToGetData>
-      </ToGetContainer>
-      <CompletionContainer showIcons={showIcons}>
-        <CompletionIcon>
-          <HiCheckCircle />
-        </CompletionIcon>
-        <CompletionData>{percentage}</CompletionData>
-      </CompletionContainer>
+      <ToGetCompletionMainContainer showIcons={showIcons}>
+        <CompletionContainer>
+          <CompletionIcon>
+            <HiCheckCircle />
+          </CompletionIcon>
+          <CompletionData>{percentage}</CompletionData>
+        </CompletionContainer>
+        <ToGetContainer>
+          <ToGetIcon>
+            <FaTrophy />
+          </ToGetIcon>
+          <ToGetData>{total - completed}</ToGetData>
+        </ToGetContainer>
+      </ToGetCompletionMainContainer>
     </Container>
   );
 }

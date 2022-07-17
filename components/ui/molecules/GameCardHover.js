@@ -56,7 +56,7 @@ const CompletionContainer = styled.div`
   bottom: 0;
   padding: 1rem;
   left: 0;
-  transition: all 0.5s;
+  transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.75);
   transform: translateX(${(props) => (props.showIcons ? '0%' : '-100%')});
 `;
@@ -66,7 +66,7 @@ const ToGetContainer = styled.div`
   bottom: 0;
   right: 0;
   padding: 1rem;
-  transition: all 0.5s;
+  transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.75);
   transform: translateX(${(props) => (props.showIcons ? '0%' : '100%')});
 `;
