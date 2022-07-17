@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HiCheckCircle } from 'react-icons/hi';
 import axios from 'axios';
+import { FaTrophy } from 'react-icons/fa';
+import { HiGlobe } from 'react-icons/hi';
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +17,7 @@ const Container = styled.div`
   border-radius: 4px;
   margin-top: 1rem;
   cursor: pointer;
+  position: relative;
 `;
 
 const IconContainer = styled.div`
@@ -76,6 +79,38 @@ const CompletedIcon = styled.div`
   border-radius: 0 4px 0 4px;
 `;
 
+const PercentageContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fefefe;
+  padding: 0.5rem;
+  border-radius: 0 4px 0 4px;
+`;
+
+const PercentageIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5 0.5rem 0.5rem 0rem;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #737c9d;
+`;
+const PercentageText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  color: #737c9d;
+  font-weight: 300;
+`;
+
 const AchievementNormal = (props) => {
   const { achievement, hiddenAchievementDesc } = props;
 
@@ -94,6 +129,12 @@ const AchievementNormal = (props) => {
 
   return (
     <Container>
+      <PercentageContainer>
+        <PercentageIcon>
+          <HiGlobe />
+        </PercentageIcon>
+        <PercentageText>{Math.floor(percent)} %</PercentageText>
+      </PercentageContainer>
       <IconContainer image={icon}>
         {achieved == 1 && (
           <CompletedIcon>
@@ -103,7 +144,7 @@ const AchievementNormal = (props) => {
       </IconContainer>
       <TitleDescContainer>
         <Title>{displayName}</Title>
-        <Description>{hiddenAchievementDesc || ''}</Description>
+        <Description>{hiddenAchievementDesc || description || ''}</Description>
       </TitleDescContainer>
     </Container>
   );

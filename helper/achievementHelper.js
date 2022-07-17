@@ -37,7 +37,7 @@ export const formatAchievmentsByNotUnlockedEasyPercentage = (achievements) => {
   let sortedByEasy = [];
   if (achievements && achievements.length > 0) {
     sortedByEasy = achievements.sort((achievement1, achievement2) => {
-      return +achievement1.percentage < +achievement2.percentage;
+      return +achievement1.percentage > +achievement2.percentage;
     });
     filteredByNotUnlocked = sortedByEasy.filter((achievement) => {
       return achievement.achieved == 0;
