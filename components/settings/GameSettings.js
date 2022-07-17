@@ -34,7 +34,6 @@ const GameSettings = (props) => {
   ];
 
   const displayFilterChanged = (filterOption) => {
-    console.log('SETTINGS FILTER', filterOption);
     if (window !== 'undefined') {
       localStorage.setItem(LOCALSTORAGE_GAME_SETTING_DISPLAY, filterOption);
       setDefaultSelected((old) => filterOption);

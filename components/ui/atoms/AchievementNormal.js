@@ -20,6 +20,8 @@ const IconContainer = styled.div`
 `;
 
 const AchievementNormal = (props) => {
+  const { achievement } = props;
+  const { name } = achievement;
   return <Container>Achievement</Container>;
 };
 

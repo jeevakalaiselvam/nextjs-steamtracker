@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { HEADER_IMAGE } from '../../helper/urlHelper';
 import { HiCheckCircle } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
-import { formatAchievments } from '../../helper/achievementHelper';
+import AchievementNormal from '../ui/atoms/AchievementNormal';
+import {
+  formatAchievments,
+  formatAchievmentsByRecentUnlocked,
+} from '../../helper/achievementHelper';
 
 const Container = styled.div`
   display: flex;
@@ -115,6 +119,13 @@ const Overlay = styled.div`
   height: 100%;
 `;
 
+const AchievementContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const GamesRightSidebar = (props) => {
   const { selectedGame, showRightSidebar } = props;
   const {
@@ -133,7 +144,10 @@ const GamesRightSidebar = (props) => {
     globalAchievements,
     playerAchievements
   );
-  console.log('FORMATTED ACHIEVEMENETS', formattedAchievements);
+
+  const achievementsSortedByRecent = formatAchievmentsByRecentUnlocked(
+    formattedAchievements
+  );
 
   return (
     <Container image={HEADER_IMAGE(appid)}>
@@ -157,6 +171,17 @@ const GamesRightSidebar = (props) => {
           </ToGetContainer>
         </Stat>
       </Header>
+      <AchievementContainer>
+        {achievementsSortedByRecent.length > 0 &&
+          achievementsSortedByRecent.map((achievement) => {
+            return (
+              <AchievementNormal
+                key={achievement.name}
+                achievement={achievement}
+              />
+            );
+          })}
+      </AchievementContainer>
     </Container>
   );
 };

@@ -29,7 +29,6 @@ const GamesContent = (props) => {
     filterOption,
     gamesDisplayOption,
   } = props;
-  console.log('GAMES', games);
 
   const [searchFilteredGames, setSearchFilteredGames] = useState(games);
 

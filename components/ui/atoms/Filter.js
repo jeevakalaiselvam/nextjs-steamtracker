@@ -48,7 +48,6 @@ export default function Filter({
     onFilterChanged(selectedValue);
   };
 
-  console.log('DEFAULT', defaultSelected);
   return (
     <Container background={background}>
       <select
