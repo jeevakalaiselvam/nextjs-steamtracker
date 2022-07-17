@@ -62,6 +62,7 @@ export default function GameContent(props) {
               }}
             >
               <AchievementNormal
+                clickSearch={false}
                 gameName={gameName}
                 achievement={achievement}
                 background={'#171717'}

@@ -113,7 +113,13 @@ const PercentageText = styled.div`
 `;
 
 const AchievementNormal = (props) => {
-  const { achievement, hiddenAchievementDesc, background, gameName } = props;
+  const {
+    achievement,
+    hiddenAchievementDesc,
+    background,
+    gameName,
+    clickSearch,
+  } = props;
 
   const {
     name,
@@ -132,9 +138,11 @@ const AchievementNormal = (props) => {
     <Container
       background={background}
       onClick={() => {
-        if (window !== 'undefined') {
-          const searchQuery = `${displayName} ${gameName} achievement`;
-          window.open(`https://www.google.com/search?q=${searchQuery}`);
+        if (clickSearch) {
+          if (window !== 'undefined') {
+            const searchQuery = `${displayName} ${gameName} achievement`;
+            window.open(`https://www.google.com/search?q=${searchQuery}`);
+          }
         }
       }}
     >
