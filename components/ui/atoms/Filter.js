@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { GAME_SETTING_DISPLAY_HOVER } from '../../../helper/filterHelper';
 
 const Container = styled.div`
   display: flex;
@@ -30,8 +31,13 @@ const Container = styled.div`
   }
 `;
 
-export default function Filter({ filterOptions, onFilterChanged, background }) {
-  const [selected, setSelected] = useState('');
+export default function Filter({
+  filterOptions,
+  onFilterChanged,
+  background,
+  defaultSelected,
+}) {
+  const [selected, setSelected] = useState(defaultSelected);
 
   useEffect(() => {
     setSelected((old) => filterOptions[0]);
@@ -42,9 +48,15 @@ export default function Filter({ filterOptions, onFilterChanged, background }) {
     onFilterChanged(selectedValue);
   };
 
+  console.log('DEFAULT', defaultSelected);
   return (
     <Container background={background}>
-      <select name="sort" key="sort" onChange={optionChangeHandler}>
+      <select
+        name="sort"
+        key="sort"
+        onChange={optionChangeHandler}
+        defaultValue={defaultSelected}
+      >
         {filterOptions &&
           filterOptions.length > 0 &&
           filterOptions.map((filterOption) => {

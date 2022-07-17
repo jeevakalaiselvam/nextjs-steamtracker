@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   GAME_SETTING_DISPLAY_HOVER,
@@ -36,8 +36,15 @@ const GameSettings = (props) => {
     console.log('SETTINGS FILTER', filterOption);
     if (window !== 'undefined') {
       localStorage.setItem(LOCALSTORAGE_GAME_SETTING_DISPLAY, filterOption);
+      setDefaultSelected((old) => filterOption);
     }
   };
+
+  let selected;
+  if (window !== 'undefined') {
+    selected = localStorage.getItem(LOCALSTORAGE_GAME_SETTING_DISPLAY);
+  }
+  const [defaultSelected, setDefaultSelected] = useState(selected);
 
   return (
     <Container>
@@ -45,6 +52,7 @@ const GameSettings = (props) => {
         title="Display Type"
         component={
           <Filter
+            defaultSelected={defaultSelected}
             background={'#1e1e1e'}
             filterOptions={filterOptions}
             onFilterChanged={displayFilterChanged}
