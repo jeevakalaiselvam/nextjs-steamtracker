@@ -9,6 +9,10 @@ import axios from 'axios';
 import {
   GAMES_SORT_COMPLETION_ASC,
   GAMES_SORT_COMPLETION_DESC,
+  GAME_SETTING_DISPLAY_HOVER,
+  GAME_SETTING_DISPLAY_PERCENTAGE,
+  GAME_SETTING_DISPLAY_VISIBLE,
+  LOCALSTORAGE_GAME_SETTING_DISPLAY,
 } from '../../helper/filterHelper';
 
 export default function Home() {
@@ -28,6 +32,24 @@ export default function Home() {
   const [showRightSidebar, setShowRightSidebar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterOption, setFilterOption] = useState(filterOptions[0].id);
+  const [gamesDisplayOption, setGamesDisplayOption] = useState(
+    GAME_SETTING_DISPLAY_VISIBLE
+  );
+
+  useEffect(() => {
+    if (window !== 'undefined') {
+      setGamesDisplayOption(
+        (old) =>
+          localStorage.getItem(LOCALSTORAGE_GAME_SETTING_DISPLAY) ||
+          GAME_SETTING_DISPLAY_VISIBLE
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    const newGames = games.map((game) => game);
+    setGames((old) => newGames);
+  }, [gamesDisplayOption]);
 
   useEffect(() => {
     const getGames = async () => {
@@ -100,6 +122,7 @@ export default function Home() {
       }
       content={
         <GamesContent
+          gamesDisplayOption={gamesDisplayOption}
           searchTerm={searchTerm}
           filterOption={filterOption}
           games={games}

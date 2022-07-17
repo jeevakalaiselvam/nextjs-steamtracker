@@ -4,6 +4,7 @@ import { API_GET_GAME } from '../../../helper/apiHelper';
 import { HEADER_IMAGE } from '../../../helper/urlHelper';
 import { HiCheckCircle } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
+import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
 
 const Container = styled.div`
   display: 'flex';
@@ -102,8 +103,9 @@ const CompletionData = styled.div`
   color: #3470d2;
 `;
 
-export default function GameCard(props) {
-  const { openRightSidebar, closeRightSidebar, game } = props;
+export default function GameCardHover(props) {
+  const { openRightSidebar, closeRightSidebar, game, gamesDisplayOption } =
+    props;
   const { appid, gameName, completed, total, percentage } = game;
 
   const [showIcons, setShowIcons] = useState(false);

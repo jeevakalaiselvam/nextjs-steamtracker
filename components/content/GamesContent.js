@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getGamesFiltered } from '../../helper/filterHelper';
-import GameCard from '../ui/molecules/GameCard';
+import {
+  GAME_SETTING_DISPLAY_HOVER,
+  GAME_SETTING_DISPLAY_PERCENTAGE,
+  GAME_SETTING_DISPLAY_VISIBLE,
+  getGamesFiltered,
+} from '../../helper/filterHelper';
+import GameCardHover from '../ui/molecules/GameCardHover';
+import GameCardPercentage from '../ui/molecules/GameCardPercentage';
+import GameCardVisible from '../ui/molecules/GameCardVisible';
 
 const Container = styled.div`
   padding: 1rem;
@@ -20,6 +27,7 @@ const GamesContent = (props) => {
     closeRightSidebar,
     searchTerm,
     filterOption,
+    gamesDisplayOption,
   } = props;
   console.log('GAMES', games);
 
@@ -44,13 +52,38 @@ const GamesContent = (props) => {
       {searchFilteredGames.length > 0 &&
         searchFilteredGames.map((game) => {
           return (
-            <GameCard
-              searchTerm={searchTerm}
-              key={game.appid}
-              game={game}
-              openRightSidebar={openRightSidebar}
-              closeRightSidebar={closeRightSidebar}
-            />
+            <React.Fragment key={game.appid}>
+              {gamesDisplayOption === GAME_SETTING_DISPLAY_VISIBLE && (
+                <GameCardVisible
+                  gamesDisplayOption={gamesDisplayOption}
+                  searchTerm={searchTerm}
+                  key={game.appid}
+                  game={game}
+                  openRightSidebar={openRightSidebar}
+                  closeRightSidebar={closeRightSidebar}
+                />
+              )}
+              {gamesDisplayOption === GAME_SETTING_DISPLAY_HOVER && (
+                <GameCardHover
+                  gamesDisplayOption={gamesDisplayOption}
+                  searchTerm={searchTerm}
+                  key={game.appid}
+                  game={game}
+                  openRightSidebar={openRightSidebar}
+                  closeRightSidebar={closeRightSidebar}
+                />
+              )}
+              {gamesDisplayOption === GAME_SETTING_DISPLAY_PERCENTAGE && (
+                <GameCardPercentage
+                  gamesDisplayOption={gamesDisplayOption}
+                  searchTerm={searchTerm}
+                  key={game.appid}
+                  game={game}
+                  openRightSidebar={openRightSidebar}
+                  closeRightSidebar={closeRightSidebar}
+                />
+              )}
+            </React.Fragment>
           );
         })}
     </Container>
