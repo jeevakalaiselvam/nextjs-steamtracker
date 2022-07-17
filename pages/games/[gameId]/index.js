@@ -46,7 +46,6 @@ export default function Game() {
     const getGame = async () => {
       const response = await axios.get(API_GET_ACHIEVEMENTS(gameId));
       const data = response.data.game;
-      console.log('GAME ACHIEVEMENTS', data);
       setGame((old) => data);
     };
     getGame();

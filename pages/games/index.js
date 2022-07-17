@@ -64,7 +64,7 @@ export default function Home() {
           completed,
           total,
           percentage:
-            completed === 0 ? 0 : Math.floor((completed / total) * 100),
+            completed === 0 ? 0 : Math.ceil((completed / total) * 100),
         };
         return newGame;
       });

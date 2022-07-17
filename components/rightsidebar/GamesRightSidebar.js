@@ -176,10 +176,6 @@ const GamesRightSidebar = (props) => {
       setHiddenAchievementsData(
         (old) => hiddenAchievements.data.hiddenAchievements
       );
-      console.log(
-        'HIDDEN ACHIEVEMENTS',
-        hiddenAchievements.data.hiddenAchievements
-      );
     };
     if (appid) {
       getData();
@@ -195,18 +191,9 @@ const GamesRightSidebar = (props) => {
   const achievementsSortedByEasy = formatAchievmentsByNotUnlockedEasyPercentage(
     formattedAchievements
   );
+  console.log('EASY', achievementsSortedByEasy);
   const achievementsSortedByUnlockedRecent = formatAchievmentsByUnlockedRecent(
     formattedAchievements
-  );
-
-  console.clear();
-  console.log(
-    'FORMATTED ACHIEVEMENTS EASY NOT UNLOCKED',
-    achievementsSortedByEasy
-  );
-  console.log(
-    'FORMATTED ACHIEVEMENTS UNLOCKED RECENT',
-    achievementsSortedByUnlockedRecent
   );
 
   return (
@@ -250,6 +237,7 @@ const GamesRightSidebar = (props) => {
               );
               return (
                 <AchievementNormal
+                  gameName={gameName}
                   key={achievement.name}
                   achievement={achievement}
                   hiddenAchievementDesc={hiddenAchievementDesc}
@@ -268,6 +256,7 @@ const GamesRightSidebar = (props) => {
                 );
                 return (
                   <AchievementNormal
+                    gameName={gameName}
                     key={achievement.name}
                     achievement={achievement}
                     hiddenAchievementDesc={hiddenAchievementDesc}

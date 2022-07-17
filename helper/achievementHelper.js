@@ -37,7 +37,7 @@ export const formatAchievmentsByNotUnlockedEasyPercentage = (achievements) => {
   let sortedByEasy = [];
   if (achievements && achievements.length > 0) {
     sortedByEasy = achievements.sort((achievement1, achievement2) => {
-      return +achievement1.percentage > +achievement2.percentage;
+      return +achievement1.percent < +achievement2.percent;
     });
     filteredByNotUnlocked = sortedByEasy.filter((achievement) => {
       return achievement.achieved == 0;
@@ -64,11 +64,6 @@ export const getHiddenDescriptionForName = (name, achievements) => {
   let hiddenAchievement = '';
   if (achievements && achievements.length > 0) {
     const hiddenAchievementObject = achievements.find((achievement) => {
-      console.log(
-        'CHECKING',
-        achievement.name.toLowerCase(),
-        name.toLowerCase()
-      );
       return achievement.name.toLowerCase() == name.toLowerCase();
     });
 

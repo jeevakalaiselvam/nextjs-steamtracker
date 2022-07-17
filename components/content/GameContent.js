@@ -25,7 +25,7 @@ const AchievementWrapper = styled.div`
 
 export default function GameContent(props) {
   const { game, openRightSidebar, closeRightSidebar } = props;
-  console.log('GAME CONTENT', game);
+
   const {
     appid,
     gameName,
@@ -62,6 +62,7 @@ export default function GameContent(props) {
               }}
             >
               <AchievementNormal
+                gameName={gameName}
                 achievement={achievement}
                 background={'#171717'}
               />
