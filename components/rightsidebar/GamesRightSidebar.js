@@ -395,6 +395,8 @@ const GamesRightSidebar = (props) => {
                   {achievementDisplayOption ===
                     GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL && (
                     <AchievementNormal
+                      padding="2rem"
+                      margin="0rem 0rem 1rem 0rem"
                       clickSearch={true}
                       gameName={gameName}
                       key={achievement.name}
@@ -441,6 +443,8 @@ const GamesRightSidebar = (props) => {
                     {achievementDisplayOption ===
                       GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL && (
                       <AchievementNormal
+                        padding="2rem"
+                        margin="0rem 0rem 1rem 0rem"
                         clickSearch={true}
                         gameName={gameName}
                         key={achievement.name}

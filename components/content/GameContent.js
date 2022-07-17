@@ -20,7 +20,7 @@ const Container = styled.div`
 const AchievementWrapper = styled.div`
   width: 450px;
   min-height: 100px;
-  margin: 1rem;
+  margin: 0rem 1rem 1rem 0rem;
 `;
 
 export default function GameContent(props) {
@@ -62,6 +62,8 @@ export default function GameContent(props) {
               }}
             >
               <AchievementNormal
+                padding="1rem"
+                margin="0rem 0rem 0rem 0rem"
                 clickSearch={false}
                 gameName={gameName}
                 achievement={achievement}

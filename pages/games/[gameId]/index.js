@@ -17,6 +17,7 @@ import Page from '../../../layouts/Page';
 export default function Game() {
   const router = useRouter();
   const { gameId } = router.query;
+  console.log('GAME SELECTED', gameId);
   const filterOptions = [
     {
       id: GAME_ACHIEVEMENT_SORT_EASY,
@@ -49,7 +50,7 @@ export default function Game() {
       setGame((old) => data);
     };
     getGame();
-  }, []);
+  }, [gameId]);
 
   const searchTextChanged = (searchTerm) => {
     setSearchTerm((old) => searchTerm);

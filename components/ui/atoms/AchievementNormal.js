@@ -12,11 +12,11 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   min-height: 100px;
-  padding: 1rem;
   background-color: ${(props) =>
     props.background ? props.background : '#1e1e1e'};
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  border-radius: 6px;
+  padding: ${(props) => (props.padding ? props.padding : '0rem')};
+  margin: ${(props) => (props.margin ? props.margin : '0rem')};
   cursor: pointer;
   position: relative;
 `;
@@ -47,9 +47,10 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  color: #eeeeee;
   padding: 0rem 1rem;
   justify-content: flex-start;
-  font-size: 1.5rem;
+  font-size: 1.65rem;
 `;
 
 const Description = styled.div`
@@ -60,7 +61,7 @@ const Description = styled.div`
   color: #6c6c6e;
   width: 100%;
   flex: 1;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 300;
 `;
 
@@ -119,6 +120,8 @@ const AchievementNormal = (props) => {
     background,
     gameName,
     clickSearch,
+    padding,
+    margin,
   } = props;
 
   const {
@@ -136,6 +139,8 @@ const AchievementNormal = (props) => {
 
   return (
     <Container
+      margin={margin}
+      padding={padding}
       background={background}
       onClick={() => {
         if (clickSearch) {
