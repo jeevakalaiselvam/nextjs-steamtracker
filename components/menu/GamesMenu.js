@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Profile from '../ui/molecules/Profile';
 import MenuItem from '../ui/atoms/MenuItem';
@@ -6,6 +6,8 @@ import { HiViewGrid, HiAdjustments, HiRefresh } from 'react-icons/hi';
 import SubMenu from '../ui/atoms/SubMenu';
 import { useRouter } from 'next/router';
 import Level from '../ui/atoms/Level';
+import axios from 'axios';
+import { API_TOTAL_XP } from '../../helper/apiHelper';
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +17,17 @@ const Container = styled.div`
 
 const GamesMenu = (props) => {
   const router = useRouter();
-  const { totalXP } = props;
+  const [totalXP, setTotalXP] = useState(0);
+
+  useEffect(() => {
+    const getTotalXP = async () => {
+      const response = await axios.get(API_TOTAL_XP());
+      const data = response.data;
+      setTotalXP((old) => data.totalXP);
+    };
+    getTotalXP();
+  }, []);
+
   return (
     <Container>
       <Profile />

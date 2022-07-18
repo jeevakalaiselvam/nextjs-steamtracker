@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API_GET_GAME } from '../../../helper/apiHelper';
 import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { HiClock } from 'react-icons/hi';
+import { HiClock, HiCollection } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
 import axios from 'axios';
 import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
+import { formatAchievments } from '../../../helper/achievementHelper';
+import { getRemainingXP } from '../../../helper/xpHelper';
 
 const Container = styled.div`
   display: 'flex';
@@ -96,6 +98,32 @@ const CompletionData = styled.div`
   color: #3470d2;
 `;
 
+const XPContainer = styled.div`
+  position: absolute;
+  top: 0;
+  padding: 1rem;
+  left: 50%;
+  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.75);
+  transform: translate(-50%, ${(props) => (props.showIcons ? '0%' : '-100%')});
+`;
+
+const XPIcon = styled.div`
+  display: flex;
+  align-items: center;
+  color: #fefefe;
+  font-size: 2.25rem;
+  justify-content: center;
+`;
+
+const XPData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #fefefe;
+`;
+
 const Overlay = styled.div`
   position: absolute;
   background-color: rgba(0, 0, 0, 0.3);
@@ -129,10 +157,25 @@ export default function GameCardHover(props) {
     gamesDisplayOption,
     onGameInitialChanged,
   } = props;
-  const { appid, gameName, completed, total, percentage } = game;
+  const {
+    appid,
+    gameName,
+    completed,
+    total,
+    percentage,
+    schemaAchievements,
+    playerAchievements,
+    globalAchievements,
+  } = game;
 
   const [showIcons, setShowIcons] = useState(false);
 
+  const formattedAchievements = formatAchievments(
+    schemaAchievements,
+    globalAchievements,
+    playerAchievements
+  );
+  const remainingXP = getRemainingXP(formattedAchievements);
   return (
     <Container
       image={HEADER_IMAGE(appid)}
@@ -167,6 +210,13 @@ export default function GameCardHover(props) {
         </CompletionIcon>
         <CompletionData>{percentage}</CompletionData>
       </CompletionContainer>
+
+      <XPContainer showIcons={showIcons}>
+        <XPIcon>
+          <HiCollection />
+        </XPIcon>
+        <XPData>{remainingXP} XP</XPData>
+      </XPContainer>
     </Container>
   );
 }

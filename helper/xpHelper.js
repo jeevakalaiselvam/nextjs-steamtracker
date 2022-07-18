@@ -63,3 +63,14 @@ export const totalXPForGames = (games) => {
 
   return totalXP;
 };
+
+export const getRemainingXP = (achievements) => {
+  let remainingXP = 0;
+  achievements.forEach((achievement) => {
+    if (achievement.achieved == 0) {
+      remainingXP =
+        remainingXP + +calculateXPFromPercentage(achievement.percent);
+    }
+  });
+  return remainingXP;
+};

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { XP_FOR_LEVEL } from '../../../helper/xpHelper';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { HiChevronDoubleUp } from 'react-icons/hi';
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +17,19 @@ const LevelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 2.5rem;
+  color: #f5b81c;
+  font-weight: 300;
+`;
+
+const MoreNeeded = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fefefe;
+  font-weight: 300;
+  margin-top: 0.5rem;
 `;
 
 const ProgressContainer = styled.div`
@@ -24,6 +38,19 @@ const ProgressContainer = styled.div`
   width: 100px;
   padding: 1rem;
   height: 100px;
+  justify-content: center;
+`;
+
+const MoreData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MoreIcon = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
   justify-content: center;
 `;
 
@@ -51,6 +78,12 @@ export default function Level(props) {
       <LevelContainer>
         LEVEL {Math.floor(totalXP / XP_FOR_LEVEL)}
       </LevelContainer>
+      <MoreNeeded>
+        <MoreIcon>
+          <HiChevronDoubleUp />
+        </MoreIcon>
+        <MoreData>{XP_FOR_LEVEL - (totalXP % XP_FOR_LEVEL)} XP</MoreData>
+      </MoreNeeded>
     </Container>
   );
 }

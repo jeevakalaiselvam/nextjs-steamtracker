@@ -85,8 +85,6 @@ export default function Home() {
         return newGame;
       });
       console.log('MAIN GAMES', completionAddedGames);
-      const totalXP = totalXPForGames(completionAddedGames);
-      setTotalXP((old) => totalXP);
       setGames((old) => completionAddedGames);
     };
 

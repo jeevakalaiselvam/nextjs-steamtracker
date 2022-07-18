@@ -33,3 +33,7 @@ export const API_GET_HIDDEN_ACHIEVEMENTS = (gameId) => {
 export const API_REFRESH_DATA = () => {
   return `${getAPIUrlPrefix()}/refresh`;
 };
+
+export const API_TOTAL_XP = () => {
+  return `${getAPIUrlPrefix()}/totalxp`;
+};

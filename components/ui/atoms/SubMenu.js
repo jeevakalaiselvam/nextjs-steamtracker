@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
   color: #9caabe;
   width: 100%;
-  margin: 1rem 0rem;
+  margin: 0.5rem 0rem;
 `;
 
 const SubMenu = (props) => {
