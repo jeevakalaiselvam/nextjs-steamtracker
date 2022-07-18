@@ -17,8 +17,8 @@ const TotalXP = styled.div`
   justify-content: center;
   border-radius: 2px;
   margin: 1rem 0rem;
-  color: rgb(3, 3, 3);
-  background-color: rgb(254, 204, 9);
+  color: #fefefe;
+  background-color: #3049d1;
   font-size: 1.5rem;
 `;
 
@@ -31,7 +31,7 @@ const RemainingXP = styled.div`
   align-items: center;
   color: rgb(3, 3, 3);
   justify-content: center;
-  color: #09113b;
+  color: #fefefe;
   font-size: 1.5rem;
 `;
 
@@ -42,7 +42,7 @@ const CompletedXP = styled.div`
   border-radius: 2px;
   margin: 1rem 0rem;
   background-color: #3049d1;
-  color: #09113b;
+  color: #fefefe;
   justify-content: center;
   font-size: 1.5rem;
 `;

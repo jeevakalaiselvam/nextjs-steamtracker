@@ -9,8 +9,12 @@ import { HiChevronRight } from 'react-icons/hi';
 import AchievementNormal from '../ui/atoms/AchievementNormal';
 import { FaPlus } from 'react-icons/fa';
 import {
+  GAME_JOURNAL_FONT_SETTING_LARGE,
+  GAME_JOURNAL_FONT_SETTING_MEDIUM,
+  GAME_JOURNAL_FONT_SETTING_SMALL,
   LOCALSTORAGE_ACHIEVEMENTSIDEBAR_SETTING_DISPLAY,
   LOCALSTORAGE_JOURNAL,
+  LOCALSTORAGE_JOURNAL_SETTING_FONT,
 } from '../../helper/filterHelper';
 import Video from '../ui/atoms/Video';
 
@@ -69,6 +73,7 @@ const JournalData = styled.div`
     outline: none;
     border: none;
     flex: 1;
+    font-size: ${(props) => props.fontSize || '1rem'};
     font-weight: 300;
     padding: 1rem;
     width: 100%;
@@ -153,6 +158,24 @@ export default function GameRightSidebar(props) {
     setJournalData((old) => journalData);
   }, [name]);
 
+  const [fontSize, setFontSize] = useState('1rem');
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const journalFontSize =
+        localStorage.getItem(LOCALSTORAGE_JOURNAL_SETTING_FONT) ||
+        GAME_JOURNAL_FONT_SETTING_SMALL;
+      if (journalFontSize === GAME_JOURNAL_FONT_SETTING_SMALL) {
+        setFontSize((old) => '1rem');
+      }
+      if (journalFontSize === GAME_JOURNAL_FONT_SETTING_MEDIUM) {
+        setFontSize((old) => '1.5rem');
+      }
+      if (journalFontSize === GAME_JOURNAL_FONT_SETTING_LARGE) {
+        setFontSize((old) => '2rem');
+      }
+    }
+  }, []);
+
   return (
     <Container>
       <HideSidebar>
@@ -174,7 +197,7 @@ export default function GameRightSidebar(props) {
           gameName={gameName}
           clickSearch={true}
         />
-        <JournalData>
+        <JournalData fontSize={fontSize}>
           <textarea
             placeholder="Enter Journal.."
             onChange={journalDataChanged}
