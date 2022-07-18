@@ -71,7 +71,6 @@ export default function GameRightSidebar(props) {
     hiddenAchievementDesc,
     unlocktime,
   } = achievementSelected;
-  console.log(achievementSelected);
 
   const formattedAchievements = formatAchievments(
     schemaAchievements,

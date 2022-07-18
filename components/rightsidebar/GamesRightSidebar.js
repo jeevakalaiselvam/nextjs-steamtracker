@@ -318,8 +318,6 @@ const GamesRightSidebar = (props) => {
     hiddenAchievementDesc,
   } = smallAchievement;
 
-  console.log('SMALL ACHIVE', smallAchievement);
-
   useEffect(() => {
     const getData = async () => {
       const hiddenAchievements = await axios.get(
