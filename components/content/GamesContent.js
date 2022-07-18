@@ -29,6 +29,7 @@ const GamesContent = (props) => {
     filterOption,
     gamesDisplayOption,
     achievementDisplayOption,
+    onGameInitialChanged,
   } = props;
 
   const [searchFilteredGames, setSearchFilteredGames] = useState(games);
@@ -44,6 +45,7 @@ const GamesContent = (props) => {
         }
       });
       setSearchFilteredGames((old) => searchFilteredGames);
+      onGameInitialChanged(searchFilteredGames[0]);
     }
   }, [games, searchTerm, filterOption]);
 

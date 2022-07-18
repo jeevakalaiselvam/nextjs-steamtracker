@@ -14,6 +14,7 @@ import {
   LOCALSTORAGE_ACHIEVEMENTSIDEBAR_SETTING_DISPLAY,
   LOCALSTORAGE_GAME_SETTING_DISPLAY,
 } from '../../helper/filterHelper';
+import Loader from '../../components/ui/atoms/Loader';
 
 export default function Home() {
   const filterOptions = [
@@ -90,6 +91,7 @@ export default function Home() {
   useEffect(() => {
     if (games.length > 0) {
       setSelectedGame((old) => games[0]);
+      setLoading((old) => false);
     }
   }, [games]);
 
@@ -106,6 +108,10 @@ export default function Home() {
     setSearchTerm((old) => searchTerm);
   };
 
+  const onGameInitialChanged = (game) => {
+    setSelectedGame((old) => game);
+  };
+
   const onFilterChanged = (filterOption) => {
     switch (filterOption) {
       case GAMES_SORT_COMPLETION_DESC:
@@ -113,10 +119,17 @@ export default function Home() {
         break;
       case GAMES_SORT_COMPLETION_ASC:
         setFilterOption((old) => GAMES_SORT_COMPLETION_ASC);
+        setGames((old) => old.map((game) => game));
         break;
       default:
         break;
     }
+  };
+
+  const [loading, setLoading] = useState(true);
+
+  const onLoadingComplete = () => {
+    setLoading((old) => false);
   };
 
   return (
@@ -124,27 +137,36 @@ export default function Home() {
       showRightSidebar={showRightSidebar}
       leftSidebar={<GamesLeftSidebar />}
       rightSidebar={
-        <GamesRightSidebar
-          selectedGame={selectedGame}
-          achievementDisplayOption={achievementDisplayOption}
-        />
+        !loading && (
+          <GamesRightSidebar
+            selectedGame={selectedGame}
+            achievementDisplayOption={achievementDisplayOption}
+          />
+        )
       }
       header={
-        <GamesHeader
-          filterOptions={filterOptions}
-          searchTextChanged={searchTextChanged}
-          onFilterChanged={onFilterChanged}
-        />
+        !loading && (
+          <GamesHeader
+            filterOptions={filterOptions}
+            searchTextChanged={searchTextChanged}
+            onFilterChanged={onFilterChanged}
+          />
+        )
       }
       content={
-        <GamesContent
-          gamesDisplayOption={gamesDisplayOption}
-          searchTerm={searchTerm}
-          filterOption={filterOption}
-          games={games}
-          openRightSidebar={openRightSidebar}
-          closeRightSidebar={closeRightSidebar}
-        />
+        !loading ? (
+          <GamesContent
+            gamesDisplayOption={gamesDisplayOption}
+            searchTerm={searchTerm}
+            filterOption={filterOption}
+            games={games}
+            openRightSidebar={openRightSidebar}
+            closeRightSidebar={closeRightSidebar}
+            onGameInitialChanged={onGameInitialChanged}
+          />
+        ) : (
+          <Loader />
+        )
       }
     />
   );
