@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HEADER_IMAGE } from '../../helper/urlHelper';
-import { HiClock, HiGlobe, HiCheck } from 'react-icons/hi';
+import { HiChartBar, HiGlobe, HiCheck } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import AchievementNormal from '../ui/atoms/AchievementNormal';
 import {
@@ -352,7 +352,7 @@ const GamesRightSidebar = (props) => {
         <Stat>
           <CompletionContainer>
             <CompletionIcon>
-              <HiClock />
+              <HiChartBar />
             </CompletionIcon>
             <CompletionData>{percentage}</CompletionData>
           </CompletionContainer>
