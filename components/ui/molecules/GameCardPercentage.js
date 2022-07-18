@@ -5,6 +5,7 @@ import { HEADER_IMAGE } from '../../../helper/urlHelper';
 import { HiClock } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
+import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
 
 const Container = styled.div`
   display: 'flex';
@@ -118,8 +119,13 @@ const CompletionData = styled.div`
 `;
 
 export default function GameCardPercentage(props) {
-  const { openRightSidebar, closeRightSidebar, game, gamesDisplayOption } =
-    props;
+  const {
+    openRightSidebar,
+    closeRightSidebar,
+    game,
+    gamesDisplayOption,
+    onGameInitialChanged,
+  } = props;
   const { appid, gameName, completed, total, percentage } = game;
 
   const [showIcons, setShowIcons] = useState(false);
@@ -135,6 +141,13 @@ export default function GameCardPercentage(props) {
       }}
       onClick={() => {
         openRightSidebar(game);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(
+            LOCALSTORAGE_GAME_SELECTED,
+            JSON.stringify(game)
+          );
+          onGameInitialChanged(game);
+        }
       }}
     >
       <Overlay>{completed == total && <FaTrophy />}</Overlay>

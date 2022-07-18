@@ -45,7 +45,6 @@ const GamesContent = (props) => {
         }
       });
       setSearchFilteredGames((old) => searchFilteredGames);
-      onGameInitialChanged(searchFilteredGames[0]);
     }
   }, [games, searchTerm, filterOption]);
 
@@ -57,6 +56,7 @@ const GamesContent = (props) => {
             <React.Fragment key={game.appid}>
               {gamesDisplayOption === GAME_SETTING_DISPLAY_VISIBLE && (
                 <GameCardVisible
+                  onGameInitialChanged={onGameInitialChanged}
                   gamesDisplayOption={gamesDisplayOption}
                   searchTerm={searchTerm}
                   key={game.appid}
@@ -67,6 +67,7 @@ const GamesContent = (props) => {
               )}
               {gamesDisplayOption === GAME_SETTING_DISPLAY_HOVER && (
                 <GameCardHover
+                  onGameInitialChanged={onGameInitialChanged}
                   gamesDisplayOption={gamesDisplayOption}
                   searchTerm={searchTerm}
                   key={game.appid}
@@ -77,6 +78,7 @@ const GamesContent = (props) => {
               )}
               {gamesDisplayOption === GAME_SETTING_DISPLAY_PERCENTAGE && (
                 <GameCardPercentage
+                  onGameInitialChanged={onGameInitialChanged}
                   gamesDisplayOption={gamesDisplayOption}
                   searchTerm={searchTerm}
                   key={game.appid}

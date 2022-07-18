@@ -286,6 +286,7 @@ const PercentageText = styled.div`
 const GamesRightSidebar = (props) => {
   const router = useRouter();
   const { selectedGame, achievementDisplayOption } = props;
+  console.log('SELECTED GAME IN SIDEBAR', selectedGame);
   const {
     appid,
     gameName,
@@ -438,7 +439,7 @@ const GamesRightSidebar = (props) => {
                   hiddenAchievementsData
                 );
                 return (
-                  <>
+                  <React.Fragment key={achievement.name}>
                     {achievementDisplayOption ===
                       GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL && (
                       <AchievementNormal
@@ -468,7 +469,7 @@ const GamesRightSidebar = (props) => {
                         }}
                       />
                     )}
-                  </>
+                  </React.Fragment>
                 );
               })}
           </AllUnlockedContainer>

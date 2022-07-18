@@ -15,6 +15,7 @@ import {
   LOCALSTORAGE_GAME_SETTING_DISPLAY,
 } from '../../helper/filterHelper';
 import Loader from '../../components/ui/atoms/Loader';
+import { LOCALSTORAGE_GAME_SELECTED } from '../../helper/storageHelper';
 
 export default function Home() {
   const filterOptions = [
@@ -90,14 +91,26 @@ export default function Home() {
 
   useEffect(() => {
     if (games.length > 0) {
-      setSelectedGame((old) => games[0]);
+      setSelectedGame((old) => {
+        if (typeof window !== 'undefined') {
+          const game = JSON.parse(
+            localStorage.getItem(LOCALSTORAGE_GAME_SELECTED)
+          );
+          console.log('LCOAL STORAGE GAME', game);
+          if (game) {
+            return game;
+          } else {
+            return games[0];
+          }
+        }
+      });
       setLoading((old) => false);
     }
   }, [games]);
 
   const openRightSidebar = (data) => {
     setShowRightSidebar((old) => true);
-    setSelectedGame((old) => data);
+    // setSelectedGame((old) => data);
   };
 
   const closeRightSidebar = () => {

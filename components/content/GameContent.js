@@ -175,7 +175,7 @@ export default function GameContent(props) {
                 clickSearch={false}
                 gameName={gameName}
                 achievement={achievement}
-                background={'#2d2d2d'}
+                background={'#121212'}
                 hiddenAchievementDesc={hiddenAchievementDesc}
                 disableOpacityTrigger={true}
               />
