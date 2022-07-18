@@ -10,9 +10,10 @@ const Container = styled.div`
 `;
 
 const GamesLeftSidebar = (props) => {
+  const { totalXP } = props;
   return (
     <Container>
-      <GamesMenu />
+      <GamesMenu totalXP={totalXP} />
     </Container>
   );
 };

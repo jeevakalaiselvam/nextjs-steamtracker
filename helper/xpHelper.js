@@ -1,3 +1,7 @@
+import { formatAchievments } from './achievementHelper';
+
+export const XP_FOR_LEVEL = 1000;
+
 export const calculateXPFromPercentage = (percentage) => {
   if (percentage <= 5) {
     return 500;
@@ -12,4 +16,50 @@ export const calculateXPFromPercentage = (percentage) => {
   } else {
     return 25;
   }
+};
+
+export const totalXPForGames = (games) => {
+  let totalXP = 0;
+
+  console.log('GAMES FOR XP', games);
+
+  if (games && games.length > 0) {
+    games.forEach((game) => {
+      const {
+        appid,
+        completed,
+        gameName,
+        globalAchievements,
+        playerAchievements,
+        schemaAchievements,
+        percentage,
+        total,
+      } = game;
+
+      const formattedAchivements = formatAchievments(
+        schemaAchievements,
+        globalAchievements,
+        playerAchievements
+      );
+
+      formattedAchivements.forEach((achievement) => {
+        const {
+          name,
+          displayName,
+          description,
+          icon,
+          icongray,
+          achieved,
+          apiname,
+          hidden,
+          percent,
+          unlocktime,
+        } = achievement;
+
+        totalXP += achieved == 1 ? calculateXPFromPercentage(percent) : 0;
+      });
+    });
+  }
+
+  return totalXP;
 };

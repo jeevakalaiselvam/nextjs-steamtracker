@@ -5,6 +5,7 @@ import MenuItem from '../ui/atoms/MenuItem';
 import { HiViewGrid, HiAdjustments, HiRefresh } from 'react-icons/hi';
 import SubMenu from '../ui/atoms/SubMenu';
 import { useRouter } from 'next/router';
+import Level from '../ui/atoms/Level';
 
 const Container = styled.div`
   display: flex;
@@ -14,10 +15,11 @@ const Container = styled.div`
 
 const GamesMenu = (props) => {
   const router = useRouter();
-
+  const { totalXP } = props;
   return (
     <Container>
       <Profile />
+      <Level totalXP={totalXP} />
       <SubMenu title="Main" />
       <MenuItem
         title="Games"

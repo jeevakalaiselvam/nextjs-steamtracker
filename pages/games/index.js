@@ -16,6 +16,7 @@ import {
 } from '../../helper/filterHelper';
 import Loader from '../../components/ui/atoms/Loader';
 import { LOCALSTORAGE_GAME_SELECTED } from '../../helper/storageHelper';
+import { totalXPForGames } from '../../helper/xpHelper';
 
 export default function Home() {
   const filterOptions = [
@@ -30,6 +31,7 @@ export default function Home() {
   ];
 
   const [games, setGames] = useState([]);
+  const [totalXP, setTotalXP] = useState(0);
   const [selectedGame, setSelectedGame] = useState({});
   const [showRightSidebar, setShowRightSidebar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,6 +85,8 @@ export default function Home() {
         return newGame;
       });
       console.log('MAIN GAMES', completionAddedGames);
+      const totalXP = totalXPForGames(completionAddedGames);
+      setTotalXP((old) => totalXP);
       setGames((old) => completionAddedGames);
     };
 
@@ -148,7 +152,7 @@ export default function Home() {
   return (
     <Page
       showRightSidebar={showRightSidebar}
-      leftSidebar={<GamesLeftSidebar />}
+      leftSidebar={<GamesLeftSidebar totalXP={totalXP} />}
       rightSidebar={
         !loading && (
           <GamesRightSidebar
