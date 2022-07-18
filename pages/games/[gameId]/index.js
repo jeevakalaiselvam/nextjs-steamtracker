@@ -106,6 +106,14 @@ export default function Game() {
     }
   };
 
+  const [achievementSelected, setAchievementSelected] = useState({});
+  const onAchievementSelect = (achievement, hiddenAchievementDesc) => {
+    setAchievementSelected((old) => ({
+      ...achievement,
+      hiddenAchievementDesc,
+    }));
+  };
+
   return (
     <>
       {game && (
@@ -129,12 +137,14 @@ export default function Game() {
               filterLockUnlockOption={filterLockUnlockOption}
               openRightSidebar={openRightSidebar}
               closeRightSidebar={closeRightSidebar}
+              onAchievementSelect={onAchievementSelect}
             />
           }
           rightSidebar={
             showRightSidebar && (
               <GameRightSidebar
                 game={game}
+                achievementSelected={achievementSelected}
                 openRightSidebar={openRightSidebar}
                 closeRightSidebar={closeRightSidebar}
               />

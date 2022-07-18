@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   formatAchievments,
   formatAchievmentsByNotUnlockedEasyPercentage,
@@ -6,6 +6,7 @@ import {
 } from '../../helper/achievementHelper';
 import styled from 'styled-components';
 import { HiChevronRight } from 'react-icons/hi';
+import AchievementNormal from '../ui/atoms/AchievementNormal';
 
 const Container = styled.div`
   width: 100%;
@@ -36,8 +37,16 @@ const HideIcon = styled.div`
   }
 `;
 
+const JournalVideo = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function GameRightSidebar(props) {
-  const { game, closeRightSidebar, openRightSidebar } = props;
+  const { game, closeRightSidebar, openRightSidebar, achievementSelected } =
+    props;
   const {
     appid,
     gameName,
@@ -48,6 +57,21 @@ export default function GameRightSidebar(props) {
     playerAchievements,
     globalAchievements,
   } = game;
+
+  const {
+    name,
+    displayName,
+    description,
+    icon,
+    icongray,
+    achieved,
+    apiname,
+    hidden,
+    percent,
+    hiddenAchievementDesc,
+    unlocktime,
+  } = achievementSelected;
+  console.log(achievementSelected);
 
   const formattedAchievements = formatAchievments(
     schemaAchievements,
@@ -62,6 +86,12 @@ export default function GameRightSidebar(props) {
     formattedAchievements
   );
 
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const videos = localStorage.getItem(``);
+  }, []);
+
   return (
     <Container>
       <HideSidebar>
@@ -73,6 +103,17 @@ export default function GameRightSidebar(props) {
           <HiChevronRight />
         </HideIcon>
       </HideSidebar>
+      <JournalVideo>
+        <AchievementNormal
+          padding="2rem"
+          margin="1rem 0rem 1rem 0rem"
+          disableOpacityTrigger={true}
+          achievement={achievementSelected}
+          hiddenAchievementDesc={achievementSelected.hiddenAchievementDesc}
+          gameName={gameName}
+          clickSearch={true}
+        />
+      </JournalVideo>
     </Container>
   );
 }

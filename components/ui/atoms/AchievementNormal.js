@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { HiCheck } from 'react-icons/hi';
+import { HiCheckCircle } from 'react-icons/hi';
 import axios from 'axios';
 import { FaTrophy } from 'react-icons/fa';
 import { HiGlobe } from 'react-icons/hi';
@@ -19,7 +19,8 @@ const Container = styled.div`
   margin: ${(props) => (props.margin ? props.margin : '0rem')};
   cursor: pointer;
   position: relative;
-  opacity: ${(props) => (props.achieved ? '0.3' : '1')};
+  opacity: ${(props) =>
+    props.achieved && !props.disableOpacityTrigger ? '0.3' : '1'};
 `;
 
 const IconContainer = styled.div`
@@ -75,8 +76,8 @@ const CompletedIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  color: #fefefe;
+  font-size: 3rem;
+  color: #ffffff;
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0 4px 0 4px;
@@ -123,6 +124,7 @@ const AchievementNormal = (props) => {
     clickSearch,
     padding,
     margin,
+    disableOpacityTrigger,
   } = props;
 
   const {
@@ -140,6 +142,7 @@ const AchievementNormal = (props) => {
 
   return (
     <Container
+      disableOpacityTrigger={disableOpacityTrigger}
       achieved={achieved}
       margin={margin}
       padding={padding}
@@ -162,7 +165,7 @@ const AchievementNormal = (props) => {
       <IconContainer image={icon}>
         {achieved == 1 && (
           <CompletedIcon>
-            <HiCheck />
+            <HiCheckCircle />
           </CompletedIcon>
         )}
       </IconContainer>

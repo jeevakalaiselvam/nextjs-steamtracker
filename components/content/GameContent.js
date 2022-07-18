@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -6,9 +7,11 @@ import {
   formatAchievments,
   formatAchievmentsByNotUnlockedEasyPercentage,
   formatAchievmentsByUnlockedRecent,
+  getHiddenDescriptionForName,
   sortAchievmentsByEasy,
   sortAchievmentsByHard,
 } from '../../helper/achievementHelper';
+import { API_GET_HIDDEN_ACHIEVEMENTS } from '../../helper/apiHelper';
 import {
   GAME_ACHIEVEMENT_SORT_ALL,
   GAME_ACHIEVEMENT_SORT_EASY,
@@ -42,6 +45,7 @@ export default function GameContent(props) {
     filterOption,
     filterLockUnlockOption,
     searchTerm,
+    onAchievementSelect,
   } = props;
 
   const {
@@ -128,15 +132,35 @@ export default function GameContent(props) {
     }
   }, [filterOption, filterLockUnlockOption]);
 
+  const [hiddenAchievementsData, setHiddenAchievementsData] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const hiddenAchievements = await axios.get(
+        API_GET_HIDDEN_ACHIEVEMENTS(appid)
+      );
+      setHiddenAchievementsData(
+        (old) => hiddenAchievements.data.hiddenAchievements
+      );
+    };
+    if (appid) {
+      getData();
+    }
+  }, [appid]);
+
   return (
     <Container>
       {searchFilteredAchievements.length > 0 &&
         searchFilteredAchievements.map((achievement) => {
+          const hiddenAchievementDesc = getHiddenDescriptionForName(
+            achievement.displayName,
+            hiddenAchievementsData
+          );
           return (
             <AchievementWrapper
               key={achievement.name}
               onClick={() => {
                 openRightSidebar();
+                onAchievementSelect(achievement, hiddenAchievementDesc);
               }}
             >
               <AchievementNormal
@@ -146,6 +170,7 @@ export default function GameContent(props) {
                 gameName={gameName}
                 achievement={achievement}
                 background={'#171717'}
+                hiddenAchievementDesc={hiddenAchievementDesc}
               />
             </AchievementWrapper>
           );
