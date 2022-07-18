@@ -34,16 +34,16 @@ export default function Game() {
 
   const lockedUnlockedFilterOptions = [
     {
+      id: GAME_ACHIEVEMENT_SORT_ALL,
+      title: 'Show All',
+    },
+    {
       id: GAME_ACHIEVEMENT_SORT_LOCKED,
       title: 'Show Locked',
     },
     {
       id: GAME_ACHIEVEMENT_SORT_UNLOCKED,
       title: 'Show Unlocked',
-    },
-    {
-      id: GAME_ACHIEVEMENT_SORT_ALL,
-      title: 'Show All',
     },
   ];
 
