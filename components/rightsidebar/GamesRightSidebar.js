@@ -327,7 +327,7 @@ const GamesRightSidebar = (props) => {
         (old) => hiddenAchievements.data.hiddenAchievements
       );
     };
-    if (appid) {
+    if (appid && name) {
       getData();
     }
   }, [appid]);

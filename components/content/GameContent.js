@@ -81,7 +81,13 @@ export default function GameContent(props) {
       }
     });
     setSearchFilteredAchievements((old) => searchAchievements);
-  }, [searchTerm, filteredAchievements]);
+  }, [
+    searchTerm,
+    filteredAchievements,
+    filterOption,
+    filterLockUnlockOption,
+    game,
+  ]);
 
   useEffect(() => {
     if (filterOption === GAME_ACHIEVEMENT_SORT_EASY) {
@@ -130,7 +136,7 @@ export default function GameContent(props) {
         setFilteredAchievements((old) => onlyUnlockedAchievements);
       }
     }
-  }, [filterOption, filterLockUnlockOption]);
+  }, [filterOption, filterLockUnlockOption, game]);
 
   const [hiddenAchievementsData, setHiddenAchievementsData] = useState([]);
   useEffect(() => {
