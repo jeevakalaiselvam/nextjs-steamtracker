@@ -37,3 +37,7 @@ export const API_REFRESH_DATA = () => {
 export const API_TOTAL_XP = () => {
   return `${getAPIUrlPrefix()}/totalxp`;
 };
+
+export const API_TOTAL_XP_GAME = (gameId) => {
+  return `${getAPIUrlPrefix()}/totalxp/${gameId}`;
+};

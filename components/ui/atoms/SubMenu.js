@@ -5,7 +5,7 @@ const Container = styled.div`
   display: flex;
   color: #9caabe;
   width: 100%;
-  margin: 0.5rem 0rem;
+  margin: 1rem 0rem 0.5rem 0;
 `;
 
 const SubMenu = (props) => {

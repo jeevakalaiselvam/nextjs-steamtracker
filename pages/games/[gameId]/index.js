@@ -6,7 +6,12 @@ import GameContent from '../../../components/content/GameContent';
 import GameHeader from '../../../components/header/GameHeader';
 import GamesLeftSidebar from '../../../components/leftsidebar/GamesLeftSidebar';
 import GameRightSidebar from '../../../components/rightsidebar/GameRightSidebar';
-import { API_GET_ACHIEVEMENTS, API_GET_GAME } from '../../../helper/apiHelper';
+import {
+  API_GET_ACHIEVEMENTS,
+  API_GET_GAME,
+  API_TOTAL_XP,
+  API_TOTAL_XP_GAME,
+} from '../../../helper/apiHelper';
 import {
   GAMES_SORT_COMPLETION_DESC,
   GAME_ACHIEVEMENT_SORT_ALL,
@@ -113,12 +118,23 @@ export default function Game() {
     }));
   };
 
+  const [XPData, setXPData] = useState(0);
+
+  useEffect(() => {
+    const getXPInfo = async () => {
+      const response = await axios.get(API_TOTAL_XP_GAME(gameId));
+      const data = response.data;
+      setXPData((old) => data.XPInfo);
+    };
+    getXPInfo();
+  }, [gameId]);
+
   return (
     <>
       {game && (
         <Page
           showRightSidebar={showRightSidebar}
-          leftSidebar={<GamesLeftSidebar />}
+          leftSidebar={<GamesLeftSidebar XPData={XPData} />}
           header={
             <GameHeader
               filterOptions={filterOptions}

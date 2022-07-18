@@ -17,7 +17,7 @@ const LevelContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #f5b81c;
   font-weight: 300;
 `;

@@ -23,7 +23,7 @@ const HideSidebar = styled.div`
 `;
 
 const HideIcon = styled.div`
-  display: flex;
+  display: none;
   justify-content: center;
   font-size: 3rem;
   align-items: center;

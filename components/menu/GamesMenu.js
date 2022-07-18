@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Level from '../ui/atoms/Level';
 import axios from 'axios';
 import { API_TOTAL_XP } from '../../helper/apiHelper';
+import GameXPStat from '../ui/atoms/GameXPStat';
 
 const Container = styled.div`
   display: flex;
@@ -15,8 +16,16 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const GameStatContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+`;
+
 const GamesMenu = (props) => {
   const router = useRouter();
+  const { XPData } = props;
+  const { totalXP: totalXPGame, remainingXP, completedXP } = XPData || {};
   const [totalXP, setTotalXP] = useState(0);
 
   useEffect(() => {
@@ -32,7 +41,7 @@ const GamesMenu = (props) => {
     <Container>
       <Profile />
       <Level totalXP={totalXP} />
-      <SubMenu title="Main" />
+      <SubMenu title="Menu" />
       <MenuItem
         title="Games"
         icon={<HiViewGrid />}
@@ -54,6 +63,15 @@ const GamesMenu = (props) => {
           router.push('/');
         }}
       />
+      {totalXPGame && (
+        <GameStatContainer>
+          <GameXPStat
+            totalXP={totalXP}
+            completedXP={completedXP}
+            remainingXP={remainingXP}
+          />
+        </GameStatContainer>
+      )}
     </Container>
   );
 };

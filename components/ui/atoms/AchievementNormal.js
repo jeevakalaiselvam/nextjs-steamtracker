@@ -4,6 +4,7 @@ import { HiCheckCircle } from 'react-icons/hi';
 import axios from 'axios';
 import { FaTrophy } from 'react-icons/fa';
 import { HiGlobe } from 'react-icons/hi';
+import { calculateXPFromPercentage } from '../../../helper/xpHelper';
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 100px;
+  min-height: 110px;
   background-color: ${(props) =>
     props.background ? props.background : '#1e1e1e'};
   border-radius: 6px;
@@ -21,6 +22,26 @@ const Container = styled.div`
   position: relative;
   opacity: ${(props) =>
     props.achieved && props.disableOpacityTrigger ? '0.3' : '1'};
+`;
+
+const IconXPContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const XP = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 1rem;
+  color: #737c9d;
+  padding: 0.5rem;
 `;
 
 const IconContainer = styled.div`
@@ -156,19 +177,22 @@ const AchievementNormal = (props) => {
         }
       }}
     >
+      <XP>{calculateXPFromPercentage(percent)} XP</XP>
       <PercentageContainer>
         <PercentageIcon>
           <HiGlobe />
         </PercentageIcon>
         <PercentageText>{Math.floor(percent)} %</PercentageText>
       </PercentageContainer>
-      <IconContainer image={icon}>
-        {achieved == 1 && (
-          <CompletedIcon>
-            <HiCheckCircle />
-          </CompletedIcon>
-        )}
-      </IconContainer>
+      <IconXPContainer>
+        <IconContainer image={icon}>
+          {achieved == 1 && (
+            <CompletedIcon>
+              <HiCheckCircle />
+            </CompletedIcon>
+          )}
+        </IconContainer>
+      </IconXPContainer>
       <TitleDescContainer>
         <Title>{displayName}</Title>
         <Description>{hiddenAchievementDesc || description || ''}</Description>
