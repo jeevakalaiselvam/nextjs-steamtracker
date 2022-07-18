@@ -65,6 +65,20 @@ export default function GameContent(props) {
     formattedAchievements
   );
 
+  const [searchFilteredAchievements, setSearchFilteredAchievements] =
+    useState('');
+
+  useEffect(() => {
+    const searchAchievements = filteredAchievements.filter((achievement) => {
+      if (achievement.displayName.toLowerCase().includes(searchTerm)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setSearchFilteredAchievements((old) => searchAchievements);
+  }, [searchTerm, filteredAchievements]);
+
   useEffect(() => {
     if (filterOption === GAME_ACHIEVEMENT_SORT_EASY) {
       const easySortedAchievements = sortAchievmentsByEasy(
@@ -116,8 +130,8 @@ export default function GameContent(props) {
 
   return (
     <Container>
-      {filteredAchievements.length > 0 &&
-        filteredAchievements.map((achievement) => {
+      {searchFilteredAchievements.length > 0 &&
+        searchFilteredAchievements.map((achievement) => {
           return (
             <AchievementWrapper
               key={achievement.name}
