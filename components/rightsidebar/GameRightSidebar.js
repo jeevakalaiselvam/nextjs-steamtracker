@@ -82,7 +82,7 @@ const JournalSaveButton = styled.div`
   justify-content: center;
   padding: 1rem;
   width: 100%;
-  margin-top: 0.5rem;
+  margin: 1rem 0rem 0rem 0rem;
   background-color: #3049d1;
   color: #fefefe;
   cursor: pointer;
