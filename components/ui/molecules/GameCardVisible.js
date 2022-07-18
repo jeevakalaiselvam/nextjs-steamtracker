@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API_GET_GAME } from '../../../helper/apiHelper';
 import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { HiClock } from 'react-icons/hi';
+import { HiClock, HiCollection } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
 import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
+import { getRemainingXP } from '../../../helper/xpHelper';
+import { formatAchievments } from '../../../helper/achievementHelper';
 
 const Container = styled.div`
   display: 'flex';
@@ -13,8 +15,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  width: 300px;
-  height: 140px;
+  width: ${(props) => props.width || '300px'};
+  height: ${(props) => props.height || '140px'};
   margin: 0.5rem;
   background: url(${(props) => props.image});
   background-size: contain;
@@ -76,7 +78,7 @@ const ToGetIcon = styled.div`
   display: flex;
   align-items: center;
   color: #f1b51b;
-  font-size: 2.25rem;
+  font-size: ${(props) => props.iconSize || '2.25rem'};
   justify-content: center;
 `;
 
@@ -85,14 +87,14 @@ const ToGetData = styled.div`
   align-items: center;
   justify-content: center;
   color: #f1b51b;
-  font-size: 1.25rem;
+  font-size: ${(props) => props.textSize || '1.25rem'};
 `;
 
 const CompletionIcon = styled.div`
   display: flex;
   align-items: center;
   color: #3470d2;
-  font-size: 2.25rem;
+  font-size: ${(props) => props.iconSize || '2.25rem'};
   justify-content: center;
 `;
 
@@ -100,8 +102,34 @@ const CompletionData = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: ${(props) => props.textSize || '1.25rem'};
   color: #3470d2;
+`;
+
+const XPContainer = styled.div`
+  position: absolute;
+  top: 0;
+  padding: 1rem;
+  left: 50%;
+  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.75);
+  transform: translate(-50%, ${(props) => (props.showIcons ? '0%' : '-100%')});
+`;
+
+const XPIcon = styled.div`
+  display: flex;
+  align-items: center;
+  color: #fefefe;
+  font-size: ${(props) => props.iconSize || '2.25rem'};
+  justify-content: center;
+`;
+
+const XPData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${(props) => props.textSize || '1.25rem'};
+  color: #fefefe;
 `;
 
 export default function GameCardVisible(props) {
@@ -111,13 +139,33 @@ export default function GameCardVisible(props) {
     game,
     gamesDisplayOption,
     onGameInitialChanged,
+    height,
+    width,
+    iconSize,
+    textSize,
   } = props;
-  const { appid, gameName, completed, total, percentage } = game;
+  const {
+    appid,
+    gameName,
+    completed,
+    total,
+    percentage,
+    schemaAchievements,
+    playerAchievements,
+    globalAchievements,
+  } = game;
 
   const [showIcons, setShowIcons] = useState(true);
-
+  const formattedAchievements = formatAchievments(
+    schemaAchievements,
+    globalAchievements,
+    playerAchievements
+  );
+  const remainingXP = getRemainingXP(formattedAchievements);
   return (
     <Container
+      height={height}
+      width={width}
       image={HEADER_IMAGE(appid)}
       onClick={() => {
         openRightSidebar(game);
@@ -133,17 +181,23 @@ export default function GameCardVisible(props) {
       <Overlay>{completed == total && <FaTrophy />}</Overlay>
       <Title>{gameName}</Title>
       <ToGetContainer showIcons={showIcons}>
-        <ToGetIcon>
+        <ToGetIcon iconSize={iconSize}>
           <FaTrophy />
         </ToGetIcon>
-        <ToGetData>{total - completed}</ToGetData>
+        <ToGetData textSize={textSize}>{total - completed}</ToGetData>
       </ToGetContainer>
       <CompletionContainer showIcons={showIcons}>
-        <CompletionIcon>
+        <CompletionIcon iconSize={iconSize}>
           <HiClock />
         </CompletionIcon>
-        <CompletionData>{percentage}</CompletionData>
+        <CompletionData textSize={textSize}>{percentage}</CompletionData>
       </CompletionContainer>
+      <XPContainer showIcons={showIcons}>
+        <XPIcon iconSize={iconSize}>
+          <HiCollection />
+        </XPIcon>
+        <XPData textSize={textSize}>{remainingXP} XP</XPData>
+      </XPContainer>
     </Container>
   );
 }

@@ -18,6 +18,7 @@ import {
   GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL,
 } from '../../helper/filterHelper';
 import AchievementSmall from '../ui/atoms/AchievementSmall';
+import GameCardVisible from '../ui/molecules/GameCardVisible';
 
 const Container = styled.div`
   display: flex;
@@ -38,8 +39,8 @@ const Image = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  width: 300px;
-  height: 150px;
+  width: 400px;
+  height: 200px;
   background: url(${(props) => props.image});
   background-size: contain;
   background-repeat: no-repeat;
@@ -349,29 +350,16 @@ const GamesRightSidebar = (props) => {
   return (
     <Container image={HEADER_IMAGE(appid)}>
       <Header>
-        <Stat>
-          <CompletionContainer>
-            <CompletionIcon>
-              <HiChartBar />
-            </CompletionIcon>
-            <CompletionData>{percentage}</CompletionData>
-          </CompletionContainer>
-          <Image
-            image={HEADER_IMAGE(appid)}
-            onClick={() => {
-              router.push(`/games/${appid}`);
-            }}
-          >
-            <Overlay></Overlay>
-            <Title>{gameName}</Title>
-          </Image>
-          <ToGetContainer>
-            <ToGetIcon>
-              <FaTrophy />
-            </ToGetIcon>
-            <ToGetData>{total - completed}</ToGetData>
-          </ToGetContainer>
-        </Stat>
+        <GameCardVisible
+          game={selectedGame}
+          openRightSidebar={() => {}}
+          closeRightSidebar={() => {}}
+          onGameInitialChanged={() => {}}
+          width="400px"
+          height="200px"
+          iconSize="2.5rem"
+          textSize="1.5rem"
+        />
       </Header>
       <AchievementContainer>
         <SubTitle>
