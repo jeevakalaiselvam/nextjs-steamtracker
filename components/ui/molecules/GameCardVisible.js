@@ -8,6 +8,7 @@ import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
 import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
 import { getRemainingXP } from '../../../helper/xpHelper';
 import { formatAchievments } from '../../../helper/achievementHelper';
+import { MdIncompleteCircle } from 'react-icons/md';
 
 const Container = styled.div`
   display: 'flex';
@@ -60,7 +61,7 @@ const CompletionContainer = styled.div`
   padding: 1rem;
   left: 0;
   transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   transform: translateX(${(props) => (props.showIcons ? '0%' : '-100%')});
 `;
 
@@ -70,7 +71,7 @@ const ToGetContainer = styled.div`
   right: 0;
   padding: 1rem;
   transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   transform: translateX(${(props) => (props.showIcons ? '0%' : '100%')});
 `;
 
@@ -112,7 +113,7 @@ const XPContainer = styled.div`
   padding: 1rem;
   left: 50%;
   transition: all 0.3s;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   transform: translate(-50%, ${(props) => (props.showIcons ? '0%' : '-100%')});
 `;
 
@@ -188,16 +189,18 @@ export default function GameCardVisible(props) {
       </ToGetContainer>
       <CompletionContainer showIcons={showIcons}>
         <CompletionIcon iconSize={iconSize}>
-          <HiClock />
+          <MdIncompleteCircle />
         </CompletionIcon>
-        <CompletionData textSize={textSize}>{percentage}</CompletionData>
+        <CompletionData textSize={textSize}>{percentage} %</CompletionData>
       </CompletionContainer>
-      <XPContainer showIcons={showIcons}>
-        <XPIcon iconSize={iconSize}>
-          <HiCollection />
-        </XPIcon>
-        <XPData textSize={textSize}>{remainingXP} XP</XPData>
-      </XPContainer>
+      {remainingXP !== 0 && (
+        <XPContainer showIcons={showIcons}>
+          <XPIcon iconSize={iconSize}>
+            <HiCollection />
+          </XPIcon>
+          <XPData textSize={textSize}>{remainingXP} XP</XPData>
+        </XPContainer>
+      )}
     </Container>
   );
 }

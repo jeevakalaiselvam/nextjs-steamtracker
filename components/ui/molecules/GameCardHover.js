@@ -9,6 +9,7 @@ import axios from 'axios';
 import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
 import { formatAchievments } from '../../../helper/achievementHelper';
 import { getRemainingXP } from '../../../helper/xpHelper';
+import { MdIncompleteCircle } from 'react-icons/md';
 
 const Container = styled.div`
   display: 'flex';
@@ -52,7 +53,7 @@ const CompletionContainer = styled.div`
   padding: 1rem;
   left: 0;
   transition: all 0.3s;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   transform: translateX(${(props) => (props.showIcons ? '0%' : '-100%')});
 `;
 
@@ -62,7 +63,7 @@ const ToGetContainer = styled.div`
   right: 0;
   padding: 1rem;
   transition: all 0.3s;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   transform: translateX(${(props) => (props.showIcons ? '0%' : '100%')});
 `;
 
@@ -104,7 +105,7 @@ const XPContainer = styled.div`
   padding: 1rem;
   left: 50%;
   transition: all 0.3s;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.85);
   transform: translate(-50%, ${(props) => (props.showIcons ? '0%' : '-100%')});
 `;
 
@@ -206,17 +207,19 @@ export default function GameCardHover(props) {
       </ToGetContainer>
       <CompletionContainer showIcons={showIcons}>
         <CompletionIcon>
-          <HiClock />
+          <MdIncompleteCircle />
         </CompletionIcon>
-        <CompletionData>{percentage}</CompletionData>
+        <CompletionData>{percentage} %</CompletionData>
       </CompletionContainer>
 
-      <XPContainer showIcons={showIcons}>
-        <XPIcon>
-          <HiCollection />
-        </XPIcon>
-        <XPData>{remainingXP} XP</XPData>
-      </XPContainer>
+      {remainingXP !== 0 && (
+        <XPContainer showIcons={showIcons}>
+          <XPIcon>
+            <HiCollection />
+          </XPIcon>
+          <XPData>{remainingXP} XP</XPData>
+        </XPContainer>
+      )}
     </Container>
   );
 }
