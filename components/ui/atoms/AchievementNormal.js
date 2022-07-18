@@ -15,7 +15,7 @@ const Container = styled.div`
   min-height: 110px;
   background-color: ${(props) =>
     props.background ? props.background : '#1e1e1e'};
-  border-radius: 6px;
+  border-radius: 4px;
   padding: ${(props) => (props.padding ? props.padding : '0rem')};
   margin: ${(props) => (props.margin ? props.margin : '0rem')};
   cursor: pointer;
