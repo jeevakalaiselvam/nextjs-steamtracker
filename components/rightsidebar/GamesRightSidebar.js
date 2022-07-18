@@ -393,6 +393,7 @@ const GamesRightSidebar = (props) => {
                   {achievementDisplayOption ===
                     GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL && (
                     <AchievementNormal
+                      disableOpacityTrigger={true}
                       padding="2rem"
                       margin="0rem 0rem 1rem 0rem"
                       clickSearch={true}

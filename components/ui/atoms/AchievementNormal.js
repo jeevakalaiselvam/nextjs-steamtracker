@@ -20,7 +20,7 @@ const Container = styled.div`
   cursor: pointer;
   position: relative;
   opacity: ${(props) =>
-    props.achieved && !props.disableOpacityTrigger ? '0.3' : '1'};
+    props.achieved && props.disableOpacityTrigger ? '0.3' : '1'};
 `;
 
 const IconContainer = styled.div`
@@ -77,7 +77,7 @@ const CompletedIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  color: #ffffff;
+  color: gold;
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0 4px 0 4px;

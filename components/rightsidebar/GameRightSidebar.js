@@ -150,9 +150,9 @@ export default function GameRightSidebar(props) {
     formattedAchievements
   );
 
-  const starterLocalStage = {
+  const starterLocalStage = JSON.stringify({
     videos: [],
-  };
+  });
 
   const [videos, setVideos] = useState(
     JSON.parse(
@@ -197,7 +197,7 @@ export default function GameRightSidebar(props) {
         <AchievementNormal
           padding="2rem"
           margin="1rem 0rem 1rem 0rem"
-          disableOpacityTrigger={true}
+          disableOpacityTrigger={false}
           achievement={achievementSelected}
           hiddenAchievementDesc={achievementSelected.hiddenAchievementDesc}
           gameName={gameName}
