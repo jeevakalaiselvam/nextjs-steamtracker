@@ -3,9 +3,12 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
+  background-color: #0d0c0f;
   align-items: center;
+  padding: 1rem;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 1rem;
 `;
 
 const Image = styled.div`

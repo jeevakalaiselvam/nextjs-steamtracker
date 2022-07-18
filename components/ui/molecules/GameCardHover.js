@@ -136,7 +136,7 @@ const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 4rem;
-  color: #f5b81c;
+  color: ${(props) => props.color};
 `;
 
 const CompletionTag = styled.div`
@@ -177,6 +177,17 @@ export default function GameCardHover(props) {
     playerAchievements
   );
   const remainingXP = getRemainingXP(formattedAchievements);
+
+  const getColor = (percentageInner) => {
+    if (percentageInner == 100) {
+      return '#f5b81c';
+    } else if (percentage >= 75 && percentage < 100) {
+      return '#882cc7';
+    } else {
+      return '#17d155';
+    }
+  };
+
   return (
     <Container
       image={HEADER_IMAGE(appid)}
@@ -197,7 +208,9 @@ export default function GameCardHover(props) {
         }
       }}
     >
-      <Overlay>{completed == total && <FaTrophy />}</Overlay>
+      <Overlay color={getColor(percentage)}>
+        {percentage == 100 && <FaTrophy />}
+      </Overlay>
       <Title>{gameName}</Title>
       <ToGetContainer showIcons={showIcons}>
         <ToGetIcon>

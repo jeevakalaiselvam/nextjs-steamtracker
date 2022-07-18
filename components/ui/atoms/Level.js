@@ -9,6 +9,7 @@ import SubMenu from './SubMenu';
 const Container = styled.div`
   display: flex;
   align-items: center;
+  background-color: #0d0c0f;
   justify-content: center;
   flex-direction: column;
   padding: 0.5rem;
