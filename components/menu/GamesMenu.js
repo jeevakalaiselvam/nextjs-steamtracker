@@ -7,8 +7,10 @@ import SubMenu from '../ui/atoms/SubMenu';
 import { useRouter } from 'next/router';
 import Level from '../ui/atoms/Level';
 import axios from 'axios';
-import { API_TOTAL_XP } from '../../helper/apiHelper';
+import { API_PERFECT_GAMES, API_TOTAL_XP } from '../../helper/apiHelper';
 import GameXPStat from '../ui/atoms/GameXPStat';
+import PerfectGames from '../ui/atoms/PerfectGames';
+import TotalXP from '../ui/atoms/TotalXP';
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +29,7 @@ const GamesMenu = (props) => {
   const { XPData } = props;
   const { totalXP: totalXPGame, remainingXP, completedXP } = XPData || {};
   const [totalXP, setTotalXP] = useState(0);
+  const [perfectGames, setPerfectGames] = useState([]);
 
   useEffect(() => {
     const getTotalXP = async () => {
@@ -37,11 +40,20 @@ const GamesMenu = (props) => {
     getTotalXP();
   }, []);
 
+  useEffect(() => {
+    const getPerfectGames = async () => {
+      const response = await axios.get(API_PERFECT_GAMES());
+      const data = response.data;
+      setPerfectGames((old) => data.perfectGames);
+    };
+    getPerfectGames();
+  }, []);
+
   return (
     <Container>
       <Profile />
       <Level totalXP={totalXP} />
-      <SubMenu title="Menu" />
+      <PerfectGames perfectGames={perfectGames} />
       <MenuItem
         title="Games"
         icon={<HiViewGrid />}
@@ -63,6 +75,8 @@ const GamesMenu = (props) => {
           router.push('/');
         }}
       />
+      {/* <TotalXP totalXP={totalXP} /> */}
+
       {totalXPGame && (
         <GameStatContainer>
           <GameXPStat

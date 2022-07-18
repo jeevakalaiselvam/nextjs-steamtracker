@@ -34,6 +34,10 @@ export const API_REFRESH_DATA = () => {
   return `${getAPIUrlPrefix()}/refresh`;
 };
 
+export const API_PERFECT_GAMES = () => {
+  return `${getAPIUrlPrefix()}/perfect`;
+};
+
 export const API_TOTAL_XP = () => {
   return `${getAPIUrlPrefix()}/totalxp`;
 };
