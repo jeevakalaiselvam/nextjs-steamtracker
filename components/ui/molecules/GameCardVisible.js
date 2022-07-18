@@ -34,7 +34,7 @@ const Title = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 0px;
+  bottom: 0px;
   background-color: rgba(0, 0, 0, 0.85);
   color: #fefefe;
   left: 0px;
@@ -54,7 +54,7 @@ const Overlay = styled.div`
 
 const CompletionContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   padding: 1rem;
   left: 0;
   transition: all 0.5s;
@@ -64,7 +64,7 @@ const CompletionContainer = styled.div`
 
 const ToGetContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
   padding: 1rem;
   transition: all 0.5s;
