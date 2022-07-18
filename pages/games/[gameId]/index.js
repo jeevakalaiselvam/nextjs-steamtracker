@@ -140,7 +140,7 @@ export default function Game() {
             />
           }
           rightSidebar={
-            showRightSidebar && (
+            true && (
               <GameRightSidebar
                 game={game}
                 achievementSelected={achievementSelected}

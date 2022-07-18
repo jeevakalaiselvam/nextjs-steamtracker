@@ -153,6 +153,17 @@ export default function GameContent(props) {
     }
   }, [appid]);
 
+  useEffect(() => {
+    if (searchFilteredAchievements.length > 0) {
+      const achievement = searchFilteredAchievements[0];
+      const hiddenAchievementDesc = getHiddenDescriptionForName(
+        achievement.displayName,
+        hiddenAchievementsData
+      );
+      onAchievementSelect(achievement, hiddenAchievementDesc);
+    }
+  }, [searchFilteredAchievements]);
+
   return (
     <Container>
       {searchFilteredAchievements.length > 0 &&
