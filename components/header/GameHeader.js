@@ -26,7 +26,13 @@ const FilterContainer = styled.div`
 `;
 
 const GameHeader = (props) => {
-  const { searchTextChanged, onFilterChanged, filterOptions } = props;
+  const {
+    searchTextChanged,
+    onFilterChanged,
+    filterOptions,
+    lockedUnlockedFilterChanged,
+    lockedUnlockedFilterOptions,
+  } = props;
 
   return (
     <Container>
@@ -34,6 +40,10 @@ const GameHeader = (props) => {
         <Filter
           onFilterChanged={onFilterChanged}
           filterOptions={filterOptions}
+        />
+        <Filter
+          onFilterChanged={lockedUnlockedFilterChanged}
+          filterOptions={lockedUnlockedFilterOptions}
         />
       </FilterContainer>
       <SearchContainer>

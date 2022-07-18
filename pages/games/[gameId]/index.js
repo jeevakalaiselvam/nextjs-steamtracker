@@ -9,8 +9,11 @@ import GameRightSidebar from '../../../components/rightsidebar/GameRightSidebar'
 import { API_GET_ACHIEVEMENTS, API_GET_GAME } from '../../../helper/apiHelper';
 import {
   GAMES_SORT_COMPLETION_DESC,
+  GAME_ACHIEVEMENT_SORT_ALL,
   GAME_ACHIEVEMENT_SORT_EASY,
   GAME_ACHIEVEMENT_SORT_HARD,
+  GAME_ACHIEVEMENT_SORT_LOCKED,
+  GAME_ACHIEVEMENT_SORT_UNLOCKED,
 } from '../../../helper/filterHelper';
 import Page from '../../../layouts/Page';
 
@@ -29,6 +32,21 @@ export default function Game() {
     },
   ];
 
+  const lockedUnlockedFilterOptions = [
+    {
+      id: GAME_ACHIEVEMENT_SORT_LOCKED,
+      title: 'Show Locked',
+    },
+    {
+      id: GAME_ACHIEVEMENT_SORT_UNLOCKED,
+      title: 'Show Unlocked',
+    },
+    {
+      id: GAME_ACHIEVEMENT_SORT_ALL,
+      title: 'Show All',
+    },
+  ];
+
   const [showRightSidebar, setShowRightSidebar] = useState(false);
 
   const openRightSidebar = (data) => {
@@ -42,6 +60,9 @@ export default function Game() {
   const [game, setGame] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [filterOption, setFilterOption] = useState(filterOptions[0].id);
+  const [filterLockUnlockOption, setFilterLockUnlockOption] = useState(
+    lockedUnlockedFilterOptions[0].id
+  );
 
   useEffect(() => {
     const getGame = async () => {
@@ -69,6 +90,22 @@ export default function Game() {
     }
   };
 
+  const lockedUnlockedFilterChanged = (filterOption) => {
+    switch (filterOption) {
+      case GAME_ACHIEVEMENT_SORT_ALL:
+        setFilterLockUnlockOption((old) => GAME_ACHIEVEMENT_SORT_ALL);
+        break;
+      case GAME_ACHIEVEMENT_SORT_LOCKED:
+        setFilterLockUnlockOption((old) => GAME_ACHIEVEMENT_SORT_LOCKED);
+        break;
+      case GAME_ACHIEVEMENT_SORT_UNLOCKED:
+        setFilterLockUnlockOption((old) => GAME_ACHIEVEMENT_SORT_UNLOCKED);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       {game && (
@@ -80,6 +117,8 @@ export default function Game() {
               filterOptions={filterOptions}
               searchTextChanged={searchTextChanged}
               onFilterChanged={onFilterChanged}
+              lockedUnlockedFilterChanged={lockedUnlockedFilterChanged}
+              lockedUnlockedFilterOptions={lockedUnlockedFilterOptions}
             />
           }
           content={
@@ -87,6 +126,7 @@ export default function Game() {
               game={game}
               searchTerm={searchTerm}
               filterOption={filterOption}
+              filterLockUnlockOption={filterLockUnlockOption}
               openRightSidebar={openRightSidebar}
               closeRightSidebar={closeRightSidebar}
             />

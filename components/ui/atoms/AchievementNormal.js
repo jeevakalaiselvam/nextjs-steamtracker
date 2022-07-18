@@ -19,6 +19,7 @@ const Container = styled.div`
   margin: ${(props) => (props.margin ? props.margin : '0rem')};
   cursor: pointer;
   position: relative;
+  opacity: ${(props) => (props.achieved ? '0.3' : '1')};
 `;
 
 const IconContainer = styled.div`
@@ -139,6 +140,7 @@ const AchievementNormal = (props) => {
 
   return (
     <Container
+      achieved={achieved}
       margin={margin}
       padding={padding}
       background={background}

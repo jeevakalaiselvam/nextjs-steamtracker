@@ -72,3 +72,44 @@ export const getHiddenDescriptionForName = (name, achievements) => {
 
   return hiddenAchievement;
 };
+
+export const sortAchievmentsByEasy = (achievements) => {
+  let sortedByEasy = [];
+
+  if (achievements && achievements.length > 0) {
+    sortedByEasy = achievements.sort((achievement1, achievement2) => {
+      return +achievement1.percent < +achievement2.percent;
+    });
+  }
+  return sortedByEasy;
+};
+
+export const sortAchievmentsByHard = (achievements) => {
+  let sortedByEasy = [];
+  if (achievements && achievements.length > 0) {
+    sortedByEasy = achievements.sort((achievement1, achievement2) => {
+      return +achievement1.percent > +achievement2.percent;
+    });
+  }
+  return sortedByEasy;
+};
+
+export const filterAchievementsUnlockedOnly = (achievements) => {
+  let filteredUnlockedOnly = [];
+  if (achievements && achievements.length > 0) {
+    filteredUnlockedOnly = achievements.filter((achievement) => {
+      return achievement.achieved == 1;
+    });
+  }
+  return filteredUnlockedOnly;
+};
+
+export const filterAchievementsLockedOnly = (achievements) => {
+  let filteredLockedOnly = [];
+  if (achievements && achievements.length > 0) {
+    filteredLockedOnly = achievements.filter((achievement) => {
+      return achievement.achieved == 0;
+    });
+  }
+  return filteredLockedOnly;
+};
