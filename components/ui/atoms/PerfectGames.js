@@ -18,9 +18,9 @@ const PerfectGames = (props) => {
   return (
     <Container>
       <TrophyCount icon={<FaTrophy />} count={gold} iconColor="#f5b81c" />
-      {/* <TrophyCount icon={<FaTrophy />} count={purple} iconColor="#9E33E7" />
-      <TrophyCount icon={<FaTrophy />} count={silver} iconColor="#fefefe" />
-      <TrophyCount icon={<FaTrophy />} count={bronze} iconColor="#F77C00" /> */}
+      <TrophyCount icon={<FaTrophy />} count={purple} iconColor="#9E33E7dd" />
+      <TrophyCount icon={<FaTrophy />} count={silver} iconColor="#1EFF00aa" />
+      {/* <TrophyCount icon={<FaTrophy />} count={bronze} iconColor="#F77C00" /> */}
     </Container>
   );
 };
