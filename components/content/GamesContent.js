@@ -18,6 +18,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   max-height: 100vh;
   overflow: scroll;
+  padding-bottom: 10rem;
 `;
 
 const GamesContent = (props) => {

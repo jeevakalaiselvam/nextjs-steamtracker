@@ -29,6 +29,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   max-height: 100vh;
   overflow: scroll;
+  padding-bottom: 10rem;
 `;
 
 const AchievementWrapper = styled.div`
@@ -74,7 +75,10 @@ export default function GameContent(props) {
 
   useEffect(() => {
     const searchAchievements = filteredAchievements.filter((achievement) => {
-      if (achievement.displayName.toLowerCase().includes(searchTerm)) {
+      if (
+        achievement.displayName.toLowerCase().includes(searchTerm) ||
+        achievement.description.toLowerCase().includes(searchTerm)
+      ) {
         return true;
       } else {
         return false;
