@@ -8,6 +8,9 @@ const Container = styled.div`
   flex-direction: row;
   min-height: 100vh;
   max-height: 100vh;
+  min-width: 150%;
+  max-width: 150%;
+  overflow: scroll;
   align-items: center;
   justify-content: center;
 `;
@@ -70,6 +73,20 @@ const PlannerContent = (props) => {
           refreshList={refreshList}
         />
       </Plan2>
+      <Plan3>
+        <PlannerAchievements
+          game={game}
+          phase={'3'}
+          refreshList={refreshList}
+        />
+      </Plan3>
+      <Plan3>
+        <PlannerAchievements
+          game={game}
+          phase={'3'}
+          refreshList={refreshList}
+        />
+      </Plan3>
       <Plan3>
         <PlannerAchievements
           game={game}
