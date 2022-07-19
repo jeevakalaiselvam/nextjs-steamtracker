@@ -297,6 +297,7 @@ export default function PlannerAchievements(props) {
                 gameId={gameId}
                 phaseActivateShow={true}
                 refreshList={refreshList}
+                clickSearch={true}
               />
             );
           })}
