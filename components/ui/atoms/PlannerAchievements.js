@@ -21,6 +21,7 @@ import {
 } from '../../../helper/filterHelper';
 import AchievementNormal from './AchievementNormal';
 import Filter from './Filter';
+import PhaseTitle from './PhaseTitle';
 import Search from './Search';
 
 const Container = styled.div`
@@ -276,7 +277,9 @@ export default function PlannerAchievements(props) {
         />
       </FilterContainer> */}
       <SearchContainer>
-        <PhaseData>PHASE {phase}</PhaseData>
+        <PhaseData>
+          <PhaseTitle title={`PHASE ${phase}`} phase={phase} />
+        </PhaseData>
         <Search onSearchObtained={searchTextChanged} width="200px" />
       </SearchContainer>
 
@@ -284,18 +287,17 @@ export default function PlannerAchievements(props) {
         {searchFilteredAchievements.length > 0 &&
           searchFilteredAchievements.map((achievement) => {
             return (
-              <AchievementInnerContainer>
-                <AchievementNormal
-                  margin="0rem 0rem 1rem 0rem"
-                  padding="1rem"
-                  achievement={achievement}
-                  background={'#171717'}
-                  phase={phase}
-                  gameId={gameId}
-                  phaseActivateShow={true}
-                  refreshList={refreshList}
-                />
-              </AchievementInnerContainer>
+              <AchievementNormal
+                key={achievement.apiname}
+                margin="0rem 0rem 1rem 0rem"
+                padding="1rem"
+                achievement={achievement}
+                background={'#171717'}
+                phase={phase}
+                gameId={gameId}
+                phaseActivateShow={true}
+                refreshList={refreshList}
+              />
             );
           })}
       </AchievementContainer>
