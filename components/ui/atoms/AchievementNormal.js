@@ -13,7 +13,7 @@ const Container = styled.div`
   align-items: ${(props) => (props.alignTop ? 'flex-start' : 'flex-start')};
   justify-content: center;
   min-width: 100%;
-  min-height: ${(props) => (props.alignTop ? '120px' : '110px')};
+  min-height: ${(props) => (props.alignTop ? '130px' : '110px')};
   background-color: ${(props) =>
     props.background ? props.background : '#1e1e1e'};
   border-radius: 4px;
@@ -140,7 +140,7 @@ const PercentageText = styled.div`
 const PhaseButtonContainer = styled.div`
   position: absolute;
   left: 50%;
-  width: 100px;
+  width: 150px;
   padding: 0.5rem;
   transform: translate(-50%);
   bottom: 0;
@@ -178,10 +178,10 @@ const AchievementNormal = (props) => {
     unlocktime,
   } = achievement;
 
-  let whichPhaseIsAchievement = '3';
+  let whichPhaseIsAchievement = '1';
   if (typeof window !== 'undefined') {
     whichPhaseIsAchievement =
-      localStorage.getItem(`${gameId}_${apiname}_PHASE`) || '3';
+      localStorage.getItem(`${gameId}_${apiname}_PHASE`) || '1';
   }
 
   return (
@@ -218,6 +218,18 @@ const AchievementNormal = (props) => {
         <PhaseButton
           phase={3}
           active={whichPhaseIsAchievement == 3}
+          phaseKey={`${gameId}_${apiname}_PHASE`}
+          refreshList={refreshList}
+        />
+        <PhaseButton
+          phase={4}
+          active={whichPhaseIsAchievement == 4}
+          phaseKey={`${gameId}_${apiname}_PHASE`}
+          refreshList={refreshList}
+        />
+        <PhaseButton
+          phase={5}
+          active={whichPhaseIsAchievement == 5}
           phaseKey={`${gameId}_${apiname}_PHASE`}
           refreshList={refreshList}
         />

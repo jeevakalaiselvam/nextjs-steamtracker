@@ -9,35 +9,12 @@ const Container = styled.div`
   min-height: 100vh;
   max-height: 100vh;
   min-width: 150%;
-  max-width: 150%;
   overflow: scroll;
   align-items: center;
-  justify-content: center;
-`;
-
-const Plan1 = styled.div`
-  display: flex;
-  flex: 1;
-  padding: 1rem;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  max-height: 100vh;
   justify-content: flex-start;
 `;
 
-const Plan3 = styled.div`
-  display: flex;
-  flex: 1;
-  padding: 1rem;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  max-height: 100vh;
-  justify-content: flex-start;
-`;
-
-const Plan2 = styled.div`
+const Plan = styled.div`
   display: flex;
   flex: 1;
   padding: 1rem;
@@ -57,43 +34,21 @@ const PlannerContent = (props) => {
     setCurrentGame((old) => ({ ...game }));
   };
 
+  const planStages = [1, 2, 3, 4, 5];
+
   return (
     <Container>
-      <Plan1>
-        <PlannerAchievements
-          game={game}
-          phase={'1'}
-          refreshList={refreshList}
-        />
-      </Plan1>
-      <Plan2>
-        <PlannerAchievements
-          game={game}
-          phase={'2'}
-          refreshList={refreshList}
-        />
-      </Plan2>
-      <Plan3>
-        <PlannerAchievements
-          game={game}
-          phase={'3'}
-          refreshList={refreshList}
-        />
-      </Plan3>
-      <Plan3>
-        <PlannerAchievements
-          game={game}
-          phase={'3'}
-          refreshList={refreshList}
-        />
-      </Plan3>
-      <Plan3>
-        <PlannerAchievements
-          game={game}
-          phase={'3'}
-          refreshList={refreshList}
-        />
-      </Plan3>
+      {planStages.map((plan) => {
+        return (
+          <Plan key={plan}>
+            <PlannerAchievements
+              game={game}
+              phase={String(plan)}
+              refreshList={refreshList}
+            />
+          </Plan>
+        );
+      })}
     </Container>
   );
 };
