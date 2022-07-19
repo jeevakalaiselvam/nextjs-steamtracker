@@ -60,13 +60,13 @@ export default function PhaseTitle(props) {
         }}
         show={showTitle}
       >
-        {editTitle}
+        {editTitle.toUpperCase()}
       </TitleContainer>
       <InputContainer show={showInput}>
         <input
           type="text"
           placeholder={`PHASE ${phase}`}
-          value={editTitle}
+          value={editTitle.toUpperCase()}
           onChange={(e) => {
             const value = e.target.value;
             if (typeof window !== 'undefined') {
@@ -74,6 +74,7 @@ export default function PhaseTitle(props) {
 
               e.target.addEventListener('keyup', function (event) {
                 if (event.key === 'Enter') {
+                  setEditTitle((old) => value);
                   setShowInput((old) => false);
                   setShowTitle((old) => true);
                 }
