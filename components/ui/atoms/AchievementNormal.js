@@ -5,14 +5,15 @@ import axios from 'axios';
 import { FaTrophy } from 'react-icons/fa';
 import { HiGlobe } from 'react-icons/hi';
 import { calculateXPFromPercentage } from '../../../helper/xpHelper';
+import PhaseButton from './PhaseButton';
 
 const Container = styled.div`
-  display: flex;
+  display: ${(props) => (props.shouldShow ? 'flex' : 'none')};
   flex-direction: row;
-  align-items: center;
+  align-items: ${(props) => (props.alignTop ? 'flex-start' : 'flex-start')};
   justify-content: center;
   width: 100%;
-  min-height: 110px;
+  min-height: ${(props) => (props.alignTop ? '120px' : '110px')};
   background-color: ${(props) =>
     props.background ? props.background : '#1e1e1e'};
   border-radius: 4px;
@@ -136,6 +137,18 @@ const PercentageText = styled.div`
   font-weight: 300;
 `;
 
+const PhaseButtonContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  width: 100px;
+  padding: 0.5rem;
+  transform: translate(-50%);
+  bottom: 0;
+  display: ${(props) => (props.show ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
 const AchievementNormal = (props) => {
   const {
     achievement,
@@ -146,6 +159,10 @@ const AchievementNormal = (props) => {
     padding,
     margin,
     disableOpacityTrigger,
+    phase,
+    gameId,
+    phaseActivateShow,
+    refreshList,
   } = props;
 
   const {
@@ -161,8 +178,16 @@ const AchievementNormal = (props) => {
     unlocktime,
   } = achievement;
 
+  let whichPhaseIsAchievement = '1';
+  if (typeof window !== 'undefined') {
+    whichPhaseIsAchievement =
+      localStorage.getItem(`${gameId}_${apiname}_PHASE`) || '1';
+  }
+
   return (
     <Container
+      alignTop={phaseActivateShow}
+      shouldShow={phaseActivateShow ? whichPhaseIsAchievement == phase : true}
       disableOpacityTrigger={disableOpacityTrigger}
       achieved={achieved}
       margin={margin}
@@ -177,6 +202,26 @@ const AchievementNormal = (props) => {
         }
       }}
     >
+      <PhaseButtonContainer show={phaseActivateShow}>
+        <PhaseButton
+          phase={1}
+          active={whichPhaseIsAchievement == 1}
+          phaseKey={`${gameId}_${apiname}_PHASE`}
+          refreshList={refreshList}
+        />
+        <PhaseButton
+          phase={2}
+          active={whichPhaseIsAchievement == 2}
+          phaseKey={`${gameId}_${apiname}_PHASE`}
+          refreshList={refreshList}
+        />
+        <PhaseButton
+          phase={3}
+          active={whichPhaseIsAchievement == 3}
+          phaseKey={`${gameId}_${apiname}_PHASE`}
+          refreshList={refreshList}
+        />
+      </PhaseButtonContainer>
       <XP>{calculateXPFromPercentage(percent)} XP</XP>
       <PercentageContainer>
         <PercentageIcon>

@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Profile from '../ui/molecules/Profile';
 import MenuItem from '../ui/atoms/MenuItem';
-import { HiViewGrid, HiAdjustments, HiRefresh } from 'react-icons/hi';
+import {
+  HiViewGrid,
+  HiAdjustments,
+  HiRefresh,
+  HiEye,
+  HiChartBar,
+} from 'react-icons/hi';
 import SubMenu from '../ui/atoms/SubMenu';
 import { useRouter } from 'next/router';
 import Level from '../ui/atoms/Level';
@@ -11,6 +17,7 @@ import { API_PERFECT_GAMES, API_TOTAL_XP } from '../../helper/apiHelper';
 import GameXPStat from '../ui/atoms/GameXPStat';
 import PerfectGames from '../ui/atoms/PerfectGames';
 import TotalXP from '../ui/atoms/TotalXP';
+import { LOCALSTORAGE_GAME_SELECTED } from '../../helper/storageHelper';
 
 const Container = styled.div`
   display: flex;
@@ -59,6 +66,24 @@ const GamesMenu = (props) => {
         icon={<HiViewGrid />}
         onClick={() => {
           router.push('/games');
+        }}
+      />
+      <MenuItem
+        title="Ongoing"
+        icon={<HiEye />}
+        onClick={() => {
+          router.push(
+            `/games/${
+              JSON.parse(localStorage.getItem(LOCALSTORAGE_GAME_SELECTED)).appid
+            }`
+          );
+        }}
+      />
+      <MenuItem
+        title="Planner"
+        icon={<HiChartBar />}
+        onClick={() => {
+          router.push(`/planner`);
         }}
       />
       <MenuItem

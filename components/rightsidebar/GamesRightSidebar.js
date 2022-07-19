@@ -359,6 +359,7 @@ const GamesRightSidebar = (props) => {
           height="200px"
           iconSize="2.5rem"
           textSize="1.5rem"
+          navigateToGame={true}
         />
       </Header>
       <AchievementContainer>

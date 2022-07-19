@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { HiSearch } from "react-icons/hi";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { HiSearch } from 'react-icons/hi';
 
 const Container = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const SearchInput = styled.div`
   & input {
     outline: none;
     padding: 0.5rem;
-    width: 150px;
+    width: ${(props) => props.width || '150px'};
     background: #171717;
     color: #9caabe;
     border: none;
@@ -36,8 +36,8 @@ const SearchInput = styled.div`
 `;
 
 const Search = (props) => {
-  const { onSearchObtained } = props;
-  const [searchTerm, setSearchTerm] = useState("");
+  const { onSearchObtained, width } = props;
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -58,10 +58,10 @@ const Search = (props) => {
       <SearchIcon>
         <HiSearch />
       </SearchIcon>
-      <SearchInput>
+      <SearchInput width={width}>
         <input
           type="text"
-          value={searchTerm ?? ""}
+          value={searchTerm ?? ''}
           onChange={searchTermChanged}
           placeholder="Search..."
         />

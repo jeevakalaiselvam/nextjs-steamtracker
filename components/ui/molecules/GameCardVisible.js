@@ -9,6 +9,7 @@ import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
 import { getRemainingXP } from '../../../helper/xpHelper';
 import { formatAchievments } from '../../../helper/achievementHelper';
 import { MdIncompleteCircle } from 'react-icons/md';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   display: 'flex';
@@ -145,6 +146,7 @@ export default function GameCardVisible(props) {
     width,
     iconSize,
     textSize,
+    navigateToGame,
   } = props;
   const {
     appid,
@@ -156,6 +158,8 @@ export default function GameCardVisible(props) {
     playerAchievements,
     globalAchievements,
   } = game;
+
+  const router = useRouter();
 
   const [showIcons, setShowIcons] = useState(true);
   const formattedAchievements = formatAchievments(
@@ -176,7 +180,11 @@ export default function GameCardVisible(props) {
             LOCALSTORAGE_GAME_SELECTED,
             JSON.stringify(game)
           );
-          onGameInitialChanged(game);
+          if (navigateToGame) {
+            router.push(`/games/${appid}`);
+          } else {
+            onGameInitialChanged(game);
+          }
         }
       }}
     >

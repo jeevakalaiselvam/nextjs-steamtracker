@@ -40,7 +40,6 @@ const Header = styled.div`
 const Content = styled.div`
   flex: 1;
   color: #61626d;
-  overflow: scroll;
   scrollbar-width: none; /* "auto" or "thin" */
   scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
 `;

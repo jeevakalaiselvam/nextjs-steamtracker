@@ -74,7 +74,7 @@ export default function Game() {
       const data = response.data.game;
       setGame((old) => data);
     };
-    getGame();
+    if (gameId) getGame();
   }, [gameId]);
 
   const searchTextChanged = (searchTerm) => {
@@ -126,7 +126,7 @@ export default function Game() {
       const data = response.data;
       setXPData((old) => data.XPInfo);
     };
-    getXPInfo();
+    if (gameId) getXPInfo();
   }, [gameId]);
 
   return (
