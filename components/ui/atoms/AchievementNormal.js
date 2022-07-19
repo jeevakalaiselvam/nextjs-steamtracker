@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-direction: row;
   align-items: ${(props) => (props.alignTop ? 'flex-start' : 'flex-start')};
   justify-content: center;
-  width: 100%;
+  min-width: 100%;
   min-height: ${(props) => (props.alignTop ? '120px' : '110px')};
   background-color: ${(props) =>
     props.background ? props.background : '#1e1e1e'};
@@ -178,10 +178,10 @@ const AchievementNormal = (props) => {
     unlocktime,
   } = achievement;
 
-  let whichPhaseIsAchievement = '1';
+  let whichPhaseIsAchievement = '3';
   if (typeof window !== 'undefined') {
     whichPhaseIsAchievement =
-      localStorage.getItem(`${gameId}_${apiname}_PHASE`) || '1';
+      localStorage.getItem(`${gameId}_${apiname}_PHASE`) || '3';
   }
 
   return (

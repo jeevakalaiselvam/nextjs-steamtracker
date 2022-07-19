@@ -39,6 +39,7 @@ const AchievementContainer = styled.div`
   display: flex;
   flex: 1;
   padding: 1rem;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   overflow: scroll;
@@ -65,6 +66,13 @@ const FilterContainer = styled.div`
 const PhaseData = styled.div`
   display: flex;
   padding: 0rem 1rem 1rem 1rem;
+  align-items: center;
+  justify-content: center;
+`;
+
+const AchievementInnerContainer = styled.div`
+  display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;
@@ -276,16 +284,18 @@ export default function PlannerAchievements(props) {
         {searchFilteredAchievements.length > 0 &&
           searchFilteredAchievements.map((achievement) => {
             return (
-              <AchievementNormal
-                margin="0rem 0rem 1rem 0rem"
-                padding="1rem"
-                achievement={achievement}
-                background={'#171717'}
-                phase={phase}
-                gameId={gameId}
-                phaseActivateShow={true}
-                refreshList={refreshList}
-              />
+              <AchievementInnerContainer>
+                <AchievementNormal
+                  margin="0rem 0rem 1rem 0rem"
+                  padding="1rem"
+                  achievement={achievement}
+                  background={'#171717'}
+                  phase={phase}
+                  gameId={gameId}
+                  phaseActivateShow={true}
+                  refreshList={refreshList}
+                />
+              </AchievementInnerContainer>
             );
           })}
       </AchievementContainer>
