@@ -126,7 +126,7 @@ export default function PlannerAchievements(props) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterOption, setFilterOption] = useState(filterOptions[0].id);
   const [filterLockUnlockOption, setFilterLockUnlockOption] = useState(
-    lockedUnlockedFilterOptions[1].id
+    lockedUnlockedFilterOptions[0].id
   );
 
   const [filteredAchievements, setFilteredAchievements] = useState(
