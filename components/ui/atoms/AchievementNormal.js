@@ -193,14 +193,6 @@ const AchievementNormal = (props) => {
       margin={margin}
       padding={padding}
       background={background}
-      onClick={() => {
-        if (clickSearch) {
-          if (window !== 'undefined') {
-            const searchQuery = `${displayName} ${gameName} achievement`;
-            window.open(`https://www.google.com/search?q=${searchQuery}`);
-          }
-        }
-      }}
     >
       <PhaseButtonContainer show={phaseActivateShow}>
         <PhaseButton
@@ -251,7 +243,18 @@ const AchievementNormal = (props) => {
         </IconContainer>
       </IconXPContainer>
       <TitleDescContainer>
-        <Title>{displayName}</Title>
+        <Title
+          onClick={() => {
+            if (clickSearch) {
+              if (window !== 'undefined') {
+                const searchQuery = `${displayName} ${gameName} achievement`;
+                window.open(`https://www.google.com/search?q=${searchQuery}`);
+              }
+            }
+          }}
+        >
+          {displayName}
+        </Title>
         <Description>{hiddenAchievementDesc || description || ''}</Description>
       </TitleDescContainer>
     </Container>

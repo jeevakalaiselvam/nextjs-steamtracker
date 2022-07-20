@@ -23,7 +23,7 @@ export default function PhaseButton(props) {
   return (
     <Container
       active={active}
-      onClick={() => {
+      onClick={(e) => {
         if (typeof window !== 'undefined') {
           localStorage.setItem(phaseKey, phase);
           refreshList();
