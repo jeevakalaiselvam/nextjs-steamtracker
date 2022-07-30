@@ -46,6 +46,10 @@ const Title = styled.div`
   width: 100%;
   padding: 0.5rem 1rem;
   max-height: 30px;
+
+  &:hover {
+    color: #3049d1;
+  }
 `;
 
 const CompletionContainer = styled.div`
@@ -202,30 +206,49 @@ export default function GameCardHover(props) {
       }}
       onClick={() => {
         // openRightSidebar(game);
-        if (typeof window !== "undefined") {
-          localStorage.setItem(
-            LOCALSTORAGE_GAME_SELECTED,
-            JSON.stringify(game)
-          );
-          if (navigateToGame) {
-            router.push(`/planner`);
-          } else {
-            onGameInitialChanged(game);
-          }
-        }
       }}
     >
       <Overlay color={getColor(percentage)}>
         {percentage == 100 && <FaTrophy />}
       </Overlay>
-      <Title>{gameName}</Title>
-      <ToGetContainer showIcons={showIcons}>
+      <Title
+        onClick={() => {
+          if (typeof window !== "undefined") {
+            localStorage.setItem(
+              LOCALSTORAGE_GAME_SELECTED,
+              JSON.stringify(game)
+            );
+            if (navigateToGame) {
+              router.push(`/planner`);
+            } else {
+              onGameInitialChanged(game);
+            }
+          }
+        }}
+      >
+        {gameName}
+      </Title>
+      <ToGetContainer
+        showIcons={
+          showIcons ||
+          (typeof window !== "undefined" &&
+            localStorage.getItem(`PINNED_${appid}`)) ||
+          false
+        }
+      >
         <ToGetIcon>
           <FaTrophy />
         </ToGetIcon>
         <ToGetData>{total - completed}</ToGetData>
       </ToGetContainer>
-      <CompletionContainer showIcons={showIcons}>
+      <CompletionContainer
+        showIcons={
+          showIcons ||
+          (typeof window !== "undefined" &&
+            localStorage.getItem(`PINNED_${appid}`)) ||
+          false
+        }
+      >
         <CompletionIcon>
           <MdIncompleteCircle />
         </CompletionIcon>
@@ -233,7 +256,20 @@ export default function GameCardHover(props) {
       </CompletionContainer>
 
       {remainingXP !== 0 && (
-        <XPContainer showIcons={showIcons}>
+        <XPContainer
+          showIcons={
+            showIcons ||
+            (typeof window !== "undefined" &&
+              localStorage.getItem(`PINNED_${appid}`)) ||
+            false
+          }
+          onClick={(e) => {
+            if (typeof window !== "undefined") {
+              localStorage.setItem(`PINNED_${appid}`, JSON.stringify(true));
+            }
+            e.preventDefault();
+          }}
+        >
           <XPIcon>
             <HiCollection />
           </XPIcon>
