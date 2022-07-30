@@ -147,21 +147,26 @@ export default function GameCardPercentage(props) {
       }}
       onClick={() => {
         // openRightSidebar(game);
-        if (typeof window !== "undefined") {
-          localStorage.setItem(
-            LOCALSTORAGE_GAME_SELECTED,
-            JSON.stringify(game)
-          );
-          if (navigateToGame) {
-            router.push(`/planner`);
-          } else {
-            onGameInitialChanged(game);
-          }
-        }
       }}
     >
       <Overlay>{completed == total && <FaTrophy />}</Overlay>
-      <Title>{gameName}</Title>
+      <Title
+        onClick={() => {
+          if (typeof window !== "undefined") {
+            localStorage.setItem(
+              LOCALSTORAGE_GAME_SELECTED,
+              JSON.stringify(game)
+            );
+            if (navigateToGame) {
+              router.push(`/planner`);
+            } else {
+              onGameInitialChanged(game);
+            }
+          }
+        }}
+      >
+        {gameName}
+      </Title>
       <ToGetCompletionMainContainer showIcons={showIcons}>
         <CompletionContainer>
           <CompletionIcon>

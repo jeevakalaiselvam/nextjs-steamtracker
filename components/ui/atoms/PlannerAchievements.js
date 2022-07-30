@@ -288,11 +288,6 @@ export default function PlannerAchievements(props) {
           searchFilteredAchievements.map((achievement) => {
             const hiddenDescription = hiddenAchievementsData.find(
               (hiddenAchievement) => {
-                console.log(
-                  "CHECKING",
-                  hiddenAchievement.name.toLowerCase().trim(),
-                  achievement.displayName.toLowerCase().trim()
-                );
                 if (
                   hiddenAchievement.name.toLowerCase().trim() ==
                   achievement.displayName.toLowerCase().trim()
