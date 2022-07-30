@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { API_GET_GAME } from '../../../helper/apiHelper';
-import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { HiClock, HiCollection } from 'react-icons/hi';
-import { FaTrophy } from 'react-icons/fa';
-import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
-import axios from 'axios';
-import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
-import { formatAchievments } from '../../../helper/achievementHelper';
-import { getRemainingXP } from '../../../helper/xpHelper';
-import { MdIncompleteCircle } from 'react-icons/md';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { API_GET_GAME } from "../../../helper/apiHelper";
+import { HEADER_IMAGE } from "../../../helper/urlHelper";
+import { HiClock, HiCollection } from "react-icons/hi";
+import { FaTrophy } from "react-icons/fa";
+import { GAME_SETTING_DISPLAY_VISIBLE } from "../../../helper/filterHelper";
+import axios from "axios";
+import { LOCALSTORAGE_GAME_SELECTED } from "../../../helper/storageHelper";
+import { formatAchievments } from "../../../helper/achievementHelper";
+import { getRemainingXP } from "../../../helper/xpHelper";
+import { MdIncompleteCircle } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
-  display: 'flex';
+  display: "flex";
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -54,7 +55,7 @@ const CompletionContainer = styled.div`
   left: 0;
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.85);
-  transform: translateX(${(props) => (props.showIcons ? '0%' : '-100%')});
+  transform: translateX(${(props) => (props.showIcons ? "0%" : "-100%")});
 `;
 
 const ToGetContainer = styled.div`
@@ -64,7 +65,7 @@ const ToGetContainer = styled.div`
   padding: 1rem;
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.85);
-  transform: translateX(${(props) => (props.showIcons ? '0%' : '100%')});
+  transform: translateX(${(props) => (props.showIcons ? "0%" : "100%")});
 `;
 
 const ToGetIcon = styled.div`
@@ -106,7 +107,7 @@ const XPContainer = styled.div`
   left: 50%;
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.85);
-  transform: translate(-50%, ${(props) => (props.showIcons ? '0%' : '-100%')});
+  transform: translate(-50%, ${(props) => (props.showIcons ? "0%" : "-100%")});
 `;
 
 const XPIcon = styled.div`
@@ -157,6 +158,7 @@ export default function GameCardHover(props) {
     game,
     gamesDisplayOption,
     onGameInitialChanged,
+    navigateToGame,
   } = props;
   const {
     appid,
@@ -170,6 +172,7 @@ export default function GameCardHover(props) {
   } = game;
 
   const [showIcons, setShowIcons] = useState(false);
+  const router = useRouter();
 
   const formattedAchievements = formatAchievments(
     schemaAchievements,
@@ -180,11 +183,11 @@ export default function GameCardHover(props) {
 
   const getColor = (percentageInner) => {
     if (percentageInner == 100) {
-      return '#f5b81c';
+      return "#f5b81c";
     } else if (percentage >= 75 && percentage < 100) {
-      return '#882cc7';
+      return "#882cc7";
     } else {
-      return '#17d155';
+      return "#17d155";
     }
   };
 
@@ -198,13 +201,17 @@ export default function GameCardHover(props) {
         setShowIcons((old) => false);
       }}
       onClick={() => {
-        openRightSidebar(game);
-        if (typeof window !== 'undefined') {
+        // openRightSidebar(game);
+        if (typeof window !== "undefined") {
           localStorage.setItem(
             LOCALSTORAGE_GAME_SELECTED,
             JSON.stringify(game)
           );
-          onGameInitialChanged(game);
+          if (navigateToGame) {
+            router.push(`/planner`);
+          } else {
+            onGameInitialChanged(game);
+          }
         }
       }}
     >

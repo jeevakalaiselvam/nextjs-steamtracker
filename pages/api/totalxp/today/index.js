@@ -1,9 +1,9 @@
-import { formatAchievments } from '../../../../helper/achievementHelper';
-import { READ_JSON } from '../../../../helper/fileHelper';
-import { totalXPForGames } from '../../../../helper/xpHelper';
+import { formatAchievments } from "../../../../helper/achievementHelper";
+import { READ_JSON } from "../../../../helper/fileHelper";
+import { totalXPForGames } from "../../../../helper/xpHelper";
 
 const handler = async (req, res) => {
-  if (req.method === 'GET') {
+  if (req.method === "GET") {
     READ_JSON()
       .then((data) => {
         const games = data.games;
@@ -44,22 +44,21 @@ const handler = async (req, res) => {
 
           formattedAchievements.forEach((achievement) => {
             const { achieved, unlocktime } = achievement;
-            console.log('CHECKING', unlocktime, timeUTC);
+
             if (achieved == 1 && +unlocktime > timeUTC) {
-              console.log('YES');
               achievementsFilteredAchievedToday.push(achievement);
             }
           });
         });
 
         res.status(200).json({
-          status: 'success',
+          status: "success",
           achievementsFilteredAchievedToday: achievementsFilteredAchievedToday,
         });
       })
       .catch((error) => {
         console.error(error);
-        res.status(500).json({ status: 'error' });
+        res.status(500).json({ status: "error" });
       });
   }
 };

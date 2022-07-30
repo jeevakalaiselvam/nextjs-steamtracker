@@ -1,14 +1,14 @@
 export const getAPIUrlPrefix = () => {
-  let PREFIX_URL = '';
+  let PREFIX_URL = "";
   switch (process.env.NODE_ENV) {
-    case 'development':
-      PREFIX_URL = 'http://localhost:3000/api';
+    case "development":
+      PREFIX_URL = "http://localhost:3000/api";
       break;
-    case 'production':
-      PREFIX_URL = 'https://nextjs-steamtracker.vercel.app/api';
+    case "production":
+      PREFIX_URL = "https://nextjs-steamtracker.vercel.app/api";
       break;
     default:
-      PREFIX_URL = 'http://localhost:3000/api';
+      PREFIX_URL = "http://localhost:3000/api";
       break;
   }
 
@@ -16,32 +16,32 @@ export const getAPIUrlPrefix = () => {
 };
 
 export const API_GET_GAMES = () => {
-  return `${getAPIUrlPrefix()}/games`;
+  return `/api/games`;
 };
 export const API_GET_GAME = (gameId) => {
-  return `${getAPIUrlPrefix()}/games/${gameId}`;
+  return `/api/games/${gameId}`;
 };
 
 export const API_GET_ACHIEVEMENTS = (gameId) => {
-  return `${getAPIUrlPrefix()}/games/${gameId}`;
+  return `/api/games/${gameId}`;
 };
 
 export const API_GET_HIDDEN_ACHIEVEMENTS = (gameId) => {
-  return `${getAPIUrlPrefix()}/hidden/${gameId}`;
+  return `/api/hidden/${gameId}`;
 };
 
 export const API_REFRESH_DATA = () => {
-  return `${getAPIUrlPrefix()}/refresh`;
+  return `/api/refresh`;
 };
 
 export const API_PERFECT_GAMES = () => {
-  return `${getAPIUrlPrefix()}/perfect`;
+  return `/api/perfect`;
 };
 
 export const API_TOTAL_XP = () => {
-  return `${getAPIUrlPrefix()}/totalxp`;
+  return `/api/totalxp`;
 };
 
 export const API_TOTAL_XP_GAME = (gameId) => {
-  return `${getAPIUrlPrefix()}/totalxp/${gameId}`;
+  return `/api/totalxp/${gameId}`;
 };

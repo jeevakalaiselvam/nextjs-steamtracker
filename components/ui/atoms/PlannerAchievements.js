@@ -1,28 +1,28 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import {
   filterAchievementsLockedOnly,
   filterAchievementsUnlockedOnly,
   formatAchievments,
   sortAchievmentsByEasy,
   sortAchievmentsByHard,
-} from '../../../helper/achievementHelper';
+} from "../../../helper/achievementHelper";
 import {
   API_GET_HIDDEN_ACHIEVEMENTS,
   API_TOTAL_XP_GAME,
-} from '../../../helper/apiHelper';
+} from "../../../helper/apiHelper";
 import {
   GAME_ACHIEVEMENT_SORT_ALL,
   GAME_ACHIEVEMENT_SORT_EASY,
   GAME_ACHIEVEMENT_SORT_HARD,
   GAME_ACHIEVEMENT_SORT_LOCKED,
   GAME_ACHIEVEMENT_SORT_UNLOCKED,
-} from '../../../helper/filterHelper';
-import AchievementNormal from './AchievementNormal';
-import Filter from './Filter';
-import PhaseTitle from './PhaseTitle';
-import Search from './Search';
+} from "../../../helper/filterHelper";
+import AchievementNormal from "./AchievementNormal";
+import Filter from "./Filter";
+import PhaseTitle from "./PhaseTitle";
+import Search from "./Search";
 
 const Container = styled.div`
   display: flex;
@@ -100,33 +100,33 @@ export default function PlannerAchievements(props) {
   const filterOptions = [
     {
       id: GAME_ACHIEVEMENT_SORT_EASY,
-      title: 'Filter by Easy',
+      title: "Filter by Easy",
     },
     {
       id: GAME_ACHIEVEMENT_SORT_HARD,
-      title: 'Filter by Hard',
+      title: "Filter by Hard",
     },
   ];
 
   const lockedUnlockedFilterOptions = [
     {
       id: GAME_ACHIEVEMENT_SORT_ALL,
-      title: 'Show All',
+      title: "Show All",
     },
     {
       id: GAME_ACHIEVEMENT_SORT_LOCKED,
-      title: 'Show Locked',
+      title: "Show Locked",
     },
     {
       id: GAME_ACHIEVEMENT_SORT_UNLOCKED,
-      title: 'Show Unlocked',
+      title: "Show Unlocked",
     },
   ];
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [filterOption, setFilterOption] = useState(filterOptions[0].id);
   const [filterLockUnlockOption, setFilterLockUnlockOption] = useState(
-    lockedUnlockedFilterOptions[0].id
+    lockedUnlockedFilterOptions[1].id
   );
 
   const [filteredAchievements, setFilteredAchievements] = useState(
@@ -134,7 +134,7 @@ export default function PlannerAchievements(props) {
   );
 
   const [searchFilteredAchievements, setSearchFilteredAchievements] =
-    useState('');
+    useState("");
 
   useEffect(() => {
     const searchAchievements = filteredAchievements.filter((achievement) => {
@@ -292,7 +292,7 @@ export default function PlannerAchievements(props) {
                 margin="0rem 0rem 1rem 0rem"
                 padding="1rem"
                 achievement={achievement}
-                background={'#171717'}
+                background={"#171717"}
                 phase={phase}
                 gameId={gameId}
                 phaseActivateShow={true}

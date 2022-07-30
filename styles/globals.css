@@ -9,6 +9,12 @@ body {
   font-weight: 700;
 }
 
+select,
+options {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+}
+
 a {
   color: inherit;
   text-decoration: none;

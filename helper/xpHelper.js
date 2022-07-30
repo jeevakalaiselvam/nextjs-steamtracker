@@ -1,4 +1,4 @@
-import { formatAchievments } from './achievementHelper';
+import { formatAchievments } from "./achievementHelper";
 
 export const XP_FOR_LEVEL = 1000;
 
@@ -20,8 +20,6 @@ export const calculateXPFromPercentage = (percentage) => {
 
 export const totalXPForGames = (games) => {
   let totalXP = 0;
-
-  console.log('GAMES FOR XP', games);
 
   if (games && games.length > 0) {
     games.forEach((game) => {

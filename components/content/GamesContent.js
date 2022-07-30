@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import {
   GAME_SETTING_DISPLAY_HOVER,
   GAME_SETTING_DISPLAY_PERCENTAGE,
   GAME_SETTING_DISPLAY_VISIBLE,
   getGamesFiltered,
-} from '../../helper/filterHelper';
-import GameCardHover from '../ui/molecules/GameCardHover';
-import GameCardPercentage from '../ui/molecules/GameCardPercentage';
-import GameCardVisible from '../ui/molecules/GameCardVisible';
+} from "../../helper/filterHelper";
+import GameCardHover from "../ui/molecules/GameCardHover";
+import GameCardPercentage from "../ui/molecules/GameCardPercentage";
+import GameCardVisible from "../ui/molecules/GameCardVisible";
 
 const Container = styled.div`
   padding: 1rem;
@@ -64,6 +64,7 @@ const GamesContent = (props) => {
                   game={game}
                   openRightSidebar={openRightSidebar}
                   closeRightSidebar={closeRightSidebar}
+                  navigateToGame={true}
                 />
               )}
               {gamesDisplayOption === GAME_SETTING_DISPLAY_HOVER && (
@@ -75,6 +76,7 @@ const GamesContent = (props) => {
                   game={game}
                   openRightSidebar={openRightSidebar}
                   closeRightSidebar={closeRightSidebar}
+                  navigateToGame={true}
                 />
               )}
               {gamesDisplayOption === GAME_SETTING_DISPLAY_PERCENTAGE && (
@@ -86,6 +88,7 @@ const GamesContent = (props) => {
                   game={game}
                   openRightSidebar={openRightSidebar}
                   closeRightSidebar={closeRightSidebar}
+                  navigateToGame={true}
                 />
               )}
             </React.Fragment>

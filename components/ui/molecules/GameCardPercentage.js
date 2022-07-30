@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { API_GET_GAME } from '../../../helper/apiHelper';
-import { HEADER_IMAGE } from '../../../helper/urlHelper';
-import { HiClock } from 'react-icons/hi';
-import { FaTrophy } from 'react-icons/fa';
-import { GAME_SETTING_DISPLAY_VISIBLE } from '../../../helper/filterHelper';
-import { LOCALSTORAGE_GAME_SELECTED } from '../../../helper/storageHelper';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { API_GET_GAME } from "../../../helper/apiHelper";
+import { HEADER_IMAGE } from "../../../helper/urlHelper";
+import { HiClock } from "react-icons/hi";
+import { FaTrophy } from "react-icons/fa";
+import { GAME_SETTING_DISPLAY_VISIBLE } from "../../../helper/filterHelper";
+import { LOCALSTORAGE_GAME_SELECTED } from "../../../helper/storageHelper";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
-  display: 'flex';
+  display: "flex";
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -63,7 +64,7 @@ const ToGetCompletionMainContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);
-  transform: translateY(${(props) => (props.showIcons ? '0%' : '-100%')});
+  transform: translateY(${(props) => (props.showIcons ? "0%" : "-100%")});
   transition: all 0.3s;
 `;
 
@@ -124,11 +125,13 @@ export default function GameCardPercentage(props) {
     closeRightSidebar,
     game,
     gamesDisplayOption,
+    navigateToGame,
     onGameInitialChanged,
   } = props;
   const { appid, gameName, completed, total, percentage } = game;
 
   const [showIcons, setShowIcons] = useState(false);
+  const router = useRouter();
 
   return (
     <Container
@@ -140,13 +143,17 @@ export default function GameCardPercentage(props) {
         setShowIcons((old) => false);
       }}
       onClick={() => {
-        openRightSidebar(game);
-        if (typeof window !== 'undefined') {
+        // openRightSidebar(game);
+        if (typeof window !== "undefined") {
           localStorage.setItem(
             LOCALSTORAGE_GAME_SELECTED,
             JSON.stringify(game)
           );
-          onGameInitialChanged(game);
+          if (navigateToGame) {
+            router.push(`/planner`);
+          } else {
+            onGameInitialChanged(game);
+          }
         }
       }}
     >

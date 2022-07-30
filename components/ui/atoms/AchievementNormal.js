@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { HiCheckCircle } from 'react-icons/hi';
-import axios from 'axios';
-import { FaTrophy } from 'react-icons/fa';
-import { HiGlobe } from 'react-icons/hi';
-import { calculateXPFromPercentage } from '../../../helper/xpHelper';
-import PhaseButton from './PhaseButton';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { HiCheckCircle } from "react-icons/hi";
+import axios from "axios";
+import { FaTrophy } from "react-icons/fa";
+import { HiGlobe } from "react-icons/hi";
+import { calculateXPFromPercentage } from "../../../helper/xpHelper";
+import PhaseButton from "./PhaseButton";
 
 const Container = styled.div`
-  display: ${(props) => (props.shouldShow ? 'flex' : 'none')};
+  display: ${(props) => (props.shouldShow ? "flex" : "none")};
   flex-direction: row;
-  align-items: ${(props) => (props.alignTop ? 'flex-start' : 'flex-start')};
+  align-items: ${(props) => (props.alignTop ? "flex-start" : "flex-start")};
   justify-content: center;
   min-width: 100%;
-  min-height: ${(props) => (props.alignTop ? '130px' : '110px')};
+  min-height: ${(props) => (props.alignTop ? "130px" : "110px")};
   background-color: ${(props) =>
-    props.background ? props.background : '#1e1e1e'};
+    props.background ? props.background : "#1e1e1e"};
   border-radius: 4px;
-  padding: ${(props) => (props.padding ? props.padding : '0rem')};
-  margin: ${(props) => (props.margin ? props.margin : '0rem')};
+  padding: ${(props) => (props.padding ? props.padding : "0rem")};
+  margin: ${(props) => (props.margin ? props.margin : "0rem")};
   cursor: pointer;
   position: relative;
   opacity: ${(props) =>
-    props.achieved && props.disableOpacityTrigger ? '0.3' : '1'};
+    props.achieved && props.disableOpacityTrigger ? "0.3" : "1"};
 `;
 
 const IconXPContainer = styled.div`
@@ -42,7 +42,7 @@ const XP = styled.div`
   bottom: 0;
   margin-right: 1rem;
   color: #737c9d;
-  padding: 0.5rem;
+  padding: 0rem 0rem 0.5rem 0rem;
 `;
 
 const IconContainer = styled.div`
@@ -86,7 +86,6 @@ const Description = styled.div`
   width: 100%;
   flex: 1;
   font-size: 1.5rem;
-  font-weight: 300;
 `;
 
 const CompletedIcon = styled.div`
@@ -114,7 +113,7 @@ const PercentageContainer = styled.div`
   justify-content: center;
   font-size: 2rem;
   color: #fefefe;
-  padding: 0.5rem;
+  padding: 0rem;
   border-radius: 0 4px 0 4px;
 `;
 
@@ -144,7 +143,7 @@ const PhaseButtonContainer = styled.div`
   padding: 0.5rem;
   transform: translate(-50%);
   bottom: 0;
-  display: ${(props) => (props.show ? 'flex' : 'none')};
+  display: ${(props) => (props.show ? "flex" : "none")};
   align-items: center;
   justify-content: space-evenly;
 `;
@@ -178,10 +177,10 @@ const AchievementNormal = (props) => {
     unlocktime,
   } = achievement;
 
-  let whichPhaseIsAchievement = '1';
-  if (typeof window !== 'undefined') {
+  let whichPhaseIsAchievement = "1";
+  if (typeof window !== "undefined") {
     whichPhaseIsAchievement =
-      localStorage.getItem(`${gameId}_${apiname}_PHASE`) || '1';
+      localStorage.getItem(`${gameId}_${apiname}_PHASE`) || "1";
   }
 
   return (
@@ -246,7 +245,7 @@ const AchievementNormal = (props) => {
         <Title
           onClick={() => {
             if (clickSearch) {
-              if (window !== 'undefined') {
+              if (window !== "undefined") {
                 const searchQuery = `${displayName} ${gameName} achievement`;
                 window.open(`https://www.google.com/search?q=${searchQuery}`);
               }
@@ -255,7 +254,7 @@ const AchievementNormal = (props) => {
         >
           {displayName}
         </Title>
-        <Description>{hiddenAchievementDesc || description || ''}</Description>
+        <Description>{hiddenAchievementDesc || description || ""}</Description>
       </TitleDescContainer>
     </Container>
   );

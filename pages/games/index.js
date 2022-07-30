@@ -1,11 +1,11 @@
-import Page from '../../layouts/Page';
-import GamesContent from '../../components/content/GamesContent';
-import GamesLeftSidebar from '../../components/leftsidebar/GamesLeftSidebar';
-import GamesRightSidebar from '../../components/rightsidebar/GamesRightSidebar';
-import GamesHeader from '../../components/header/GamesHeader';
-import { useEffect, useState } from 'react';
-import { API_GET_GAMES } from '../../helper/apiHelper';
-import axios from 'axios';
+import Page from "../../layouts/Page";
+import GamesContent from "../../components/content/GamesContent";
+import GamesLeftSidebar from "../../components/leftsidebar/GamesLeftSidebar";
+import GamesRightSidebar from "../../components/rightsidebar/GamesRightSidebar";
+import GamesHeader from "../../components/header/GamesHeader";
+import { useEffect, useState } from "react";
+import { API_GET_GAMES } from "../../helper/apiHelper";
+import axios from "axios";
 import {
   GAMES_SORT_COMPLETION_ASC,
   GAMES_SORT_COMPLETION_DESC,
@@ -13,20 +13,20 @@ import {
   GAME_SETTING_DISPLAY_VISIBLE,
   LOCALSTORAGE_ACHIEVEMENTSIDEBAR_SETTING_DISPLAY,
   LOCALSTORAGE_GAME_SETTING_DISPLAY,
-} from '../../helper/filterHelper';
-import Loader from '../../components/ui/atoms/Loader';
-import { LOCALSTORAGE_GAME_SELECTED } from '../../helper/storageHelper';
-import { totalXPForGames } from '../../helper/xpHelper';
+} from "../../helper/filterHelper";
+import Loader from "../../components/ui/atoms/Loader";
+import { LOCALSTORAGE_GAME_SELECTED } from "../../helper/storageHelper";
+import { totalXPForGames } from "../../helper/xpHelper";
 
 export default function Home() {
   const filterOptions = [
     {
       id: GAMES_SORT_COMPLETION_DESC,
-      title: 'Filter by Completion [High to Low]',
+      title: "Filter by Completion [High to Low]",
     },
     {
       id: GAMES_SORT_COMPLETION_ASC,
-      title: 'Filter by Completion [Low to High]',
+      title: "Filter by Completion [Low to High]",
     },
   ];
 
@@ -34,7 +34,7 @@ export default function Home() {
   const [totalXP, setTotalXP] = useState(0);
   const [selectedGame, setSelectedGame] = useState({});
   const [showRightSidebar, setShowRightSidebar] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [filterOption, setFilterOption] = useState(filterOptions[0].id);
   const [gamesDisplayOption, setGamesDisplayOption] = useState(
     GAME_SETTING_DISPLAY_VISIBLE
@@ -45,7 +45,7 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (window !== 'undefined') {
+    if (window !== "undefined") {
       setGamesDisplayOption(
         (old) =>
           localStorage.getItem(LOCALSTORAGE_GAME_SETTING_DISPLAY) ||
@@ -84,7 +84,6 @@ export default function Home() {
         };
         return newGame;
       });
-      console.log('MAIN GAMES', completionAddedGames);
       setGames((old) => completionAddedGames);
     };
 
@@ -94,11 +93,10 @@ export default function Home() {
   useEffect(() => {
     if (games.length > 0) {
       setSelectedGame((old) => {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           const game = JSON.parse(
             localStorage.getItem(LOCALSTORAGE_GAME_SELECTED)
           );
-          console.log('LCOAL STORAGE GAME', game);
           if (game) {
             return game;
           } else {
@@ -151,14 +149,6 @@ export default function Home() {
     <Page
       showRightSidebar={showRightSidebar}
       leftSidebar={<GamesLeftSidebar totalXP={totalXP} />}
-      rightSidebar={
-        !loading && (
-          <GamesRightSidebar
-            selectedGame={selectedGame}
-            achievementDisplayOption={achievementDisplayOption}
-          />
-        )
-      }
       header={
         !loading && (
           <GamesHeader

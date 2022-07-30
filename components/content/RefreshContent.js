@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
-import * as Loaders from 'react-spinners';
-import styled from 'styled-components';
-import { API_REFRESH_DATA } from '../../helper/apiHelper';
+import axios from "axios";
+import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import * as Loaders from "react-spinners";
+import styled from "styled-components";
+import { API_REFRESH_DATA } from "../../helper/apiHelper";
 
 const Container = styled.div`
   display: flex;
@@ -11,6 +11,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  flex-wrap: wrap;
 `;
 
 const RefreshContent = (props) => {
@@ -21,8 +22,8 @@ const RefreshContent = (props) => {
     const refreshData = async () => {
       const response = await axios.get(API_REFRESH_DATA());
       const { status } = response.data;
-      if (status === 'success') {
-        router.push('/games');
+      if (status === "success") {
+        router.push("/games");
       }
     };
     refreshData();

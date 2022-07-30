@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import PlannerAchievements from '../ui/atoms/PlannerAchievements';
+import React, { useState } from "react";
+import styled from "styled-components";
+import PlannerAchievements from "../ui/atoms/PlannerAchievements";
 
 const Container = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ const Container = styled.div`
   flex-direction: row;
   min-height: 100vh;
   max-height: 100vh;
-  min-width: 150%;
+  min-width: 100%;
   overflow: scroll;
   align-items: center;
   justify-content: flex-start;

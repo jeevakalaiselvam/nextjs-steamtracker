@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { HEADER_IMAGE } from '../../helper/urlHelper';
-import { HiChartBar, HiGlobe, HiCheck } from 'react-icons/hi';
-import { FaTrophy } from 'react-icons/fa';
-import AchievementNormal from '../ui/atoms/AchievementNormal';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { HEADER_IMAGE } from "../../helper/urlHelper";
+import { HiChartBar, HiGlobe, HiCheck } from "react-icons/hi";
+import { FaTrophy } from "react-icons/fa";
+import AchievementNormal from "../ui/atoms/AchievementNormal";
 import {
   formatAchievments,
   formatAchievmentsByNotUnlockedEasyPercentage,
   formatAchievmentsByUnlockedRecent,
   getHiddenDescriptionForName,
-} from '../../helper/achievementHelper';
-import axios from 'axios';
-import { API_GET_HIDDEN_ACHIEVEMENTS } from '../../helper/apiHelper';
-import { useRouter } from 'next/router';
+} from "../../helper/achievementHelper";
+import axios from "axios";
+import { API_GET_HIDDEN_ACHIEVEMENTS } from "../../helper/apiHelper";
+import { useRouter } from "next/router";
 import {
   GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL,
   GAME_ACHIEVEMENTSIDEBAR_DISPLAY_SMALL,
-} from '../../helper/filterHelper';
-import AchievementSmall from '../ui/atoms/AchievementSmall';
-import GameCardVisible from '../ui/molecules/GameCardVisible';
+} from "../../helper/filterHelper";
+import AchievementSmall from "../ui/atoms/AchievementSmall";
+import GameCardVisible from "../ui/molecules/GameCardVisible";
 
 const Container = styled.div`
   display: flex;
@@ -34,7 +34,7 @@ const Header = styled.div`
 `;
 
 const Image = styled.div`
-  display: 'flex';
+  display: "flex";
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -148,8 +148,8 @@ const AchievementContainer = styled.div`
 const AllUnlockedContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: ${(props) => (props.row ? 'row' : 'column')};
-  flex-wrap: ${(props) => (props.row ? 'wrap' : 'no-wrap')};
+  flex-direction: ${(props) => (props.row ? "row" : "column")};
+  flex-wrap: ${(props) => (props.row ? "wrap" : "no-wrap")};
   flex: 1;
   overflow: scroll;
   margin-right: -1rem;
@@ -173,7 +173,7 @@ const SmallAchievementContainer = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  transform: translateY(${(props) => (props.show ? '0%' : '100%')});
+  transform: translateY(${(props) => (props.show ? "0%" : "100%")});
   transition: 0.5s all;
   width: 100%;
 `;
@@ -186,7 +186,7 @@ const ContainerSmall = styled.div`
   width: 100%;
   min-height: 100px;
   padding: 1rem;
-  background-color: '#1e1e1e';
+  background-color: "#1e1e1e";
   border-radius: 4px;
   margin-bottom: 1rem;
   cursor: pointer;
@@ -287,7 +287,6 @@ const PercentageText = styled.div`
 const GamesRightSidebar = (props) => {
   const router = useRouter();
   const { selectedGame, achievementDisplayOption } = props;
-  console.log('SELECTED GAME IN SIDEBAR', selectedGame);
   const {
     appid,
     gameName,
@@ -364,8 +363,8 @@ const GamesRightSidebar = (props) => {
       </Header>
       <AchievementContainer>
         <SubTitle>
-          {achievementsSortedByEasy.length > 0 && 'UNLOCK NEXT'}
-          {achievementsSortedByEasy.length === 0 && 'ALL COMPLETED'}
+          {achievementsSortedByEasy.length > 0 && "UNLOCK NEXT"}
+          {achievementsSortedByEasy.length === 0 && "ALL COMPLETED"}
         </SubTitle>
         {achievementsSortedByEasy.length > 0 && (
           <AllUnlockedContainer
@@ -384,7 +383,7 @@ const GamesRightSidebar = (props) => {
                     GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL && (
                     <AchievementNormal
                       disableOpacityTrigger={true}
-                      padding="2rem"
+                      padding="1rem"
                       margin="0rem 0rem 1rem 0rem"
                       clickSearch={true}
                       gameName={gameName}
@@ -469,7 +468,7 @@ const GamesRightSidebar = (props) => {
         <SmallAchievementContainer show={true}>
           <ContainerSmall
             onClick={() => {
-              if (window !== 'undefined') {
+              if (window !== "undefined") {
                 const searchQuery = `${displayName} ${gameName} achievement`;
                 window.open(`https://www.google.com/search?q=${searchQuery}`);
               }
@@ -491,7 +490,7 @@ const GamesRightSidebar = (props) => {
             <TitleDescContainer>
               <TitleSmall>{displayName}</TitleSmall>
               <Description>
-                {hiddenAchievementDesc || description || ''}
+                {hiddenAchievementDesc || description || ""}
               </Description>
             </TitleDescContainer>
           </ContainerSmall>
