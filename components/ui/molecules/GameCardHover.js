@@ -18,8 +18,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  width: 300px;
-  height: 140px;
+  width: ${(props) => props.width || "350px"};
+  height: ${(props) => props.height || "170px"};
   margin: 0.5rem;
   background: url(${(props) => props.image});
   background-size: contain;
@@ -59,7 +59,9 @@ const CompletionContainer = styled.div`
   left: 0;
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.85);
-  transform: translateX(${(props) => (props.showIcons ? "0%" : "-100%")});
+  transform: translateX(
+    ${(props) => (props.showIcons || props.forceShowIcons ? "0%" : "-100%")}
+  );
 `;
 
 const ToGetContainer = styled.div`
@@ -69,7 +71,9 @@ const ToGetContainer = styled.div`
   padding: 1rem;
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.85);
-  transform: translateX(${(props) => (props.showIcons ? "0%" : "100%")});
+  transform: translateX(
+    ${(props) => (props.showIcons || props.forceShowIcons ? "0%" : "100%")}
+  );
 `;
 
 const ToGetIcon = styled.div`
@@ -111,7 +115,10 @@ const XPContainer = styled.div`
   left: 50%;
   transition: all 0.3s;
   background-color: rgba(0, 0, 0, 0.85);
-  transform: translate(-50%, ${(props) => (props.showIcons ? "0%" : "-100%")});
+  transform: translate(
+    -50%,
+    ${(props) => (props.showIcons || props.forceShowIcons ? "0%" : "-100%")}
+  );
 `;
 
 const XPIcon = styled.div`
@@ -176,6 +183,9 @@ export default function GameCardHover(props) {
   } = game;
 
   const [showIcons, setShowIcons] = useState(false);
+  const [forceShowIcons, setForceShowIcons] = useState(
+    JSON.parse(localStorage.getItem(`PINNED_${appid}`))
+  );
   const router = useRouter();
 
   const formattedAchievements = formatAchievments(
@@ -228,26 +238,15 @@ export default function GameCardHover(props) {
       >
         {gameName}
       </Title>
-      <ToGetContainer
-        showIcons={
-          showIcons ||
-          (typeof window !== "undefined" &&
-            localStorage.getItem(`PINNED_${appid}`)) ||
-          false
-        }
-      >
+      <ToGetContainer showIcons={showIcons} forceShowIcons={forceShowIcons}>
         <ToGetIcon>
           <FaTrophy />
         </ToGetIcon>
         <ToGetData>{total - completed}</ToGetData>
       </ToGetContainer>
       <CompletionContainer
-        showIcons={
-          showIcons ||
-          (typeof window !== "undefined" &&
-            localStorage.getItem(`PINNED_${appid}`)) ||
-          false
-        }
+        showIcons={showIcons}
+        forceShowIcons={forceShowIcons}
       >
         <CompletionIcon>
           <MdIncompleteCircle />
@@ -255,19 +254,20 @@ export default function GameCardHover(props) {
         <CompletionData>{percentage} %</CompletionData>
       </CompletionContainer>
 
-      {remainingXP !== 0 && (
+      {
         <XPContainer
-          showIcons={
-            showIcons ||
-            (typeof window !== "undefined" &&
-              localStorage.getItem(`PINNED_${appid}`)) ||
-            false
-          }
+          showIcons={showIcons}
+          forceShowIcons={forceShowIcons}
           onClick={(e) => {
             if (typeof window !== "undefined") {
-              localStorage.setItem(`PINNED_${appid}`, JSON.stringify(true));
+              if (JSON.parse(localStorage.getItem(`PINNED_${appid}`)) == true) {
+                localStorage.setItem(`PINNED_${appid}`, JSON.stringify(false));
+                setForceShowIcons((old) => false);
+              } else {
+                localStorage.setItem(`PINNED_${appid}`, JSON.stringify(true));
+                setForceShowIcons((old) => true);
+              }
             }
-            e.preventDefault();
           }}
         >
           <XPIcon>
@@ -275,7 +275,7 @@ export default function GameCardHover(props) {
           </XPIcon>
           <XPData>{remainingXP} XP</XPData>
         </XPContainer>
-      )}
+      }
     </Container>
   );
 }

@@ -42,6 +42,9 @@ const Title = styled.div`
   width: 100%;
   padding: 0.5rem 1rem;
   max-height: 30px;
+  &:hover {
+    color: #3049d1;
+  }
 `;
 
 const Overlay = styled.div`

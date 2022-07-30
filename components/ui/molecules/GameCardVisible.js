@@ -17,8 +17,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  width: ${(props) => props.width || "300px"};
-  height: ${(props) => props.height || "140px"};
+  width: ${(props) => props.width || "350px"};
+  height: ${(props) => props.height || "170px"};
   margin: 0.5rem;
   background: url(${(props) => props.image});
   background-size: contain;
@@ -45,6 +45,9 @@ const Title = styled.div`
   width: 100%;
   padding: 0.5rem 1rem;
   max-height: 30px;
+  &:hover {
+    color: #3049d1;
+  }
 `;
 
 const Overlay = styled.div`
@@ -202,14 +205,14 @@ export default function GameCardVisible(props) {
         </CompletionIcon>
         <CompletionData textSize={textSize}>{percentage} %</CompletionData>
       </CompletionContainer>
-      {remainingXP !== 0 && (
+      {
         <XPContainer showIcons={showIcons}>
           <XPIcon iconSize={iconSize}>
             <HiCollection />
           </XPIcon>
           <XPData textSize={textSize}>{remainingXP} XP</XPData>
         </XPContainer>
-      )}
+      }
     </Container>
   );
 }

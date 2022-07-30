@@ -9,6 +9,10 @@ import axios from "axios";
 import {
   GAMES_SORT_COMPLETION_ASC,
   GAMES_SORT_COMPLETION_DESC,
+  GAMES_SORT_NAME_ASC,
+  GAMES_SORT_NAME_DESC,
+  GAMES_SORT_PINNED,
+  GAMES_SORT_STARTED,
   GAME_ACHIEVEMENTSIDEBAR_DISPLAY_NORMAL,
   GAME_SETTING_DISPLAY_VISIBLE,
   LOCALSTORAGE_ACHIEVEMENTSIDEBAR_SETTING_DISPLAY,
@@ -21,12 +25,28 @@ import { totalXPForGames } from "../../helper/xpHelper";
 export default function Home() {
   const filterOptions = [
     {
+      id: GAMES_SORT_STARTED,
+      title: "Filter by Started",
+    },
+    {
+      id: GAMES_SORT_PINNED,
+      title: "Filter by Pinned",
+    },
+    {
       id: GAMES_SORT_COMPLETION_DESC,
       title: "Filter by Completion [High to Low]",
     },
     {
       id: GAMES_SORT_COMPLETION_ASC,
       title: "Filter by Completion [Low to High]",
+    },
+    {
+      id: GAMES_SORT_NAME_ASC,
+      title: "Filter by Name [A to Z]",
+    },
+    {
+      id: GAMES_SORT_NAME_DESC,
+      title: "Filter by Name [Z to A]",
     },
   ];
 
@@ -132,6 +152,22 @@ export default function Home() {
         break;
       case GAMES_SORT_COMPLETION_ASC:
         setFilterOption((old) => GAMES_SORT_COMPLETION_ASC);
+        setGames((old) => old.map((game) => game));
+        break;
+      case GAMES_SORT_PINNED:
+        setFilterOption((old) => GAMES_SORT_PINNED);
+        setGames((old) => old.map((game) => game));
+        break;
+      case GAMES_SORT_NAME_ASC:
+        setFilterOption((old) => GAMES_SORT_NAME_ASC);
+        setGames((old) => old.map((game) => game));
+        break;
+      case GAMES_SORT_NAME_DESC:
+        setFilterOption((old) => GAMES_SORT_NAME_DESC);
+        setGames((old) => old.map((game) => game));
+        break;
+      case GAMES_SORT_STARTED:
+        setFilterOption((old) => GAMES_SORT_STARTED);
         setGames((old) => old.map((game) => game));
         break;
       default:
