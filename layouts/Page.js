@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
   min-width: 100vw;
@@ -51,17 +51,16 @@ const RightSidebar = styled.div`
   max-height: 100vh;
   background: #171717;
   color: #ffffff;
-  display: ${(props) => (props.showRightSidebar ? 'flex' : 'flex')};
+  display: ${(props) => (props.showRightSidebar ? "flex" : "flex")};
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  transform: translateX(${(props) => (props.showRightSidebar ? '0%' : '100%')});
+  transform: translateX(${(props) => (props.showRightSidebar ? "0%" : "100%")});
   transition: all 0.5s;
 `;
 
 const Page = (props) => {
-  const { leftSidebar, rightSidebar, content, header, showRightSidebar } =
-    props;
+  const { leftSidebar, rightSidebar, content, header } = props;
 
   return (
     <Container>
