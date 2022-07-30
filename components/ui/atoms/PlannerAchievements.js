@@ -286,6 +286,24 @@ export default function PlannerAchievements(props) {
       <AchievementContainer>
         {searchFilteredAchievements.length > 0 &&
           searchFilteredAchievements.map((achievement) => {
+            const hiddenDescription = hiddenAchievementsData.find(
+              (hiddenAchievement) => {
+                console.log(
+                  "CHECKING",
+                  hiddenAchievement.name.toLowerCase().trim(),
+                  achievement.displayName.toLowerCase().trim()
+                );
+                if (
+                  hiddenAchievement.name.toLowerCase().trim() ==
+                  achievement.displayName.toLowerCase().trim()
+                ) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+            );
+            const { description } = hiddenDescription || "HIDDEN";
             return (
               <AchievementNormal
                 key={achievement.apiname}
@@ -298,6 +316,7 @@ export default function PlannerAchievements(props) {
                 phaseActivateShow={true}
                 refreshList={refreshList}
                 clickSearch={true}
+                hiddenAchievementDesc={description}
               />
             );
           })}
