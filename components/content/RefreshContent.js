@@ -23,7 +23,7 @@ const RefreshContent = (props) => {
       const response = await axios.get(API_REFRESH_DATA());
       const { status } = response.data;
       if (status === "success") {
-        router.push("/games");
+        router.push("/planner");
       }
     };
     refreshData();
