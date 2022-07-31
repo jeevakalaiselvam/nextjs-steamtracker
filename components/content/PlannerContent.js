@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HEADER_IMAGE } from "../../helper/urlHelper";
+import HistoryAchievements from "../ui/atoms/HistoryAchievements";
 import PlannerAchievements from "../ui/atoms/PlannerAchievements";
 
 const Container = styled.div`
@@ -45,6 +46,10 @@ const PlannerContent = (props) => {
 
   const [currentGame, setCurrentGame] = useState(game);
 
+  useEffect(() => {
+    setCurrentGame((old) => game);
+  }, [game]);
+
   const refreshList = () => {
     setCurrentGame((old) => ({ ...game }));
   };
@@ -54,15 +59,27 @@ const PlannerContent = (props) => {
   return (
     <Container>
       {planStages.map((plan) => {
-        return (
-          <Plan key={plan}>
-            <PlannerAchievements
-              game={game}
-              phase={String(plan)}
-              refreshList={refreshList}
-            />
-          </Plan>
-        );
+        if (plan === 5) {
+          return (
+            <Plan key={plan}>
+              <HistoryAchievements
+                game={currentGame}
+                phase={String(plan)}
+                refreshList={refreshList}
+              />
+            </Plan>
+          );
+        } else {
+          return (
+            <Plan key={plan}>
+              <PlannerAchievements
+                game={currentGame}
+                phase={String(plan)}
+                refreshList={refreshList}
+              />
+            </Plan>
+          );
+        }
       })}
       <OverlayImage imageURL={HEADER_IMAGE(game.appid)} />
     </Container>

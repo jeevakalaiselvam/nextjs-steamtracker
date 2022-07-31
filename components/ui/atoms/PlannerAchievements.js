@@ -266,16 +266,6 @@ export default function PlannerAchievements(props) {
 
   return (
     <Container>
-      {/* <FilterContainer>
-        <Filter
-          onFilterChanged={onFilterChanged}
-          filterOptions={filterOptions}
-        />
-        <Filter
-          onFilterChanged={lockedUnlockedFilterChanged}
-          filterOptions={lockedUnlockedFilterOptions}
-        />
-      </FilterContainer> */}
       <SearchContainer>
         <PhaseData>
           <PhaseTitle title={`PHASE ${phase}`} phase={phase} />

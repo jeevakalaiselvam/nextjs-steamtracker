@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -9,13 +9,13 @@ const Container = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  display: ${(props) => (props.show ? 'flex' : 'none')};
+  display: ${(props) => (props.show ? "flex" : "none")};
   align-items: center;
   justify-content: center;
 `;
 
 const InputContainer = styled.div`
-  display: ${(props) => (props.show ? 'flex' : 'none')};
+  display: ${(props) => (props.show ? "flex" : "none")};
   align-items: center;
   justify-content: center;
 
@@ -34,7 +34,7 @@ export default function PhaseTitle(props) {
   const [title, setTitle] = useState(``);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const titleInStorage =
         localStorage.getItem(`PHASE_${phase}_TITLE`) || `PHASE ${phase}`;
 
@@ -69,11 +69,11 @@ export default function PhaseTitle(props) {
           value={editTitle.toUpperCase()}
           onChange={(e) => {
             const value = e.target.value;
-            if (typeof window !== 'undefined') {
+            if (typeof window !== "undefined") {
               localStorage.setItem(`PHASE_${phase}_TITLE`, value);
 
-              e.target.addEventListener('keyup', function (event) {
-                if (event.key === 'Enter') {
+              e.target.addEventListener("keyup", function (event) {
+                if (event.key === "Enter") {
                   setEditTitle((old) => value);
                   setShowInput((old) => false);
                   setShowTitle((old) => true);
