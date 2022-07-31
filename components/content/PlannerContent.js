@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { HEADER_IMAGE } from "../../helper/urlHelper";
 import PlannerAchievements from "../ui/atoms/PlannerAchievements";
 
 const Container = styled.div`
@@ -9,14 +10,28 @@ const Container = styled.div`
   min-height: 100vh;
   max-height: 100vh;
   min-width: 100%;
+  position: relative;
   overflow: scroll;
   align-items: center;
   justify-content: flex-start;
 `;
 
+const OverlayImage = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(${(props) => props.imageURL});
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(40px);
+`;
+
 const Plan = styled.div`
   display: flex;
   flex: 1;
+  z-index: 2;
   padding: 1rem;
   flex-direction: column;
   align-items: center;
@@ -49,6 +64,7 @@ const PlannerContent = (props) => {
           </Plan>
         );
       })}
+      <OverlayImage imageURL={HEADER_IMAGE(game.appid)} />
     </Container>
   );
 };

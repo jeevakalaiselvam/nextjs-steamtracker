@@ -16,6 +16,7 @@ const Container = styled.div`
   min-height: ${(props) => (props.alignTop ? "130px" : "110px")};
   background-color: ${(props) =>
     props.background ? props.background : "#1e1e1e"};
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
   padding: ${(props) => (props.padding ? props.padding : "0rem")};
   margin: ${(props) => (props.margin ? props.margin : "0rem")};
@@ -41,7 +42,7 @@ const XP = styled.div`
   right: 0;
   bottom: 0;
   margin-right: 1rem;
-  color: #737c9d;
+  color: #f1b51b;
   padding: 0rem 0rem 0.5rem 0rem;
 `;
 

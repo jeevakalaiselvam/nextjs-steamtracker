@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import {
   filterAchievementsLockedOnly,
   filterAchievementsUnlockedOnly,
@@ -10,16 +10,16 @@ import {
   getHiddenDescriptionForName,
   sortAchievmentsByEasy,
   sortAchievmentsByHard,
-} from '../../helper/achievementHelper';
-import { API_GET_HIDDEN_ACHIEVEMENTS } from '../../helper/apiHelper';
+} from "../../helper/achievementHelper";
+import { API_GET_HIDDEN_ACHIEVEMENTS } from "../../helper/apiHelper";
 import {
   GAME_ACHIEVEMENT_SORT_ALL,
   GAME_ACHIEVEMENT_SORT_EASY,
   GAME_ACHIEVEMENT_SORT_HARD,
   GAME_ACHIEVEMENT_SORT_LOCKED,
   GAME_ACHIEVEMENT_SORT_UNLOCKED,
-} from '../../helper/filterHelper';
-import AchievementNormal from '../ui/atoms/AchievementNormal';
+} from "../../helper/filterHelper";
+import AchievementNormal from "../ui/atoms/AchievementNormal";
 
 const Container = styled.div`
   padding: 1rem;
@@ -29,6 +29,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   max-height: 100vh;
   overflow: scroll;
+  position: relative;
   padding-bottom: 10rem;
 `;
 
@@ -71,7 +72,7 @@ export default function GameContent(props) {
   );
 
   const [searchFilteredAchievements, setSearchFilteredAchievements] =
-    useState('');
+    useState("");
 
   useEffect(() => {
     const searchAchievements = filteredAchievements.filter((achievement) => {
@@ -190,7 +191,7 @@ export default function GameContent(props) {
                 clickSearch={false}
                 gameName={gameName}
                 achievement={achievement}
-                background={'#121212'}
+                background={"#121212"}
                 hiddenAchievementDesc={hiddenAchievementDesc}
                 disableOpacityTrigger={true}
               />
