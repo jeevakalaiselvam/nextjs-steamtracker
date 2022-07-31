@@ -83,7 +83,7 @@ const Description = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 0rem 1rem;
-  color: #6c6c6e;
+  color: #b0bec5;
   width: 100%;
   flex: 1;
   font-size: 1.5rem;
